@@ -3,22 +3,28 @@ import React from 'react'
 const Navbar = () => {
     return (
         <div>
-            <nav class=" navbar navbar-expand navbar-dark test">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <a class="nav-link" href="#">Features</a>
-                    <a class="nav-link" href="#">Pricing</a>
-                    <a class="nav-link disabled">Disabled</a>
+            <nav className=" navbar navbar-expand  test">
+            <div className="container-fluid">
+                <a className="navbar-brand" href="/">Navbar</a>
+                
+                
+                <div className="navbar-nav col-5 d-flex justify-content-evenly">
+                    <a className="nav-link active" aria-current="page" href="/">Home</a>
+                    <a className="nav-link" href="/">Features</a>
+                    <a className="nav-link" href="/">Pricing</a>
+                    <a className="btn  px-3 "  href="/" role="button">Login</a>
+                    <a className="btn  px-3 " id="auth-btn" href="/" role="button">Signup</a>
                 </div>
-                </div>
+                
             </div>
             </nav>
+            <div className="svg-tilt">
+            <div className="tilt">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" className="shape-fill"></path>
+                </svg>
+            </div>
+            </div>
         </div>
     )
 }

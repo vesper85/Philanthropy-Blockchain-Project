@@ -1,3 +1,6 @@
+
+
+/* universal */
 :root{
   --color-primary:#28283D;
   --color-secondary:#fff;
@@ -9,7 +12,7 @@
   --athens-gray: #f7f8fa;
 }
 
-
+/* custom */
 
 .test{
   font-size:medium;
@@ -20,4 +23,37 @@
 
 .navbar a{
   color: white;
+}
+.navbar a:hover{
+  color: white;
+}
+#auth-btn{
+  border: none;
+  background-color: var(--royal-blue);
+  border-radius: 2px;
+}
+
+/* SVG background */
+.svg-tilt{
+  position: relative;
+}
+.tilt {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.tilt svg {
+  position: relative;
+  display: block;
+  width: calc(350% + 1.3px);
+  height: 650px;
+  transform: rotateY(180deg);
+}
+
+.tilt .shape-fill {
+  fill: #28283D;
 }
