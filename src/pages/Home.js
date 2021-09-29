@@ -6,19 +6,19 @@ const Home = () => {
     return (
         <div>
             <Navbar/>
-            {/* title */}
+            {/* title */} // Gitesh
 
-            {/* info Widget */}
+            {/* info Widget */} // Saurabh
 
-            {/* How to charity */}
+            {/* How to charity */} // Saurabh
 
-            {/* security and controls */}
+            {/* security and controls */} // Gitesh
 
-            {/* our patners */}
+            {/* our patners */} // Saurabh
 
-            {/* team info */}
+            {/* team info */} // Gitesh
             
-            {/* footer */}
+            {/* footer */} // Saurabh
         </div>
     )
 }
