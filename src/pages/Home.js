@@ -14,20 +14,19 @@ const Home = () => {
             </div>
             <img src="https://saltlending.com/wp-content/uploads/2020/10/Frame.svg" className="attachment-full size-full" alt="" loading="lazy" width="242" height="826"></img>
             
+            {/*title // Gitesh*/}
+
+            {/*info Widget // Saurabh*/}
+
+            {/*How to charity // Saurabh*/}
+
+            {/*security and controls // Gitesh*/}
+
+            {/*our patners // Saurabh*/}
+
+            {/*team info // Gitesh*/}
             
-            {/* title */}
-
-            {/* info Widget */}
-
-            {/* How to charity */}
-
-            {/* security and controls */}
-
-            {/* our patners */}
-
-            {/* team info */}
-            
-            {/* footer */}
+            {/*footer // Saurabh*/}
         </div>
     )
 }
