@@ -25,6 +25,7 @@ const Navbar = () => {
                 </svg>
             </div>
             </div>
+            <img src="https://saltlending.com/wp-content/uploads/2020/10/Frame.svg" className="attachment-full size-full" alt="" loading="lazy" width="242" height="826"></img>
         </div>
     )
 }

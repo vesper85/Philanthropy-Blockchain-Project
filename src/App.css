@@ -19,6 +19,7 @@
   color: var(--white);
   background-color: var(--color-primary);
   height:10vh;
+  z-index: 101;
 }
 
 .navbar a{
@@ -56,4 +57,12 @@
 
 .tilt .shape-fill {
   fill: #28283D;
+}
+
+.attachment-full{
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  transform:translateX(5em) ;
+  transform:translateY(-5em) ;
 }
