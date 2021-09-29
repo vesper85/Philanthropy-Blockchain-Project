@@ -1,10 +1,9 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
 
 const charityZone = () => {
     return (
         <div>
-            <Navbar/>
+            this is charity zone
         </div>
     )
 }

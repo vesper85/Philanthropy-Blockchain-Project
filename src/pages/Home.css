@@ -1,0 +1,32 @@
+/* SVG background */
+.svg-tilt{
+    position: relative;
+  }
+  .tilt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+  }
+  
+  .tilt svg {
+    position: relative;
+    display: block;
+    width: calc(350% + 1.3px);
+    height: 650px;
+    transform: rotateY(180deg);
+  }
+  
+  .tilt .shape-fill {
+    fill: #28283D;
+  }
+  
+  .attachment-full{
+    position: absolute;
+    z-index: 100;
+    right: 0;
+    transform:translateX(5em) ;
+    transform:translateY(-5em) ;
+  }
