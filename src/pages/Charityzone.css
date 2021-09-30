@@ -1,5 +1,4 @@
-
-*{
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');*{
     margin: 0px;
     padding:0px ;
   }
@@ -19,43 +18,38 @@
 
 /* Map styles */
 .mapContainer {
-    display: flex;
-    justify-content: center;
+    /*display: flex;
+    justify-content: center;*/
+    /*margin-left: 50px;*/
     height: fit-content;
     width: 100%;
     background-color: var(--color-primary);
-    padding: 50px 20px;
-  }
+    padding: 50px 50px;
+    font-family: 'Poppins', sans-serif;
+}
   
-  .mapContainer path {
+.mapContainer path {
     stroke:gray;
     fill:var(--color-primary);  
     transition: fill 500ms ease;
     cursor: pointer;
-  }
+}
   
-  .mapContainer path:hover {
-    fill:var(--bright-turquoise) ;
-  }
-
-  /* Section 2 card container wrapper */
-  .card-conatiner-warpper{
-      width: 100%;
-      height: 100%;
-  }
-
-  /* donate Card styles */
-.card-container{
-    background-color: var(--athens-gray);
-    /*margin: 2vh;*/
+.mapContainer path:hover {
+    fill:var(--dull-turquoise) ;
 }
 
+
+
+  
 /* Map Filler */
 .filler_map{
     background-color: var(--color-primary);
     width: 100%;
     height: 100px;
 }
+
+
 
 
 /* SVG background 2 */
@@ -83,3 +77,93 @@
 .tilt_svg_2 .shape-fill {
     fill: #F7F8FA;
 }
+
+#testmarker{
+    fill: var(--royal-blue);
+}
+
+
+/*  CARDS */
+/* Section 2 card container wrapper */
+.card-conatiner-warpper{
+    padding: 15em 2em;
+    width: 100%;
+    height: 100%;
+    background-color: var(--athens-gray);
+}
+
+/* donate Card styles */
+.card-container{
+  font-family: 'Poppins', sans-serif;
+}
+.card-content{
+    max-width: 30em;
+}
+.card-body{
+    color: white;
+    background-color: var(--royal-blue);
+    font-size: 0.8rem;
+}
+.card-body p:first-child{
+    font-size: 1rem;
+}
+.card-footer{
+    background-color: var(--athens-gray);
+    padding: 1rem;
+}
+/* Progress bar */
+.progress-bar{
+    background-color: var(--royal-blue);
+}
+
+
+
+ /* Status card */
+ .status-card{
+     margin-top: 1rem;
+     min-height:fit-content;
+     max-height: 20vh;
+     overflow: hidden;
+ }
+ .status-card p{
+     margin: 0px;
+     padding: 0px;
+ }
+ .status-card-body{
+     background-color: var(--royal-blue);
+     padding: 10px;
+ }
+
+ .status-card  .card-body  p {
+     margin-left: 20px;
+ }
+ .status-card-status{
+
+     color: gainsboro;
+     font-size: 0.8rem;
+ }
+ .current-status{
+     color: white;
+     text-transform: uppercase;
+     font-size: 1rem;
+     font-weight: bold;
+ }
+
+ .donate-btn{
+    display: flex;
+    justify-content: flex-end;
+}
+.dnt{
+    color: white;
+    background-color: var(--royal-blue);
+    padding: 8px 30px;
+    /*height: 2rem;*/
+}
+.dnt:hover{
+    background-color: var(--royal-blue);
+    color: white;
+}
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+ }

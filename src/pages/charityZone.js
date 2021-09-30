@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DonateCard from '../components/DonateCard';
 import Map from '../components/Map'
 import './Home.css'
 import './Charityzone.css'
+import react from 'react';
 
 const CharityZone = () => {
     const [state, setstate] = useState('India');
@@ -13,19 +14,31 @@ const CharityZone = () => {
     }
     const [cardInfo, setcardInfo] = useState(cardinfo)
 
+    const [coords, setcoords] = useState({
+        xcoords:170,
+        ycoords:153
+    })
+    
+
     const handleOnClick = (e)=>{
         if(e.target.getAttribute("title"))
         {
-            console.log(e.target.getAttribute("title"));
+            
+            let x = e.pageX - 17.3 -50  ;
+            let y = e.pageY - 74 - 53.8 - 50;
+            setcoords({xcoords:x,ycoords:y})
             setstate(e.target.getAttribute("title"))
+            console.log(x,y);
+            
         }
       }
+      
       
     
     return (
         <>   
             <div className="mapContainer">
-                <Map handleOnClick={handleOnClick}  />    
+                <Map coords={coords} handleOnClick={handleOnClick}  />    
             </div>
                 <div className="filler_map"></div>
             {/* SVG background */}
@@ -37,10 +50,15 @@ const CharityZone = () => {
             </div>
             </div>
             <section className="card-conatiner-warpper">
-                <div className=" row row-cols-1 row-cols-md-3 g-4 mx-0 card-container">
+                <div className=" row row-cols-1 row-cols-md-3 g-4 mx-0 justify-content-evenly card-container gx-5">
+                  <DonateCard cardInfo={cardInfo} />
+                  <DonateCard cardInfo={cardInfo} />
+                  <DonateCard cardInfo={cardInfo} />
+                  <DonateCard cardInfo={cardInfo} />
                   <DonateCard cardInfo={cardInfo} />
                 </div>
             </section>
+            
         </>
     )
 }
