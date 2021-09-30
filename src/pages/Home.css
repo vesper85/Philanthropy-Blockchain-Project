@@ -30,3 +30,22 @@
     transform:translateX(5em) ;
     transform:translateY(-5em) ;
   }
+
+  /* Map styles */
+  .mapContainer {
+    display: flex;
+    justify-content: center;
+    height: 200px;
+    padding: 50px 20px;
+  }
+  
+  path {
+    stroke: rgb(177, 177, 177);
+    fill:#f7f8fa;  
+    transition: fill 500ms ease-out;
+    cursor: pointer;
+  }
+  
+  path:hover {
+    fill:#00ffc3 ;
+  }
