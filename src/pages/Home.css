@@ -1,8 +1,25 @@
 /* SVG background */
+*{
+  margin: 0px;
+  padding:0px ;
+}
+:root{
+  --color-primary:#28283D;
+  --color-secondary:#fff;
+  --deep-cove: #04053e;
+  --black: #000;
+  --white: #fff;
+  --bright-turquoise: #00ffc3;
+  --royal-blue: #5a33e9;
+  --athens-gray: #f7f8fa;
+}
+
+
 .svg-tilt{
     position: relative;
-  }
+}
   .tilt {
+    margin: 0%;
     position: absolute;
     top: 0;
     left: 0;
@@ -39,13 +56,13 @@
     padding: 50px 20px;
   }
   
-  path {
-    stroke: rgb(177, 177, 177);
-    fill:#f7f8fa;  
+  .mapContainer path {
+    stroke:var(--deep-cove);
+    fill:var(--royal-blue);  
     transition: fill 500ms ease-out;
     cursor: pointer;
   }
   
-  path:hover {
+  .mapContainer path:hover {
     fill:#00ffc3 ;
   }
