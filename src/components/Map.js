@@ -5,7 +5,6 @@ function Map(props) {
   return (
     
     <svg
-    
       xmlnsmapsvg="http://mapsvg.com"
       xmlnsdc="http://purl.org/dc/elements/1.1/"
       xmlnscc="http://creativecommons.org/ns#"
