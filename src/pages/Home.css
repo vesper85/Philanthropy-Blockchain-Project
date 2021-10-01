@@ -43,9 +43,69 @@
   
   .attachment-full{
     position: absolute;
-    z-index: 100;
+    /* z-index: 100; */
     right: 0;
     transform:translateX(5em) ;
     transform:translateY(-5em) ;
   }
 
+  /* InfoWidget */
+
+  .infowidget{
+    margin-top: 2.5em;
+    margin-bottom: 2.5em;
+  }
+
+  .infowidget-card{
+    display: inline-block;
+    margin: 0.1em 0.2em;
+  }
+
+  .infowidget-title{
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #28283d;
+    text-decoration: none;
+    padding-left: 0.4em;
+    display: block;
+    /* white-space: nowrap; */
+  }
+
+  .infowidget-content{
+    font-weight: 400;
+    font-size: 0.95rem;
+    padding-left: 0.6em;
+    display: block;
+    /* white-space: nowrap; */
+  }
+
+  .infowidget-row{
+    margin-top: 2.5em;
+    margin-bottom: 2.5em;
+    margin-left: 0em;
+    margin-right: 0em;
+  }
+
+  .row-space{
+    margin: 2em 0em;
+  }
+
+  @media only screen and (max-width: 576px){
+    .infowidget-content{
+      text-align: center;
+    }
+
+    .infowidget-title{
+      text-align: center;
+    }
+  }
+
+  @media only screen and (max-width: 768px) and (min-width: 577px){
+    .infowidget-content{
+      padding-left: 1.75em;
+    }
+
+    .infowidget-title{
+      padding-left: 1.3em;
+    }
+  }

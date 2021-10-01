@@ -1,9 +1,13 @@
 import React from 'react'
 import './Home.css'
+import InfoWidget from '../components/InfoWidget'
 
 const Home = () => {
     return (
         <div>
+            {/* Remove below comment to check Infowidget */}
+            {/* <InfoWidget /> */}
+
             {/* BACKGROUND SVG */}
             <div className="svg-tilt">
             <div className="tilt">
@@ -14,9 +18,7 @@ const Home = () => {
             </div>
             <img src="https://saltlending.com/wp-content/uploads/2020/10/Frame.svg" className="attachment-full size-full" alt="" loading="lazy" width="242" height="826"></img>
             
-            {/*title // Gitesh*/}
-
-            {/*info Widget // Saurabh*/}
+            {/*title // Gitesh*/}            
 
             {/*How to charity // Saurabh*/}
 
