@@ -1,12 +1,16 @@
 import React from 'react'
 import './Home.css'
 import InfoWidget from '../components/InfoWidget'
+import Process from '../components/Process'
 
 const Home = () => {
     return (
         <div>
             {/* Remove below comment to check Infowidget */}
             {/* <InfoWidget /> */}
+
+            {/* Remove below comment to check process ie steps */}
+            {/* <Process /> */}
 
             {/* BACKGROUND SVG */}
             <div className="svg-tilt">
@@ -19,8 +23,6 @@ const Home = () => {
             <img src="https://saltlending.com/wp-content/uploads/2020/10/Frame.svg" className="attachment-full size-full" alt="" loading="lazy" width="242" height="826"></img>
             
             {/*title // Gitesh*/}            
-
-            {/*How to charity // Saurabh*/}
 
             {/*security and controls // Gitesh*/}
 
