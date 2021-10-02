@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import DonateCard from '../components/DonateCard';
 import Map from '../components/Map'
 import './Home.css'
 import './Charityzone.css'
-import react from 'react';
+//import react from 'react';
 
 const CharityZone = () => {
     const [state, setstate] = useState('India');
@@ -49,7 +49,12 @@ const CharityZone = () => {
                 </svg>
             </div>
             </div>
+
+            {/* section 2 */}
             <section className="card-conatiner-warpper">
+            <div className="cards-container-title top-0">
+                Philanthropy zone
+            </div>
                 <div className=" row row-cols-1 row-cols-md-3 g-4 mx-0 justify-content-evenly card-container gx-5">
                   <DonateCard cardInfo={cardInfo} />
                   <DonateCard cardInfo={cardInfo} />
