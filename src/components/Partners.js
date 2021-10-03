@@ -10,7 +10,7 @@ import ic8 from "./icons/partners_8.png"
 
 const Partners = () => {
     return(
-        <div>
+        <div className="partners">
             <div className="container">
                 <h3 className="partners-heading"> Our Partners </h3>
                 <div className="partners-content">
