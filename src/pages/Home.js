@@ -2,6 +2,7 @@ import React from 'react'
 import './Home.css'
 import InfoWidget from '../components/InfoWidget'
 import Process from '../components/Process'
+import Partners from '../components/Partners'
 
 const Home = () => {
     return (
@@ -11,6 +12,9 @@ const Home = () => {
 
             {/* Remove below comment to check process ie steps */}
             {/* <Process /> */}
+
+            {/* Remove below comment to check partners section */}
+            {/* <Partners /> */}
 
             {/* BACKGROUND SVG */}
             <div className="svg-tilt">
@@ -25,8 +29,6 @@ const Home = () => {
             {/*title // Gitesh*/}            
 
             {/*security and controls // Gitesh*/}
-
-            {/*our patners // Saurabh*/}
 
             {/*team info // Gitesh*/}
             

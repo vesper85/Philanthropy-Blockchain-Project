@@ -185,3 +185,31 @@
       padding: 0em;
     }
   }
+
+  /* Our Partners Section*/
+
+  .partners-content{
+    margin: 1em 4em 2em;
+  }
+
+  .partners-heading{
+    margin: 1em 0em 0.5em;
+  }
+
+  .logo-align{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  @media only screen and (max-width: 768px){
+    .partners-content{
+      margin: 1em;
+    }
+  }
+
+  @media only screen and (max-width: 992px) and (min-width: 768px){
+    .logo-margin{
+      margin: 0em 4em;
+    }
+  }
