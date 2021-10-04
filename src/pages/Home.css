@@ -184,4 +184,54 @@
     .step-subtitle{
       padding: 0em;
     }
+
+    .steps-row-space{
+      margin: 0.5em 0em;
+    }
+  }
+
+  @media only screen and (min-width: 1200px){
+    .process-container{
+      margin-left: 2em;
+      margin-right: 2em;
+    }
+  }
+
+  /* Our Partners Section*/
+
+  .partners{
+    margin: 1.5em 0em 2.5em;
+  }
+
+  .partners-content{
+    margin: 1em 4em 2em;
+  }
+
+  .partners-heading{
+    margin: 1em 0em 0.5em;
+  }
+
+  .logo-align{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  @media only screen and (max-width: 768px){
+    .partners-content{
+      margin: 1em;
+    }
+  }
+
+  @media only screen and (max-width: 992px) and (min-width: 768px){
+    .logo-margin{
+      margin: 0em 4em;
+    }
+  }
+
+  @media only screen and (max-width: 576px){
+    .partners-heading{
+      margin-left: 0.8em;
+    }
   }
