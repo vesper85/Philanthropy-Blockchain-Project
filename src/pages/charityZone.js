@@ -6,7 +6,7 @@ import './Charityzone.css'
 //import react from 'react';
 
 const CharityZone = () => {
-    const [state, setstate] = useState('India');
+    const [state, setstate] = useState('Delhi');
     const cardinfo = {
         title:"Emergency Response: Keep 1000 Vulnerable Children Safe and in Education",
         description:"Help keep 1000 at-risk children safe and in learning during the biggest global education emergency since World War II.",
@@ -23,7 +23,6 @@ const CharityZone = () => {
     const handleOnClick = (e)=>{
         if(e.target.getAttribute("title"))
         {
-            
             let x = e.pageX - 17.3 -50  ;
             let y = e.pageY - 74 - 53.8 - 50;
             setcoords({xcoords:x,ycoords:y})
@@ -38,7 +37,8 @@ const CharityZone = () => {
     return (
         <>   
             <div className="mapContainer">
-                <Map coords={coords} handleOnClick={handleOnClick}  />    
+                <Map coords={coords} handleOnClick={handleOnClick}  /> 
+                <h3 className="mapState">{state}</h3>   
             </div>
                 <div className="filler_map"></div>
             {/* SVG background */}

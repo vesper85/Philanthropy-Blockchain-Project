@@ -14,7 +14,7 @@ const InfoWidget = () => {
                     <InfoWidgetElement imlink={stepsIcon} title={"What are the steps"} subtitle={"Donate to charities using crypto"} />
                     <InfoWidgetElement imlink={lockIcon} title={"Security & Controls"} subtitle={"Keeping your payments safe"} />
                     <InfoWidgetElement imlink={cryptoIcon} title={"Supported cryptocurrencies"} subtitle={"Variety of payment options"} />
-                    
+ 
                     <InfoWidgetElement imlink={partnersIcon} title={"Our partners"} subtitle={"Partner Organizations"} />
                     <InfoWidgetElement imlink={teamIcon} title={"Team information"} subtitle={"About the website developers"} />
                     <InfoWidgetElement imlink={stepsIcon} title={"Thinking..."} subtitle={"Guys let me know what to add here"} />

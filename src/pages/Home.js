@@ -7,10 +7,10 @@ const Home = () => {
     return (
         <div>
             {/* Remove below comment to check Infowidget */}
-            {/* <InfoWidget /> */}
+            <InfoWidget />
 
             {/* Remove below comment to check process ie steps */}
-            {/* <Process /> */}
+            <Process />
 
             {/* BACKGROUND SVG */}
             <div className="svg-tilt">

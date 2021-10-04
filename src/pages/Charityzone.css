@@ -18,8 +18,8 @@
 
 /* Map styles */
 .mapContainer {
-    /*display: flex;
-    justify-content: center;*/
+    display: flex;
+    justify-content: space-between;
     /*margin-left: 50px;*/
     height: fit-content;
     width: 100%;
@@ -37,6 +37,11 @@
   
 .mapContainer path:hover {
     fill:var(--dull-turquoise) ;
+}
+.mapState{
+    margin: auto;
+    margin-top: 5rem;
+    color: white;
 }
 
 
