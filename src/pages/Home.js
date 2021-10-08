@@ -1,20 +1,27 @@
 import React from 'react'
 import './Home.css'
+import Navbar from '../components/Navbar'
 import InfoWidget from '../components/InfoWidget'
 import Process from '../components/Process'
 import Partners from '../components/Partners'
+import Footer from '../components/Footer'
 
 const Home = () => {
     return (
         <div>
+            <Navbar />
+
             {/* Remove below comment to check Infowidget */}
-            {/* <InfoWidget /> */}
+            <InfoWidget />
 
             {/* Remove below comment to check process ie steps */}
-            {/* <Process /> */}
+            <Process />
 
             {/* Remove below comment to check partners section */}
-            {/* <Partners /> */}
+            <Partners />
+
+            {/* Remove below comment to check partners section */}
+            <Footer />
 
             {/* BACKGROUND SVG */}
             <div className="svg-tilt">
@@ -26,13 +33,13 @@ const Home = () => {
             </div>
             <img src="https://saltlending.com/wp-content/uploads/2020/10/Frame.svg" className="attachment-full size-full" alt="" loading="lazy" width="242" height="826"></img>
             
+
             {/*title // Gitesh*/}            
 
             {/*security and controls // Gitesh*/}
 
             {/*team info // Gitesh*/}
             
-            {/*footer // Saurabh*/}
         </div>
     )
 }

@@ -37,4 +37,56 @@
   border-radius: 2px;
 }
 
-/* SVG background */
+/*Footer*/
+.line{
+  border-top: 2px solid #00ffc3;
+  margin-left: 7.5em;
+  margin-right: 7.5em;
+}
+
+.footer-list{
+  margin-bottom: 0.8em;
+}
+
+.footer-link{
+  text-decoration: none;
+}
+
+.footer-bg{
+  background-color:#28283D;
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 992px){
+  .line{
+    margin-left: 5.8em;
+    margin-right: 5.8em;
+  }
+}
+
+@media only screen and (max-width: 992px) and (min-width: 768px){
+  .line{
+    margin-left: 3em;
+    margin-right: 3em;
+  }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 576px){
+  .line{
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+}
+
+@media only screen and (max-width: 576px) and (min-width: 476px){
+  .line{
+    margin-left: 12em;
+    margin-right: 12em;
+  }
+}
+
+@media only screen and (max-width: 476px) and (min-width: 324px){
+  .line{
+    margin-left: 10em;
+    margin-right: 10em;
+  }
+}
