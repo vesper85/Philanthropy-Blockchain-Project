@@ -27,29 +27,6 @@ const Footer = () => {
                         <p>+01 335 633 77</p>
                     </div>
                 </div>
-                {/* <div className="row align-items-center">
-                    <div className="col-md-5 col-lg-4">
-                        <div className="text-center text-md-right">
-                            <ul className="list-unstyled list-inline">
-                                <li className="list-inline-item">
-                                    <a href="/" className="btn-floating btn-sm text-white"><i className="fab fa-facebook"></i></a>
-                                </li>
-                                <li className="list-inline-item">
-                                    <a href="/" className="btn-floating btn-sm text-white"><i className="fab fa-twitter"></i></a>
-                                </li>
-                                <li className="list-inline-item">
-                                    <a href="/" className="btn-floating btn-sm text-white"><i className="fab fa-google-plus"></i></a>
-                                </li>
-                                <li className="list-inline-item">
-                                    <a href="/" className="btn-floating btn-sm text-white"><i className="fab fa-linkedin-in"></i></a>
-                                </li>
-                                <li className="list-inline-item">
-                                    <a href="/" className="btn-floating btn-sm text-white"><i className="fab fa-youtube"></i></a>
-                                </li>
-                            </ul>
-                        </div>   
-                    </div>
-                </div> */}
             </div>
         </footer>
     )
