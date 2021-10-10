@@ -218,6 +218,10 @@
     justify-content: center;
   }
 
+  .logo-IDRF {
+    height: 150px;
+  }
+
   @media only screen and (max-width: 768px){
     .partners-content{
       margin: 1em;
@@ -233,5 +237,18 @@
   @media only screen and (max-width: 576px){
     .partners-heading{
       margin-left: 0.8em;
+    }
+  }
+
+  @media only screen and (max-width: 576px){
+    .logo-MHDRF {
+      width: 230px;
+    }
+    .logo-Helpers {
+      width: 250px;
+    }
+    .logo-IDRF {
+      height: 165px;
+      padding-bottom: 20px;
     }
   }

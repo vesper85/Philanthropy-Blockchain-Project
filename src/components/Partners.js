@@ -16,10 +16,10 @@ const Partners = () => {
                 <div className="partners-content">
                     <div className="row">
                         <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 logo-align">
-                            <img className="img-fluid" src={ic1} alt="Our partners"></img>
+                            <img className="img-fluid" src={ic3} alt="Our partners"></img>
                         </div>
                         <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 logo-align">
-                            <img className="img-fluid" src={ic3} alt="Our partners"></img>
+                            <img className="img-fluid logo-Helpers" src={ic1} alt="Our partners"></img>
                         </div>
                         <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 logo-align">
                             <img className="img-fluid" src={ic4} alt="Our partners"></img>
@@ -32,10 +32,10 @@ const Partners = () => {
                             <img className="img-fluid" src={ic6} alt="Our partners"></img>
                         </div>
                         <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 logo-align">
-                            <img className="img-fluid" src={ic7} alt="Our partners"></img>
+                            <img className="img-fluid logo-IDRF" src={ic7} alt="Our partners"></img>
                         </div>
                         <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 logo-align logo-margin">
-                            <img className="img-fluid" src={ic8} alt="Our partners"></img>
+                            <img className="img-fluid logo-MHDRF" src={ic8} alt="Our partners"></img>
                         </div>
                         <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 logo-align">
                             <img className="img-fluid" src={ic2} alt="Our partners"></img>
