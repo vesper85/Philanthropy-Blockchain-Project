@@ -1,6 +1,6 @@
-import { setInternalBufferSize } from 'bson';
-import React, { useState } from 'react'
+import React from 'react'
 import './Login.css'
+import Navbar from '../components/Navbar'
 
 const Login = () => {
 
@@ -23,6 +23,7 @@ const Login = () => {
 
     return (
       <div>
+        <Navbar/>
         <div className="container_1">
           <div className="forms-container">
             <div className="signin-signup">
