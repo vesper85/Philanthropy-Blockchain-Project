@@ -12,6 +12,14 @@
   --athens-gray: #f7f8fa;
 }
 
+/* utility classes */
+
+/* disable border and highlight */
+.disable-highlight:focus,.disable-highlight:active{
+  outline: none !important;
+    box-shadow: none !important;
+}
+
 /* custom */
 
 .test{
@@ -90,3 +98,4 @@
     margin-right: 10em;
   }
 }
+
