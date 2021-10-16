@@ -33,8 +33,6 @@ const CharityZone = () => {
         }
       }
       
-      
-    
     return (
         <>   
         <Navbar/>
