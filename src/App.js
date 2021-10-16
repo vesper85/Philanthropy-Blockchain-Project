@@ -7,6 +7,7 @@ import {
   Route
 } from "react-router-dom";
 import CharityZone from './pages/CharityZone';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           </Route>
           <Route exact path="/zone">
             <CharityZone/>
+          </Route>
+          <Route exact path="/login">
+            <Login/>
           </Route>
         </Switch>
       </Router>

@@ -13,7 +13,7 @@ const Navbar = () => {
                     <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                     <Link className="nav-link" to="/">About us</Link>
                     <Link className="nav-link" to="/zone">Zone</Link>
-                    <Link className="btn  px-3 "  to="/" role="button">Login</Link>
+                    <Link className="btn  px-3 "  to="/login" role="button">Login</Link>
                     <Link className="btn  px-3 " id="auth-btn" to="/" role="button">Signup</Link>
                 </div>
                 
