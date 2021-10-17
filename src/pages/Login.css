@@ -7,7 +7,7 @@
 }
 
 /* input fields */
- #label-email:focus, #label-password:focus , #label-username:focus{
+ #label-semail:focus,#label-lemail:focus, #label-spassword:focus,#label-lpassword:focus , #label-susername:focus,#label-lusername:focus{
   border-color: var(--royal-blue);
 }
 #label-email:hover, #label-password:hover, #label-username:hover{

@@ -85,26 +85,29 @@ router.post('/loginuser',async (req,res)=>{
     
 
     try {
-        //destructuring to get username and password
-        const {username, enteredPassword} = req.body;
 
         //searching for the user via username in db
-        const currentUser = User.find({username:username});
+        const currentUser = User.find({username:req.body.username});
         if(!currentUser)
         {
             //username not found send response
             return res.status(400).send({error:'please enter valid username or password'});
         }
         //comparing password hash
-        bcrypt.compare(enteredPassword,currentUser.password,function(err, result){
+        bcrypt.compare(req.body.password,currentUser.password,function(err, result){
             if(!result)
             {
                 //return if enteredPassword != password in db
-                return res.status(500).send({error:'please enter correct username/password'})
+                return res.status(500).json(err)
             }
+
         });
-        //after verifying the password generate a jwt token and send it as a response
-    } catch (err) {
+        console.log('user logged in')
+        //res.send('logged in')
+    }
+    
+    catch (err) {
+        console.log('error');
         console.error(err.message)
     }
 

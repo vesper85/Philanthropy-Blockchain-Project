@@ -8,10 +8,13 @@ import {
 } from "react-router-dom";
 import CharityZone from './pages/CharityZone';
 import Login from './pages/Login';
+import UserState from './context/User/UserState';
+
 
 function App() {
   return (
     <div className="App">
+      <UserState>
       <Router>
         <Switch>
           <Route exact  path="/">
@@ -25,6 +28,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
+      </UserState>
     </div>
   );
 }
