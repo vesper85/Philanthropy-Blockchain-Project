@@ -3,6 +3,7 @@ import DonateCard from '../components/DonateCard';
 import Map from '../components/Map'
 import './Home.css'
 import './Charityzone.css'
+import Navbar from '../components/Navbar';
 //import react from 'react';
 
 const CharityZone = () => {
@@ -32,10 +33,9 @@ const CharityZone = () => {
         }
       }
       
-      
-    
     return (
         <>   
+        <Navbar/>
             <div className="mapContainer">
                 <Map coords={coords} handleOnClick={handleOnClick}  /> 
                 <h3 className="mapState">{state}</h3>   

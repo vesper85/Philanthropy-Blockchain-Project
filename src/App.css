@@ -12,6 +12,14 @@
   --athens-gray: #f7f8fa;
 }
 
+/* utility classes */
+
+/* disable border and highlight */
+.disable-highlight:focus,.disable-highlight:active{
+  outline: none !important;
+    box-shadow: none !important;
+}
+
 /* custom */
 
 .test{
@@ -89,4 +97,24 @@
     margin-left: 10em;
     margin-right: 10em;
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
