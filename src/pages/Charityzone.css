@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');*{
+    margin: 0px;
+    padding:0px ;
+  }
+  :root{
+    --color-primary:#28283D;
+    --color-secondary:#fff;
+    --deep-cove: #04053e;
+    --black: #000;
+    --white: #fff;
+    --bright-turquoise: #00ffc3;
+    --dull-turquoise:#04E3AE;
+    --royal-blue: #5a33e9;
+    --athens-gray: #f7f8fa;
+  }
+  
+
+
+/* Map styles */
+.mapContainer {
+    display: flex;
+    justify-content: space-between;
+    /*margin-left: 50px;*/
+    height: fit-content;
+    width: 100%;
+    background-color: var(--color-primary);
+    padding: 50px 50px;
+    font-family: 'Poppins', sans-serif;
+}
+  
+.mapContainer path {
+    stroke:gray;
+    fill:var(--color-primary);  
+    transition: fill 500ms ease;
+    cursor: pointer;
+}
+  
+.mapContainer path:hover {
+    fill:var(--dull-turquoise) ;
+}
+.mapState{
+    margin: auto;
+    margin-top: 5rem;
+    color: white;
+}
+
+
+
+  
+/* Map Filler */
+.filler_map{
+    background-color: var(--color-primary);
+    width: 100%;
+    height: 100px;
+}
+
+
+
+
+/* SVG background 2 */
+.svg_background_2{
+    position: relative;
+}
+.tilt_svg_2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.tilt_svg_2 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 200px;
+    transform: rotateY(180deg);
+}
+
+.tilt_svg_2 .shape-fill {
+    fill: #F7F8FA;
+}
+
+#testmarker{
+    fill: var(--royal-blue);
+}
+
+
+/*  CARDS */
+/* card container title */
+.cards-container-title{
+    position: absolute;
+    margin: 8rem 2rem;
+    font-size: 1em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.cards-container-title::before{
+    content: "";
+    position: absolute;
+    left: 0%;
+    bottom: -0.8rem;
+    display: block;
+    background-color:var(--bright-turquoise);
+    width:100%;
+    height: 0.125rem;
+}
+
+
+/* Section 2 card container wrapper */
+.card-conatiner-warpper{
+    position: relative;
+    padding: 15em 2em;
+    width: 100%;
+    height: 100%;
+    background-color: var(--athens-gray);
+}
+
+/* donate Card styles */
+.card-container{
+  font-family: 'Poppins', sans-serif;
+}
+.card-content{
+    max-width: 30em;
+}
+.card-body{
+    color: white;
+    background-color: var(--royal-blue);
+    font-size: 0.8rem;
+}
+.card-body p:first-child{
+    font-size: 1rem;
+}
+.card-footer{
+    background-color: var(--athens-gray);
+    padding: 1rem;
+}
+/* Progress bar */
+.progress-bar{
+    background-color: var(--royal-blue);
+}
+
+
+
+ /* Status card */
+ .status-card{
+     margin-top: 1rem;
+     min-height:fit-content;
+     max-height: 20vh;
+     overflow: hidden;
+ }
+ .status-card p{
+     margin: 0px;
+     padding: 0px;
+ }
+ .status-card-body{
+     background-color: var(--royal-blue);
+     padding: 10px;
+ }
+
+ .status-card  .card-body  p {
+     margin-left: 20px;
+ }
+ .status-card-status{
+
+     color: gainsboro;
+     font-size: 0.8rem;
+ }
+ .current-status{
+     color: white;
+     text-transform: uppercase;
+     font-size: 1rem;
+     font-weight: bold;
+ }
+
+ .donate-btn{
+    display: flex;
+    justify-content: flex-end;
+}
+.dnt{
+    color: white;
+    background-color: var(--royal-blue);
+    padding: 8px 30px;
+    /*height: 2rem;*/
+}
+.dnt:hover{
+    background-color: var(--royal-blue);
+    color: white;
+}
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+ }
