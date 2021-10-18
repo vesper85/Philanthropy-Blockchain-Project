@@ -14,6 +14,22 @@ router.get('/fetchallcharities', async(req, res) => {
     })
 })
 //createcharity post
+router.post('/createcharity', async(req, res) => {
+    console.log("/createcharity route")
+    try {
+        let charity = await Charity.findOne({charityName: req.body.charityName})
+        if(charity) {
+            res.status(400).send("Charity already exists")
+        } else {
+            charity = new Charity({...req.body})
+            const saved = await charity.save()
+            console.log(saved)
+            res.json(saved)
+        }
+    } catch(err) {
+        console.log(err)
+    }
+})
 //updatecharity put
 //deletecharity delete
 module.exports = router
