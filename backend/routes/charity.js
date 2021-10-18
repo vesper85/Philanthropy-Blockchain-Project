@@ -13,6 +13,7 @@ router.get('/fetchallcharities', async(req, res) => {
         res.send(allCharities)
     })
 })
+
 //createcharity post
 router.post('/createcharity', async(req, res) => {
     console.log("/createcharity route")
@@ -21,7 +22,7 @@ router.post('/createcharity', async(req, res) => {
         if(charity) {
             res.status(400).send("Charity already exists")
         } else {
-            charity = new Charity({...req.body})
+            charity = new Charity(req.body)
             const saved = await charity.save()
             console.log(saved)
             res.json(saved)
@@ -30,6 +31,37 @@ router.post('/createcharity', async(req, res) => {
         console.log(err)
     }
 })
+
 //updatecharity put
+router.put('/updatecharity/:id', async(req, res) => {
+    console.log("/updatecharity route")
+    try {
+        let charity = await Charity.findById(req.params.id)
+        if(!charity) {
+            res.status(400).send('Bad request, no such charity exists')
+        } else {
+            charity = await Charity.findByIdAndUpdate(req.params.id, req.body)
+            res.send("Updated the charity information")
+        }
+    } catch(err) {
+        console.log(err)
+    }
+})
+
 //deletecharity delete
+router.delete('/deletecharity/:id', async(req, res) => {
+    console.log("/deletecharity route")
+    try {
+        let charity = await Charity.findById(req.params.id)
+        if(!charity) {
+            res.status(400).send('Bad request, no such charity exists')
+        } else {
+            charity = await Charity.findByIdAndDelete(req.params.id)
+            res.send("Charity deleted successfully")
+        }
+    } catch(err) {
+        console.log(err)
+    }
+})
+
 module.exports = router
