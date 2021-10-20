@@ -7,7 +7,6 @@ const bcrypt = require('bcrypt');
 
 // Route 1 add users to db POST "/api/user/adduser" --nologin required
 router.post('/createuser',[
-    body('firstname').isLength({min:5}),
     body('email').isEmail()
  ] ,async(req,res)=>{
     const err = validationResult(req);
@@ -87,23 +86,22 @@ router.post('/loginuser',async (req,res)=>{
     try {
 
         //searching for the user via username in db
-        const currentUser = User.find({username:req.body.username});
+        const currentUser = await User.findOne({username:req.body.username});
         if(!currentUser)
         {
             //username not found send response
             return res.status(400).send({error:'please enter valid username or password'});
         }
         //comparing password hash
-        bcrypt.compare(req.body.password,currentUser.password,function(err, result){
-            if(!result)
-            {
-                //return if enteredPassword != password in db
-                return res.status(500).json(err)
-            }
+        const passwordCompare = await bcrypt.compare(req.body.password,currentUser.password);
+        if(!passwordCompare)
+        {
+            return res.status(400).send({error:'please enter valid username or password'});
 
-        });
+        }
         console.log('user logged in')
         //res.send('logged in')
+         return res.send('user logged in')
     }
     
     catch (err) {
