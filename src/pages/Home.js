@@ -1,6 +1,7 @@
 import React from 'react'
 import './Home.css'
 import Navbar from '../components/Navbar'
+import title from '../components/title'
 import InfoWidget from '../components/InfoWidget'
 import Process from '../components/Process'
 import Partners from '../components/Partners'
@@ -10,7 +11,7 @@ const Home = () => {
     return (
         <div>
             <Navbar />
-
+            <title />
             {/* Remove below comment to check Infowidget */}
             <InfoWidget />
 
