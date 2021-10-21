@@ -26,3 +26,6 @@ mongoose.connect(uri, {
 app.listen(port, () => {
     console.log('Server is running on port: ' + port)
 })
+
+app.use('/api/user',require('./routes/user'))
+app.use('/api/charity', require('./routes/charity'))
