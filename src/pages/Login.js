@@ -5,7 +5,8 @@ import userContext from '../context/User/userContext'
 
 const Login = () => {
 
-  const [credential, setcredential] = useState({username:"", password:""})
+  const [credentialLogin, setcredentialLogin] = useState({username:"", password:""})
+  const [credentialSignUp, setcredentialSignUp] = useState({email:"",username:"", password:"", rpassword:""})
 
 
     const handleOnClickSignup = (e)=>{
@@ -19,23 +20,56 @@ const Login = () => {
     
     }
     const onChange = (e)=>{
-      setcredential({...credential,[e.target.name]:e.target.value})
+      setcredentialLogin({...credentialLogin,[e.target.name]:e.target.value})
+      console.log([e.target.name],e.target.value)
     }
+    
+    const onChangeSignUp = (e)=>{
+      setcredentialSignUp({...credentialSignUp,[e.target.name]:e.target.value})
+      console.log([e.target.name],e.target.value)
+    }
+
+
+
     const handleLogin  = async (e)=>{
       e.preventDefault();
       console.log('submit btn clicked');
-      //const url = "http://localhost:5000/api/user/loginuser";
-      //  const response = await fetch(url, {
-      //      method: 'POST', 
-      //      headers: {
-      //        'Content-Type': 'application/json'
-      //      },
-      //      body: JSON.stringify({username:credential.username, password:credential.password})
-      //    });
-
-      //    const json = await response.json()
-      //    console.log(json)
+      const url = "http://localhost:5000/api/user/loginuser";
+        const response = await fetch(url, {
+            method: 'POST', 
+            headers: {
+              'Content-Type': 'application/json',
+              'accept':'application/json'
+            },
+            body: JSON.stringify({username:credentialLogin.username, password:credentialLogin.password})
+          });
     }
+
+    const handleSignUp = async (e)=>{
+      e.preventDefault();
+      console.log('signup btn clicked');
+      console.log(credentialSignUp)
+
+      if(credentialSignUp.password !== credentialSignUp.rpassword)
+      {
+        return console.log('re-entered password incorrect')
+      }
+
+      const url = "http://localhost:5000/api/user/createuser"
+      const response = await fetch(url,
+        {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json',
+          
+          },
+          body: JSON.stringify({
+              email:credentialSignUp.email,
+              username:credentialSignUp.username, 
+              password:credentialSignUp.password})
+        });
+    }
+
     
 
 
@@ -52,12 +86,12 @@ const Login = () => {
                 
                 {/* login fields */}
                 <div className="form-group my-2 col-7  ">
-                    <label htmlFor="label-email" className="input_label_login mb-1 ">Enter email</label>
-                    <input type="name"  onChange={onChange}  className="form-control rounded-0 disable-highlight" id="label-lemail" aria-describedby="emailHelp"/>
+                    <label htmlFor="label-email" className="input_label_login mb-1 ">Enter username</label>
+                    <input name="username" type="name"  onChange={onChange}  className="form-control rounded-0 disable-highlight" id="label-lemail" aria-describedby="emailHelp"/>
                 </div>
                 <div className="form-group my-2 col-7 ">
                     <label htmlFor="label-password" className="input_label_login mb-1">Enter Password</label>
-                    <input type="password"  className="form-control rounded-0 disable-highlight " id="label-lpassword" aria-describedby="passHelp"/>
+                    <input name="password" onChange={onChange} type="password"  className="form-control rounded-0 disable-highlight " id="label-lpassword" aria-describedby="passHelp"/>
                 </div>
 
                 <input
@@ -82,27 +116,27 @@ const Login = () => {
                   </a>
                 </div>
               </form>
-              <form  className="sign-up-form">
+              <form onSubmit={handleSignUp}   className="sign-up-form">
                 <h2 className="title">Sign up</h2>
 
                 {/* inpur fields signup */}
                 <div className="form-group my-1 col-7  ">
                     <label htmlFor="label-email" className="input_label_login mb-1 ">Enter email</label>
-                    <input type="email" className="form-control rounded-0 disable-highlight" id="label-semail" aria-describedby="emailHelp"/>
+                    <input name="email" type="email" className="form-control rounded-0 disable-highlight" id="label-semail" onChange={onChangeSignUp} aria-describedby="emailHelp"/>
                 </div>
 
                 <div className="form-group my-1 col-7  ">
                     <label htmlFor="label-username" className="input_label_login mb-1 ">username</label>
-                    <input type="name" className="form-control rounded-0 disable-highlight" id="label-susername" aria-describedby="emailHelp"/>
+                    <input name="username" type="name" className="form-control rounded-0 disable-highlight" id="label-susername" onChange={onChangeSignUp} aria-describedby="emailHelp"/>
                 </div>
 
                 <div className="form-group my-1 col-7 ">
                     <label htmlFor="label-password" className="input_label_login mb-1">Password</label>
-                    <input type="password" className="form-control rounded-0 disable-highlight " id="label-spassword" aria-describedby="passHelp"/>
+                    <input name="password" type="password" className="form-control rounded-0 disable-highlight " id="label-spassword" onChange={onChangeSignUp} aria-describedby="passHelp"/>
                 </div>
                 <div className="form-group my-1 col-7 ">
                     <label htmlFor="label-password" className="input_label_login mb-1">Re-enter Password</label>
-                    <input type="password" className="form-control rounded-0 disable-highlight " id="label-spassword" aria-describedby="passHelp"/>
+                    <input name="rpassword" type="password" className="form-control rounded-0 disable-highlight " id="label-spassword" onChange={onChangeSignUp} aria-describedby="passHelp"/>
                 </div>
 
                 <input type="submit" className="btn_login" value="Sign up" />

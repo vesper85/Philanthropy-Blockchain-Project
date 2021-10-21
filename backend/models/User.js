@@ -4,11 +4,9 @@ const userSchema = new mongoose.Schema({
 
     firstname:{
         type:String,
-        required:true,
     },
     lastname:{
         type:String,
-        required:true,
     }
     ,
     username:{
@@ -25,19 +23,15 @@ const userSchema = new mongoose.Schema({
     },
     phoneNumber:{
         type:String,
-        required:true,
     },
     address:{
         type:String,
-        required:true,
     },
     age:{
         type:String,
-        required:true,
     },
     company:{
         type:String,
-        required:true,
     },
     donationMade:{
         type:[{
