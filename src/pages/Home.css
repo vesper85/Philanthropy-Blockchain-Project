@@ -43,7 +43,7 @@
   
   .attachment-full{
     position: absolute;
-    /* z-index: 100; */
+    z-index: 100; 
     right: 0;
     transform:translateX(5em) ;
     transform:translateY(-5em) ;
@@ -263,3 +263,7 @@
       padding-bottom: 20px;
     }
   }
+
+#title_container{
+  height: 100vh;
+}
