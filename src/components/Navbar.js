@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
     return (
         <div>
-            <nav className=" navbar navbar-expand  test">
+            <nav className=" navbar fixed-top navbar-expand  test">
             <div className="container-fluid">
                 <a className="navbar-brand" href="/">Navbar</a>
                 
