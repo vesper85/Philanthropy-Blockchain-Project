@@ -43,7 +43,7 @@
   
   .attachment-full{
     position: absolute;
-    /* z-index: 100; */
+    z-index: 100; 
     right: 0;
     transform:translateX(5em) ;
     transform:translateY(-5em) ;
@@ -110,6 +110,16 @@
     }
   }
 
+  @media only screen and (max-width: 1200px) and (min-width: 992px){
+    .infowidget-content{
+      padding-left: 1.55em;
+    }
+
+    .infowidget-title{
+      padding-left: 1.1em;
+    }
+  }
+
   /* Process steps*/
 
   .process{
@@ -142,6 +152,7 @@
     font-weight: 400;
     font-size: 0.95rem;
     padding-left: 0.7em;
+    padding-top: 0.3em;
     padding-right: 1em;
     display: block;
     text-align: justify;
@@ -252,3 +263,7 @@
       padding-bottom: 20px;
     }
   }
+
+#title_container{
+  height: 100vh;
+}
