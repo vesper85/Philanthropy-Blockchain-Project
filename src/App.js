@@ -9,6 +9,7 @@ import {
 import CharityZone from './pages/CharityZone';
 import Login from './pages/Login';
 import UserState from './context/User/UserState';
+import { Registration } from './pages/Registration';
 
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
             <CharityZone/>
           </Route>
           <Route exact path="/login">
-            <Login/>
+            {/* <Login/> */}
+            <Registration/>
           </Route>
         </Switch>
       </Router>
