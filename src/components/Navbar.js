@@ -4,29 +4,38 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
     return (
         <div>
-            <nav className=" navbar fixed-top navbar-expand  test">
-            <div className="container-fluid">
+            <nav className="navbar fixed-top navbar-expand-md navbar-dark navbar-custom">
                 <a className="navbar-brand" href="/">Navbar</a>
+
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
                 
-                
-                <div className="navbar-nav col-5 d-flex justify-content-evenly" id="navlinkgrp"> 
-                    <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                <div className="collapse navbar-collapse" id="navbarToggler"> 
+                    {/* <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                     <Link className="nav-link" to="/">About us</Link>
                     <Link className="nav-link" to="/zone">Zone</Link>
-                    <Link className="btn  px-3 "  to="/login" role="button">Login</Link>
-                    <Link className="btn  px-3 " id="auth-btn" to="/login" role="button">Signup</Link>
+                    <Link className="btn  px-3"  to="/login" role="button">Login</Link>
+                    <Link className="btn  px-3" id="auth-btn" to="/login" role="button">Signup</Link> */}
+                    <ul className="navbar-nav ms-auto">
+                        <li className="nav-item active">
+                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/zone">Zone</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/">About us</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link"  to="/login">Login</Link>
+                        </li>
+                        <li className="nav-item text-center">
+                            <Link className="btn px-3" id="auth-btn" to="/login">Signup</Link>
+                        </li>
+                    </ul>
                 </div>
-                
-            </div>
             </nav>
-            {/*<div className="svg-tilt">
-            <div className="tilt">
-                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" className="shape-fill"></path>
-                </svg>
-            </div>
-            </div>
-            <img src="https://saltlending.com/wp-content/uploads/2020/10/Frame.svg" className="attachment-full size-full" alt="" loading="lazy" width="242" height="826"></img>*/}
         </div>
     )
 }

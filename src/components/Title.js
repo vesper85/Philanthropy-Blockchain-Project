@@ -3,7 +3,7 @@ import React from 'react'
 const Title = () => {
     return (
         <>
-            <div className="container-fluid  m-auto position-relative overflow-hidden text-center text-light"  >
+            <div className="container-fluid position-relative overflow-hidden text-center text-light title-ele"  >
                 <div className="col-md-5 p-lg-5 mx-auto my-5" id="title_container">
                     <h1 className="display-4  fw-bold pt-5 pb-4 text-nowrap" >What's the title ? </h1>
                     <p className="lead fw-normal pb-4">what should be the text. </p>
