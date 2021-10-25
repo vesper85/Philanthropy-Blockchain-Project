@@ -1,37 +1,78 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
+import Navbar from '../components/Navbar'
 import "./Registration.css"
+import userContext from '../context/User/userContext'
+
+
 
 export const Registration = () => {
+
+  const context = useContext(userContext);
+  const {globalCredentials, setglobalCredentials} = context;
+
+  const [credentialSignUp, setcredentialSignUp] = useState({email:globalCredentials.email,username:globalCredentials.username, password:globalCredentials.password, rpassword:globalCredentials.rpassword, address:"", firstname:"", lastname:"", phoneNumber:"", age:""});
+  const onChangeSignUp = (e)=>{
+    setcredentialSignUp({...credentialSignUp,[e.target.name]:e.target.value})
+    //console.log([e.target.name],e.target.value)
+  }
+  const handleReg = async (e) =>{
+    e.preventDefault();
+    try {
+      const url = "http://localhost:5000/api/user/createuser"
+      const response = await fetch(url,
+        {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json',
+          
+          },
+          body: JSON.stringify({
+              email:credentialSignUp.email,
+              username:credentialSignUp.username, 
+              password:credentialSignUp.password,
+              address:credentialSignUp.address,
+              firstname:credentialSignUp.firstname,
+              lastname:credentialSignUp.lastname,
+              phoneNumber:credentialSignUp.phoneNumber,
+              age:credentialSignUp.age
+            })
+        });
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
     return (
     <div className="reg">
+      <Navbar/>
 <div className="container_reg">
     <div className="title_reg">Registration</div>
     <div className="content_reg">
-      <form>
+      <form onSubmit={handleReg} onChange ={onChangeSignUp}>
         <div className="user-details_reg">
           <div className="input-box_reg">
             <span className="details_reg">First Name</span>
-            <input type="text" placeholder="Enter your First name" required />
+            <input type="text" name="firstname" placeholder="Enter your First name" required />
           </div>
           <div className="input-box_reg">
             <span className="details_reg">Last name</span>
-            <input type="text" placeholder="Enter your Last name" required />
+            <input type="text" name="lastname" placeholder="Enter your Last name" required />
           </div>
           <div className="input-box_reg">
-            <span className="details">Username</span>
-            <input type="text" placeholder="Enter your Username" required />
+            <span className="details">Age</span>
+            <input type="number" name="age" placeholder="Enter your age" required />
           </div>
           <div className="input-box_reg">
-            <span className="details">Email</span>
-            <input type="text" placeholder="Enter your Email" required />
+            <span className="details">Address</span>
+            <input type="text" name="address" placeholder="Enter your Address" required />
           </div>
           <div className="input-box_reg">
             <span className="details">Phone Number</span>
-            <input type="text" placeholder="Enter your Phone Number" required />
+            <input type="text" name="phoneNumber" placeholder="Enter your Phone Number" required />
           </div>
           <div className="input-box_reg">
-            <span className="details_reg">Age</span>
-            <input type="number" placeholder="Enter your age in number" required />
+            <span className="details">Company</span>
+            <input type="text" name="company" placeholder="Enter your company name" required />
           </div>
         </div>
         <div className="gender-details_reg">

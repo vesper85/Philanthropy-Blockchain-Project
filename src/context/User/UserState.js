@@ -8,13 +8,15 @@ const UserState = ({children}) => {
     //    password:""
     //}
     //const [userCredentials, setuserCredentials] = useState(initialCredentials)
+    const [globalCredentials, setglobalCredentials] = useState({email:"",username:"", password:"", rpassword:"", address:"", firstname:"", lastname:"", phoneno:"", age:""})
 
-  const haha =()=>{
-      console.log('haha');
-  }
+    //const handleToggleSignup = () =>{
+    //    settoggleSignup(true)
+    //}
+
 
     return (
-        <userContext.Provider value={haha} >
+        <userContext.Provider value={{globalCredentials, setglobalCredentials}} >
             {children}
         </userContext.Provider>
     )
