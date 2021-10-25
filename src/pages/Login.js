@@ -1,15 +1,24 @@
 import React, { useState,useContext } from 'react'
 import './Login.css'
 import Navbar from '../components/Navbar'
+import { useHistory } from 'react-router'
 import userContext from '../context/User/userContext'
+
+
+
 
 const Login = () => {
 
   const [credentialLogin, setcredentialLogin] = useState({username:"", password:""})
-  const [credentialSignUp, setcredentialSignUp] = useState({email:"",username:"", password:"", rpassword:""})
-
-
-    const handleOnClickSignup = (e)=>{
+  const [credentialSignUp, setcredentialSignUp] = useState({email:"",username:"", password:"", rpassword:"", address:"", firstname:"", lastname:"", phoneno:"", age:""})
+  
+  const context = useContext(userContext);
+  const {globalCredentials, setglobalCredentials} = context;
+  
+  const history = useHistory();
+  
+  
+  const handleOnClickSignup = (e)=>{
         const container = document.querySelector('.container_1');
          container.classList.add('sign-up-mode');
 
@@ -47,30 +56,43 @@ const Login = () => {
 
     const handleSignUp = async (e)=>{
       e.preventDefault();
-      console.log('signup btn clicked');
-      console.log(credentialSignUp)
+      //console.log('signup btn clicked');
 
       if(credentialSignUp.password !== credentialSignUp.rpassword)
       {
         return console.log('re-entered password incorrect')
       }
+      try {
+        //console.log(credentialSignUp);
+        setglobalCredentials(credentialSignUp);
+        //console.log(globalCredentials);
+        history.push("/register")
+        
+      } catch (error) {
+        console.error(error.message)
+      }
+      
 
-      const url = "http://localhost:5000/api/user/createuser"
-      const response = await fetch(url,
-        {
-          method: 'POST', 
-          headers: {
-            'Content-Type': 'application/json',
+
+      //const url = "http://localhost:5000/api/user/createuser"
+      //const response = await fetch(url,
+      //  {
+      //    method: 'POST', 
+      //    headers: {
+      //      'Content-Type': 'application/json',
           
-          },
-          body: JSON.stringify({
-              email:credentialSignUp.email,
-              username:credentialSignUp.username, 
-              password:credentialSignUp.password})
-        });
+      //    },
+      //    body: JSON.stringify({
+      //        email:credentialSignUp.email,
+      //        username:credentialSignUp.username, 
+      //        password:credentialSignUp.password})
+      //  });
     }
 
-    
+    //if(!toggleSignup)
+    //{
+    //  console.log('login page');
+    //}
 
 
 
