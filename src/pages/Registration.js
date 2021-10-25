@@ -2,10 +2,13 @@ import React, { useState, useContext } from 'react'
 import Navbar from '../components/Navbar'
 import "./Registration.css"
 import userContext from '../context/User/userContext'
+import { useHistory } from 'react-router'
+
 
 
 
 export const Registration = () => {
+  const history = useHistory();
 
   const context = useContext(userContext);
   const {globalCredentials, setglobalCredentials} = context;
@@ -37,6 +40,7 @@ export const Registration = () => {
               age:credentialSignUp.age
             })
         });
+        history.go(-2);
     } catch (error) {
       console.error(error.message)
     }

@@ -43,7 +43,8 @@ const Login = () => {
     const handleLogin  = async (e)=>{
       e.preventDefault();
       console.log('submit btn clicked');
-      const url = "http://localhost:5000/api/user/loginuser";
+      try {
+        const url = "http://localhost:5000/api/user/loginuser";
         const response = await fetch(url, {
             method: 'POST', 
             headers: {
@@ -52,6 +53,12 @@ const Login = () => {
             },
             body: JSON.stringify({username:credentialLogin.username, password:credentialLogin.password})
           });
+          history.push('/')
+          
+      } catch (error) {
+        console.error(error.message)
+      }
+      
     }
 
     const handleSignUp = async (e)=>{
