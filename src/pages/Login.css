@@ -62,7 +62,7 @@ input {
   left: 0;
 }
 
-form {
+.container_1 form {
   display: flex;
   /*Distributes Flex-items along the Cross Axis */
   align-items: center;

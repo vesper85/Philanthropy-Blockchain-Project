@@ -25,8 +25,10 @@ function App() {
             <CharityZone/>
           </Route>
           <Route exact path="/login">
-            {/* <Login/> */}
-            <Registration/>
+            <Login/>
+          </Route>
+          <Route exact path="/registration">
+            <Login/>
           </Route>
         </Switch>
       </Router>

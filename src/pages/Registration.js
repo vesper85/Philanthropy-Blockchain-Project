@@ -7,7 +7,7 @@ export const Registration = () => {
 <div className="container_reg">
     <div className="title_reg">Registration</div>
     <div className="content_reg">
-      <form className="form_reg">
+      <form>
         <div className="user-details_reg">
           <div className="input-box_reg">
             <span className="details_reg">First Name</span>
@@ -40,15 +40,15 @@ export const Registration = () => {
           <input type="radio" name="gender" id="dot-3"/>
           <span className="gender-title_reg">Gender</span>
           <div className="category_reg">
-            <label for="dot-1">
+            <label htmlFor="dot-1">
             <span className="dot one_reg"></span>
             <span className="gender_reg">Male</span>
           </label>
-          <label for="dot-2">
+          <label htmlFor="dot-2">
             <span className="dot two_reg"></span>
             <span className="gender_reg">Female</span>
           </label>
-          <label for="dot-3">
+          <label htmlFor="dot-3">
             <span className="dot three_reg"></span>
             <span className="gender_reg">Prefer not to say</span>
             </label>
