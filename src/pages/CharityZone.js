@@ -4,6 +4,7 @@ import Map from '../components/Map'
 import './Home.css'
 import './Charityzone.css'
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 //import react from 'react';
 
 const CharityZone = () => {
@@ -63,6 +64,7 @@ const CharityZone = () => {
                   <DonateCard cardInfo={cardInfo} />
                 </div>
             </section>
+        <Footer/>
             
         </>
     )
