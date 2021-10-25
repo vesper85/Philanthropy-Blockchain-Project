@@ -52,7 +52,6 @@
   /* InfoWidget */
 
   .infowidget{
-    margin-top: 5.5em;
     margin-bottom: 2.5em;
   }
 
@@ -262,11 +261,6 @@
       height: 165px;
       padding-bottom: 20px;
     }
-  }
-
-  .footer-ele{
-    padding-top: 4em;
-    padding-bottom: 3em;
   }
 
 #title_container{
