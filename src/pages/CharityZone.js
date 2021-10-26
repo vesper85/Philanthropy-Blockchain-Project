@@ -26,7 +26,7 @@ const CharityZone = () => {
         if(e.target.getAttribute("title"))
         {
             let x = e.pageX - 17.3 -50  ;
-            let y = e.pageY - 74 - 53.8 - 50;
+            let y = e.pageY - 74 - 53.8 - 15;
             setcoords({xcoords:x,ycoords:y})
             setstate(e.target.getAttribute("title"))
             console.log(x,y);
