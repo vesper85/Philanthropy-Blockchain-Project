@@ -1,7 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Link } from 'react-router-dom'
+import userContext from '../context/User/userContext';
+
 
 const Navbar = () => {
+    const context = useContext(userContext);
+    const {globalCredentials, setglobalCredentials,loggedIn,setloggedIn} = context;
+    const handleLogout = ()=>{
+        localStorage.removeItem('PBPjwtToken');
+        setloggedIn(false);
+    }
     return (
         <div>
             <nav className=" navbar fixed-top navbar-expand  test">
@@ -13,8 +21,9 @@ const Navbar = () => {
                     <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                     <Link className="nav-link" to="/">About us</Link>
                     <Link className="nav-link" to="/zone">Zone</Link>
-                    <Link className="btn  px-3 "  to="/login" role="button">Login</Link>
-                    <Link className="btn  px-3 " id="auth-btn" to="/login" role="button">Signup</Link>
+                    <Link className={`${loggedIn ? "d-none": "btn  px-3 "}`}  to="/login" role="button">Login</Link>
+                    <Link className={`${loggedIn ? "d-none": "btn  px-3 "}`} id="auth-btn" to="/login" role="button">Signup</Link>
+                    <Link className={`${!loggedIn ? "d-none": "btn  px-3 "}`} id="auth-btn" to="/" onClick={handleLogout} role="button">Logout</Link>
                 </div>
                 
             </div>

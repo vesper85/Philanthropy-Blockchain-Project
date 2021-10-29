@@ -3,20 +3,13 @@ import userContext from './userContext'
 
 
 const UserState = ({children}) => {
-    //const initialCredentials = {
-    //    username:"",
-    //    password:""
-    //}
-    //const [userCredentials, setuserCredentials] = useState(initialCredentials)
+    
     const [globalCredentials, setglobalCredentials] = useState({email:"",username:"", password:"", rpassword:"", address:"", firstname:"", lastname:"", phoneno:"", age:""})
 
-    //const handleToggleSignup = () =>{
-    //    settoggleSignup(true)
-    //}
-
+    const [loggedIn, setloggedIn] = useState(localStorage.getItem('PBPjwtToken') ? true :false);
 
     return (
-        <userContext.Provider value={{globalCredentials, setglobalCredentials}} >
+        <userContext.Provider value={{globalCredentials, setglobalCredentials,loggedIn,setloggedIn}} >
             {children}
         </userContext.Provider>
     )

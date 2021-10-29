@@ -3,7 +3,9 @@ const User = require('../models/User');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
-
+const jwt = require('jsonwebtoken');
+const fetchuser = require('../middleware/fetchuser');
+const JWTSECRET_KEY = 'philanthropyblockchainproject';
 
 // Route 1 add users to db POST "/api/user/adduser" --nologin required
 router.post('/createuser',[
@@ -45,14 +47,13 @@ router.post('/createuser',[
 
 
 //Route 2 fetch user from db using id of the user  GET"api/user/fetchuser"  --login required
-router.get('/fetchuser/:id', async(req,res)=>{
+router.get('/fetchuser/:id', fetchuser,async(req,res)=>{
     const user = await User.findById(req.params.id);
-    console.log(user,req.params.id);
     res.send(user);
 })
 
 //Route 3 update user data using userid PUT "api/user/updateuser"  --login required
-router.put('/updateuser/:id',[
+router.put('/updateuser/:id',fetchuser,[
     body('email').isEmail()
 ], async(req,res)=>{
     //searching user in db via id
@@ -99,9 +100,15 @@ router.post('/loginuser',async (req,res)=>{
             return res.status(400).send({error:'please enter valid username or password'});
 
         }
-        console.log('user logged in')
-        //res.send('logged in')
-         return res.send('user logged in')
+        const data={
+            user:{
+                id:currentUser.id,
+            }
+        }
+       const jwtToken = jwt.sign(data,JWTSECRET_KEY);
+
+       
+        return res.status(200).send({jwtToken})
     }
     
     catch (err) {

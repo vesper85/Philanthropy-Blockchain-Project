@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import { useHistory } from 'react-router'
 import userContext from '../context/User/userContext'
 
+ //'auth-token':localStorage.getItem('PBPjwtToken')
 
 
 
@@ -13,7 +14,7 @@ const Login = () => {
   const [credentialSignUp, setcredentialSignUp] = useState({email:"",username:"", password:"", rpassword:"", address:"", firstname:"", lastname:"", phoneno:"", age:""})
   
   const context = useContext(userContext);
-  const {globalCredentials, setglobalCredentials} = context;
+  const {globalCredentials, setglobalCredentials,setloggedIn} = context;
   
   const history = useHistory();
   
@@ -49,13 +50,24 @@ const Login = () => {
             method: 'POST', 
             headers: {
               'Content-Type': 'application/json',
-              'accept':'application/json'
+              'accept':'application/json',
+             
+              
             },
             body: JSON.stringify({username:credentialLogin.username, password:credentialLogin.password})
           });
-          history.push('/')
+          const json = await response.json();
+          if(response.ok)
+          {
+            localStorage.setItem('PBPjwtToken',json.jwtToken);
+            console.log(json.jwtToken);
+            setloggedIn(true);
+            history.push('/');
+          }
+          
           
       } catch (error) {
+        setloggedIn(false);
         console.error(error.message)
       }
       
