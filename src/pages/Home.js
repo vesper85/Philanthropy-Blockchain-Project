@@ -7,7 +7,9 @@ import Process from '../components/Process'
 import Partners from '../components/Partners'
 import Footer from '../components/Footer'
 
-const Home = () => {
+const Home = (props) => {
+    props.useScrollToTop();
+    
     return (
         <div>
             <Navbar />

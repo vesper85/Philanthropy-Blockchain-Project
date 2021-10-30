@@ -7,7 +7,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 //import react from 'react';
 
-const CharityZone = () => {
+const CharityZone = (props) => {
+    props.useScrollToTop();
     const [state, setstate] = useState('Delhi');
     const cardinfo = {
         title:"Emergency Response: Keep 1000 Vulnerable Children Safe and in Education",
