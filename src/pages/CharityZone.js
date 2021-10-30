@@ -4,6 +4,7 @@ import Map from '../components/Map'
 import './Home.css'
 import './Charityzone.css'
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 //import react from 'react';
 
 const CharityZone = () => {
@@ -25,7 +26,7 @@ const CharityZone = () => {
         if(e.target.getAttribute("title"))
         {
             let x = e.pageX - 17.3 -50  ;
-            let y = e.pageY - 74 - 53.8 - 50;
+            let y = e.pageY - 74 - 53.8 - 15;
             setcoords({xcoords:x,ycoords:y})
             setstate(e.target.getAttribute("title"))
             console.log(x,y);
@@ -63,6 +64,7 @@ const CharityZone = () => {
                   <DonateCard cardInfo={cardInfo} />
                 </div>
             </section>
+        <Footer/>
             
         </>
     )

@@ -22,12 +22,25 @@
 
 /* custom */
 
-.test{
-  font-size:medium;
+.navbar-custom{
+  font-size: medium;
   color: var(--white);
   background-color: var(--color-primary);
   height:10vh;
-  z-index: 101;
+}
+
+.navbar-brand{
+  margin-left: 0.8em;
+}
+
+.navbar-toggler{
+  margin-right: 0.8em;
+  padding: 0.30em 0.75em;
+}
+
+.navbar-collapse{
+  background-color: var(--color-primary);
+  margin-top: 1em;
 }
 
 .navbar a{
@@ -35,14 +48,26 @@
   text-decoration: none;
 }
 
-#navlinkgrp a{
-  color: white;
-}
-
 #auth-btn{
   border: none;
   background-color: var(--royal-blue);
   border-radius: 2px;
+  margin: 0 0.5em;
+}
+
+.btn:hover, .nav-link:hover{
+  color: #fff !important;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 768px){
+  .nav-link{
+    text-align: center;
+  }
+
+  #auth-btn{
+    margin-bottom: 1em;
+  }
 }
 
 /*Footer*/
