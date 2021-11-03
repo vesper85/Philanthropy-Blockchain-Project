@@ -4,8 +4,10 @@ import Navbar from '../components/Navbar'
 import Title from '../components/Title'
 import InfoWidget from '../components/InfoWidget'
 import Process from '../components/Process'
+import Security from '../components/Security'
 import Partners from '../components/Partners'
 import Footer from '../components/Footer'
+import TeamInfo from '../components/TeamInfo'
 
 const Home = (props) => {
     props.useScrollToTop();
@@ -29,15 +31,13 @@ const Home = (props) => {
 
             <Process />
 
+            <Security/>
+
             <Partners />
 
+            <TeamInfo/>
+
             <Footer />
-
-            {/*title // Gitesh*/}            
-
-            {/*security and controls // Gitesh*/}
-
-            {/*team info // Gitesh*/}
             
         </div>
     )

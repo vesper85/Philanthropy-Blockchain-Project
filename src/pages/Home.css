@@ -283,3 +283,52 @@
 .title-button{
   background-color: #04E3AE;
 }
+
+/* security and control section */
+
+.sec-header{
+  width: fit-content;
+  color: #000;
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.sec-subtitle{
+  color: #28283d;
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-decoration: none;
+  display: block;
+}
+
+.sec-text{
+  font-weight: 400;
+  font-size: 0.95rem;
+  padding-top: 0.3em;
+  padding-right: 1em;
+  display: block;
+  text-align: justify;
+}
+
+/* team info section */
+
+.team-container{
+  background-color: #f3f3e5;
+  width: 16rem;
+  margin: 0.2rem;
+  padding-left: 1rem;
+  padding-top: 1.2rem;
+}
+
+.team-name{
+  text-align: center;
+}
+
+.team-text{
+  font-weight: 400;
+  font-size: 0.95rem;
+  padding-top: 0.3em;
+  display: block;
+  text-align: justify;
+}
