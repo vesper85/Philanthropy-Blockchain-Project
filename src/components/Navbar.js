@@ -15,7 +15,7 @@ const Navbar = () => {
         console.log(location.pathname)
     }, [location])
     return (
-        <div>
+        <>
             <nav className="navbar fixed-top navbar-expand-md navbar-dark navbar-custom align-items-center">
                 <a className="navbar-brand" href="/">Navbar</a>
 
@@ -39,19 +39,22 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link className={`nav-link mx-3 ${location.pathname==="/aboutus" ?"active":""}`} to="/aboutus">About us</Link>
                         </li>
-                        <li className={`${localStorage.getItem('PBPjwtToken') ? "d-none": "nav-item "}`}>
-                            <Link className={`nav-link  ${location.pathname==="/login" ?"active":""}`}  to="/login">Login</Link>
+                        <li className={`${loggedIn ? "d-none": "nav-item "}`}>
+                            <Link className={`nav-link mx-3 ${location.pathname==="/login" ?"active":""}`}  to="/login">Login</Link>
                         </li>
-                        <li className={`${localStorage.getItem('PBPjwtToken') ? "d-none": "nav-item mx-3 text-center"}`}>
-                            <Link className={`${localStorage.getItem('PBPjwtToken') ? "d-none": "btn px-3 "}`} id="auth-btn" to="/login">Signup</Link>
+                        <li className={`${loggedIn ? "nav-item": "d-none "}`}>
+                            <Link className={`nav-link mx-3 ${location.pathname==="/editprofile" ?"active":""}`}  to="/editprofile">Profile</Link>
                         </li>
-                        <li className={`${localStorage.getItem('PBPjwtToken') ? "nav-item mx-3 text-center": "d-none"}`}>
-                            <Link className={`${localStorage.getItem('PBPjwtToken') ? "btn px-3 ": "d-none"}`} id="auth-btn" onClick={handleLogout} to="/">Logout</Link>
+                        <li className={`${loggedIn ? "d-none": "nav-item mx-3 text-center"}`}>
+                            <Link className={`btn px-3 `} id="auth-btn" to="/login">Signup</Link>
+                        </li>
+                        <li className={`${loggedIn ? "nav-item mx-3 text-center": "d-none"}`}>
+                            <Link className={`btn px-3`} id="auth-btn" onClick={handleLogout} to="/">Logout</Link>
                         </li>
                     </ul>
                 </div>
             </nav>
-        </div>
+        </>
     )
 }
 

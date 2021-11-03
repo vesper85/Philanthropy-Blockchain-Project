@@ -11,6 +11,7 @@ import CharityZone from './pages/CharityZone';
 import Login from './pages/Login';
 import UserState from './context/User/UserState';
 import { Registration } from './pages/Registration';
+import {EditProfile} from './pages/EditProfile'
 
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
           </Route>
           <Route exact path="/register">
             <Registration/>
+          </Route>
+          <Route exact path="/editprofile">
+            <EditProfile/>
           </Route>
         </Switch>
       </Router>

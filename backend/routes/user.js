@@ -47,8 +47,8 @@ router.post('/createuser',[
 
 
 //Route 2 fetch user from db using id of the user  GET"api/user/fetchuser"  --login required
-router.get('/fetchuser/:id', fetchuser,async(req,res)=>{
-    const user = await User.findById(req.params.id);
+router.get('/fetchuser', fetchuser,async(req,res)=>{
+    const user = await User.findById(req.user.id);
     res.send(user);
 })
 
