@@ -1,10 +1,14 @@
 import React,{useEffect, useContext} from "react";
+import { useHistory } from "react-router";
 import userContext from "../context/User/userContext";
 
 //import Navbar from "../components/Navbar";
 import "./EditProfile.css"
 
-export const EditProfile = () => {
+export const EditProfile = (props) => {
+  props.useScrollToTop();
+  
+  const history = useHistory();
 
     const loadFile = (e)=> {
       try {
@@ -16,12 +20,49 @@ export const EditProfile = () => {
        
     };
     const context = useContext(userContext);
-    const { getProfileInfo,userProfile } = context;
+    const { getProfileInfo,userProfile, setuserProfile, loggedIn } = context;
     useEffect(() => {
       getProfileInfo();
+      console.log('changed');
+
     }, [])
   
     const {firstname, lastname,username, address, age, phoneNumber, email} = userProfile;
+
+    const onChange = (e)=>{
+      setuserProfile({...userProfile,[e.target.name]:e.target.value})
+      //console.log([e.target.name],e.target.value)
+    }
+    const handleUpdate = async(e) =>{
+      e.preventDefault();
+      try {
+            const url = "http://localhost:5000/api/user/updateuser";
+            const response = await fetch(url, {
+                method: 'PUT', 
+                headers: {
+                'Content-Type': 'application/json',
+                'accept':'application/json',
+                'auth-token':localStorage.getItem('PBPjwtToken')
+                },body: JSON.stringify({
+                  email:userProfile.email,
+                  username:userProfile.username, 
+                  password:userProfile.password,
+                  address:userProfile.address,
+                  firstname:userProfile.firstname,
+                  lastname:userProfile.lastname,
+                  phoneNumber:userProfile.phoneNumber,
+                  age:userProfile.age
+                })
+                
+            });
+            const json = await response.json();
+            setuserProfile(json);
+            history.push('/');
+      } catch (error) {
+            console.error(error.message);
+            console.log('error occured while updating profile');
+      }
+    }
 
   return (
     <>
@@ -48,7 +89,7 @@ export const EditProfile = () => {
 
         {/* form */}
           <div className="col-md-6">
-            <form  className="container" autoComplete="off" >
+            <form  className="container" onChange={onChange} onSubmit={handleUpdate} autoComplete="off" >
               <div className="row">
                 <div className="mb-1 col-md-6">
                   <label htmlFor="fname" className="form-label">
@@ -56,10 +97,10 @@ export const EditProfile = () => {
                   </label>
                   <input
                     type="text"
-                    name="fname"
+                    name="firstname"
                     className="form-control disable-highlight"
                     id="fname"
-                    value={firstname}
+                    defaultValue={firstname || ""}
                   />
                 </div>
                 <div className="mb-1 col-md-6">
@@ -68,10 +109,10 @@ export const EditProfile = () => {
                   </label>
                   <input
                     type="text"
-                    name="lname"
+                    name="lastname"
                     className="form-control disable-highlight"
                     id="lname"
-                    value={lastname}
+                    defaultValue={lastname || ""}
                   />
                 </div>
               </div>
@@ -86,7 +127,7 @@ export const EditProfile = () => {
                     name="username"
                     className="form-control disable-highlight"
                     id="username"
-                    value={username}
+                    defaultValue={username || ""}
                   />
                 </div>
                 <div className="mb-1 col-md-12">
@@ -99,7 +140,7 @@ export const EditProfile = () => {
                     className="form-control disable-highlight"
                     id="email"
                     aria-describedby="emailHelp"
-                    value={email}
+                    defaultValue={email || ""}
                   />
                 </div>
               </div>
@@ -111,10 +152,10 @@ export const EditProfile = () => {
                   </label>
                   <input
                     type="text"
-                    name="phno"
+                    name="phoneNumber"
                     className="form-control disable-highlight"
                     id="phno"
-                    value={phoneNumber}
+                    defaultValue={phoneNumber || ""}
                   />
                 </div>
                 <div className="mb-1 col-md-12">
@@ -123,10 +164,10 @@ export const EditProfile = () => {
                   </label>
                   <input
                     type="text"
-                    name="age"
+                    name="address"
                     className="form-control disable-highlight"
                     id="age"
-                    value={address}
+                    defaultValue={address || ""}
                   />
                 </div>
               </div>
@@ -138,10 +179,10 @@ export const EditProfile = () => {
                   </label>
                   <input
                     type="gender"
-                    name="gender"
+                    name="age"
                     className="form-control disable-highlight"
                     id="gender"
-                    value={age}
+                    defaultValue={age || ""}
                   />
                 </div>
 
@@ -154,6 +195,7 @@ export const EditProfile = () => {
                     name="password"
                     className="form-control disable-highlight"
                     id="password"
+                    defaultValue={""}
                   />
                 </div>
               </div>

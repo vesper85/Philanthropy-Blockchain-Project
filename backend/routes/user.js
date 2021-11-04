@@ -53,11 +53,11 @@ router.get('/fetchuser', fetchuser,async(req,res)=>{
 })
 
 //Route 3 update user data using userid PUT "api/user/updateuser"  --login required
-router.put('/updateuser/:id',fetchuser,[
+router.put('/updateuser',fetchuser,[
     body('email').isEmail()
 ], async(req,res)=>{
     //searching user in db via id
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.user.id);
     if (!user)
     {
         //user not found
@@ -68,7 +68,8 @@ router.put('/updateuser/:id',fetchuser,[
         const newUser = {...req.body}
 
         //using findByIdAndUpdate to update the info of current user
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set:newUser}, {new:true});
+        // new:true returns the updated user that we get
+        const updatedUser = await User.findByIdAndUpdate(req.user.id, {$set:newUser}, {new:true});
         
         //acknowledgement
         console.log('user info update sucessfull');

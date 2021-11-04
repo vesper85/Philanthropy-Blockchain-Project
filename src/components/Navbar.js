@@ -5,10 +5,11 @@ import userContext from '../context/User/userContext';
 
 const Navbar = () => {
     const context = useContext(userContext);
-    const {globalCredentials, setglobalCredentials,loggedIn,setloggedIn} = context;
+    const {loggedIn,setloggedIn,setuserProfile} = context;
     const handleLogout = ()=>{
         localStorage.removeItem('PBPjwtToken');
         setloggedIn(false);
+        setuserProfile("")
     }
     let location = useLocation();
     useEffect(() => {

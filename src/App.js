@@ -45,7 +45,7 @@ function App() {
             <Registration/>
           </Route>
           <Route exact path="/editprofile">
-            <EditProfile/>
+            <EditProfile useScrollToTop={useScrollToTop} />
           </Route>
         </Switch>
       </Router>

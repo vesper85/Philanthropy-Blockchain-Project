@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
     company:{
         type:String,
     },
+    profileImg:{
+        data:Buffer,
+        contentType:String,
+    },
     donationMade:{
         type:[{
             charityId:{

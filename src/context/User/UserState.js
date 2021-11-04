@@ -29,7 +29,7 @@ const UserState = ({children}) => {
         }
     }
     return (
-        <userContext.Provider value={{globalCredentials, setglobalCredentials,loggedIn,setloggedIn,getProfileInfo, userProfile}} >
+        <userContext.Provider value={{globalCredentials, setglobalCredentials,loggedIn,setloggedIn,getProfileInfo, userProfile,setuserProfile}} >
             {children}
         </userContext.Provider>
     )
