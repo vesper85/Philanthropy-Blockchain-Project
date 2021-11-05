@@ -1,20 +1,23 @@
-import React, {useContext,useEffect} from 'react'
+import React, {useContext} from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import userContext from '../context/User/userContext';
 
 
 const Navbar = () => {
+    //hook declarations
     const context = useContext(userContext);
+    let location = useLocation();
+
+    // destructuring
     const {loggedIn,setloggedIn,setuserProfile} = context;
+
+    // submit btn handle
     const handleLogout = ()=>{
         localStorage.removeItem('PBPjwtToken');
         setloggedIn(false);
         setuserProfile("")
     }
-    let location = useLocation();
-    useEffect(() => {
-        console.log(location.pathname)
-    }, [location])
+   
     return (
         <>
             <nav className="navbar fixed-top navbar-expand-md navbar-dark navbar-custom align-items-center">

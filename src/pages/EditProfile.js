@@ -6,10 +6,17 @@ import userContext from "../context/User/userContext";
 import "./EditProfile.css"
 
 export const EditProfile = (props) => {
+
+  // scroll to top on component render
   props.useScrollToTop();
   
+  //hook declaration
   const history = useHistory();
+  const context = useContext(userContext);
+  const { getProfileInfo,userProfile, setuserProfile, loggedIn } = context;
+  const {firstname, lastname,username, address, age, phoneNumber, email} = userProfile;
 
+  //loades image file 
     const loadFile = (e)=> {
       try {
         let image = document.getElementById('output');
@@ -19,20 +26,19 @@ export const EditProfile = (props) => {
       }
        
     };
-    const context = useContext(userContext);
-    const { getProfileInfo,userProfile, setuserProfile, loggedIn } = context;
+
+    //use Effect hook used as component didmount
     useEffect(() => {
       getProfileInfo();
-      console.log('changed');
-
+      
     }, [])
   
-    const {firstname, lastname,username, address, age, phoneNumber, email} = userProfile;
-
+    // input field onchange handler 
     const onChange = (e)=>{
       setuserProfile({...userProfile,[e.target.name]:e.target.value})
-      //console.log([e.target.name],e.target.value)
     }
+
+    // userInfo update handler
     const handleUpdate = async(e) =>{
       e.preventDefault();
       try {
