@@ -5,6 +5,7 @@ import './Home.css'
 import './Charityzone.css'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import EditCharityForm from '../components/EditCharityForm';
 //import react from 'react';
 
 const CharityZone = (props) => {
@@ -65,6 +66,11 @@ const CharityZone = (props) => {
                   <DonateCard cardInfo={cardInfo} />
                 </div>
             </section>
+        
+        {/* Remove comment to see charity form */}
+
+        {/* <EditCharityForm button_name="Update"/> */}
+
         <Footer/>
             
         </>

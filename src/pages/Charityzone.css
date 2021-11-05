@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 *{
     margin: 0px;
@@ -195,3 +196,36 @@
     outline: none !important;
     box-shadow: none;
  }
+
+.charity-edit-container{
+    width: 50rem;
+    border: 1px solid black;
+    margin-left: 17rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    /* padding-left: 2rem;
+    padding-right: 2rem; */
+}
+
+.cont{
+    /* height: 100vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 10px; */
+    background-image: linear-gradient(-44deg, var(--bright-turquoise) 0%, var(--royal-blue) 100%);
+}
+
+
+.container-text{
+    display: block;
+    font-weight: 500;
+    font-family: 'Poppins',sans-serif;
+    /* margin-bottom: 5px; */
+}
+
+.button{
+    background-image: linear-gradient(-44deg, var(--bright-turquoise) 0%, var(--royal-blue) 100%);
+}
