@@ -111,6 +111,12 @@
     height: 0.125rem;
 }
 
+.add-new-btn{
+    margin-left: 20em;
+    text-decoration: none;
+    color:#04053e;
+}
+
 
 /* Section 2 card container wrapper */
 .card-conatiner-warpper{

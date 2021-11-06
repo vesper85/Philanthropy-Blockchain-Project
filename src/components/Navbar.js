@@ -28,11 +28,6 @@ const Navbar = () => {
                 </button>
                 
                 <div className="collapse navbar-collapse" id="navbarToggler"> 
-                    {/* <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-                    <Link className="nav-link" to="/">About us</Link>
-                    <Link className="nav-link" to="/zone">Zone</Link>
-                    <Link className="btn  px-3"  to="/login" role="button">Login</Link>
-                    <Link className="btn  px-3" id="auth-btn" to="/login" role="button">Signup</Link> */}
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item active">
                             <Link className={`nav-link mx-3 ${location.pathname==="/" ?"active":""}`} aria-current="page" to="/">Home</Link>

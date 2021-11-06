@@ -12,7 +12,7 @@ import Login from './pages/Login';
 import UserState from './context/User/UserState';
 import { Registration } from './pages/Registration';
 import {EditProfile} from './pages/EditProfile'
-import EditCharityForm from './components/EditCharityForm';
+import EditCharityForm from './pages/EditCharityForm';
 
 
 function App() {

@@ -5,7 +5,7 @@ import './Home.css'
 import './Charityzone.css'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import EditCharityForm from '../components/EditCharityForm';
+import EditCharityForm from './EditCharityForm';
 //import react from 'react';
 
 const CharityZone = (props) => {
@@ -16,7 +16,6 @@ const CharityZone = (props) => {
     const cardinfo = {
         title:"Emergency Response: Keep 1000 Vulnerable Children Safe and in Education",
         description:"Help keep 1000 at-risk children safe and in learning during the biggest global education emergency since World War II.",
-        
     }
     const [cardInfo, setcardInfo] = useState(cardinfo)
 
@@ -48,18 +47,21 @@ const CharityZone = (props) => {
                 <div className="filler_map"></div>
             {/* SVG background */}
             <div className="svg_background_2">
-            <div className="tilt_svg_2">
-                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" className="shape-fill"></path>
-                </svg>
-            </div>
+                <div className="tilt_svg_2">
+                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                        <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" className="shape-fill"></path>
+                    </svg>
+                </div>
             </div>
 
             {/* section 2 */}
             <section className="card-conatiner-warpper">
-            <div className="cards-container-title top-0">
-                Philanthropy zone
-            </div>
+                <div className="cards-container-title top-0">
+                    Philanthropy zone
+                </div>
+                <a className="cards-container-title top-0 add-new-btn" href="/editcharityform">
+                    Add New Charity
+                </a>
                 <div className=" row row-cols-1 row-cols-md-3 g-4 mx-0 justify-content-evenly card-container gx-5">
                   <DonateCard cardInfo={cardInfo} />
                   <DonateCard cardInfo={cardInfo} />
