@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import UserState from './context/User/UserState';
 import { Registration } from './pages/Registration';
 import {EditProfile} from './pages/EditProfile'
+import EditCharityForm from './components/EditCharityForm';
 
 
 function App() {
@@ -46,6 +47,9 @@ function App() {
           </Route>
           <Route exact path="/editprofile">
             <EditProfile useScrollToTop={useScrollToTop} />
+          </Route>
+          <Route exact path="/editcharityform">
+            <EditCharityForm/>
           </Route>
         </Switch>
       </Router>
