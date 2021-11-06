@@ -5,7 +5,7 @@ import './Home.css'
 import './Charityzone.css'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import EditCharityForm from './EditCharityForm';
+import CharityForm from './CharityForm';
 //import react from 'react';
 
 const CharityZone = (props) => {
@@ -59,7 +59,7 @@ const CharityZone = (props) => {
                 <div className="cards-container-title top-0">
                     Philanthropy zone
                 </div>
-                <a className="cards-container-title top-0 add-new-btn" href="/editcharityform">
+                <a className="cards-container-title top-0 add-new-btn" href="/charityform">
                     Add New Charity
                 </a>
                 <div className=" row row-cols-1 row-cols-md-3 g-4 mx-0 justify-content-evenly card-container gx-5">
@@ -70,8 +70,6 @@ const CharityZone = (props) => {
                   <DonateCard cardInfo={cardInfo} />
                 </div>
             </section>
-        
-        {/* Remove comment to see charity form */}
 
         {/* <EditCharityForm button_name="Update"/> */}
 
