@@ -40,6 +40,10 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link className={`nav-link mx-3 ${location.pathname==="/zone" ?"active":""}`} to="/zone">Zone</Link>
                         </li>
+                        {/* Remove comment to see charity details page */}
+                        {/* <li className="nav-item">
+                            <Link className={`nav-link mx-3 ${location.pathname==="/charitydetails" ?"active":""}`} to="/charitydetails">details</Link>
+                        </li> */}
                         <li className="nav-item">
                             <Link className={`nav-link mx-3 ${location.pathname==="/aboutus" ?"active":""}`} to="/aboutus">About us</Link>
                         </li>
