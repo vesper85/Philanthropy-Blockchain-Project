@@ -1,0 +1,17 @@
+.details-container{
+    width: 11rem;
+    /* margin: 0.2rem; */
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.details-title{
+    text-align: center;
+}
+
+.details-text{
+    display: block;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: justify;
+  }
