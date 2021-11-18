@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import coverImg from './sample/cover-image.png'
 import status from './sample/status.svg'
 
@@ -7,9 +8,11 @@ const DonateCard = (props) => {
     return (
         <>
             <div className="col card-content mb-5">
-                <a href="/charitydetails" className="w-100 h-100">
+                
                 <div className="card h-100">
+                <Link to="/charitydetails" >
                 <img src={coverImg} className="card-img-top" alt="this is an im"/>
+                </Link>
                 <div className="card-body">
                     <p className="card-title">{title}</p>
                     <p className="card-text">{description}</p>
@@ -51,7 +54,7 @@ const DonateCard = (props) => {
                     </div>
                 </div>
                 </div>
-                </a>
+            
             </div>
         </>
     )
