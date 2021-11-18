@@ -7,6 +7,7 @@ const DonateCard = (props) => {
     return (
         <>
             <div className="col card-content mb-5">
+                <a href="/charitydetails" className="w-100 h-100">
                 <div className="card h-100">
                 <img src={coverImg} className="card-img-top" alt="this is an im"/>
                 <div className="card-body">
@@ -43,11 +44,14 @@ const DonateCard = (props) => {
                     </div>
 
 
-                    <div className="align-left my-1 w-100 mt-4 donate-btn">
-                        <a href="/" className="btn dnt">Donate</a>
+                    <div className="w-100">
+                        <span className="align-left my-1 mt-4 donate-btn">
+                            <a href="/" className="btn dnt">Donate</a>
+                        </span>
                     </div>
                 </div>
                 </div>
+                </a>
             </div>
         </>
     )
