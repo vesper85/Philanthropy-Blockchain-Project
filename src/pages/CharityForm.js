@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router';
+import Navbar from '../components/Navbar';
+import './CharityForm.css'
 
 export default function CharityForm(props) {
     const history = useHistory();
@@ -48,7 +50,9 @@ export default function CharityForm(props) {
     }
 
     return (
-        <div  className="reg">
+    <>
+        <Navbar/>
+        <div className="reg charity-form">
             <div className="container_reg">
                 <div className="title_reg">Charity Form</div>
                     <div className="content_reg">
@@ -90,5 +94,6 @@ export default function CharityForm(props) {
                 </div>
             </div>
         </div>
+    </>
     )
 }
