@@ -21,7 +21,7 @@ const Navbar = () => {
     return (
         <>
             <nav className="navbar fixed-top navbar-expand-md navbar-dark navbar-custom align-items-center">
-                <a className="navbar-brand" href="/">Navbar</a>
+                <a className="navbar-brand" href="/">GoCharity</a>
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation" id="burger">
                     <span className="navbar-toggler-icon" style={{stroke:'white'}}></span>
