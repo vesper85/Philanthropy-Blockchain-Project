@@ -23,8 +23,6 @@ export default function CharityForm(props) {
     const onSubmitCharity = async (e) => {
         e.preventDefault();
         try {
-            console.log(credentialCharity.charityName)
-            console.log(credentialCharity.goal)
             const url = "http://localhost:5000/api/charity/createcharity"
             const response = await fetch(url,
                 {

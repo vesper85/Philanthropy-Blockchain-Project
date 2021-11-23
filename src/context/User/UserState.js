@@ -23,6 +23,8 @@ const UserState = ({children}) => {
 
     const [profileImg, setprofileImg] = useState("")
 
+    const [allCardsInfo, setallCardsInfo] = useState({})
+
     //gets userInfo
     const getProfileInfo = async() =>{
         try {
@@ -53,10 +55,29 @@ const UserState = ({children}) => {
         }
     }
 
+    const getAllCharities = async() => {
+        try {
+            const url = "http://localhost:5000/api/charity/fetchallcharities"
+            const response = await fetch(url, {
+                method: 'GET', 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accept':'application/json',
+                }
+            });
+            const data = await response.json();
+            setallCardsInfo(data)
+            // console.log(typeof(data), data)
+            console.log(allCardsInfo)
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
 
             
     return (
-        <userContext.Provider value={{globalCredentials, setglobalCredentials,loggedIn,setloggedIn,getProfileInfo, userProfile,setuserProfile,profileImg}} >
+        <userContext.Provider value={{globalCredentials, setglobalCredentials,loggedIn,setloggedIn,getProfileInfo, userProfile,setuserProfile,profileImg,allCardsInfo,getAllCharities}} >
             {children}
         </userContext.Provider>
     )
