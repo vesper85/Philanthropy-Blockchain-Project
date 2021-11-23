@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import coverImg from './sample/cover-image.png'
+import coverImg from './sample/india_flood.jpeg'
 import status from './sample/status.svg'
 
 const DonateCard = (props) => {

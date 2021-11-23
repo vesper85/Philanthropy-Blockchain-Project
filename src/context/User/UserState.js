@@ -8,8 +8,6 @@ import { getStorage, ref, uploadBytes,getDownloadURL } from "firebase/storage";
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseStorage = getStorage(firebaseApp);
 
-
-
 const UserState = ({children}) => {
     
     //state used for 2 step registration / signup
@@ -22,9 +20,6 @@ const UserState = ({children}) => {
     const [userProfile, setuserProfile] = useState({email:"",username:"", address:"", firstname:"", lastname:"", phoneno:"", age:""});
 
     const [profileImg, setprofileImg] = useState("");
-
-    const [allCardsInfo, setallCardsInfo] = useState([]);
-
 
     //gets userInfo
     const getProfileInfo = async() =>{
@@ -55,29 +50,9 @@ const UserState = ({children}) => {
             console.log('error occured in getprofileinfo');
         }
     }
-
-    const getAllCharities = async() => {
-        try {
-            const url = "http://localhost:5000/api/charity/fetchallcharities"
-            const response = await fetch(url, {
-                method: 'GET', 
-                headers: {
-                    'Content-Type': 'application/json',
-                    'accept':'application/json',
-                }
-            });
-            const json = await response.json();
-            setallCardsInfo(json)
-            //console.log(allCardsInfo)
-        } catch(error) {
-            console.log(error)
-        }
-    }
-
-
             
     return (
-        <userContext.Provider value={{globalCredentials, setglobalCredentials,loggedIn,setloggedIn,getProfileInfo, userProfile,setuserProfile,profileImg,allCardsInfo,getAllCharities}} >
+        <userContext.Provider value={{globalCredentials, setglobalCredentials,loggedIn,setloggedIn,getProfileInfo, userProfile,setuserProfile,profileImg}} >
             {children}
         </userContext.Provider>
     )

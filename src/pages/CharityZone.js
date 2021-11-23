@@ -5,31 +5,33 @@ import './Home.css'
 import './Charityzone.css'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-//import CharityForm from './CharityForm';
-//import CardsArray from "../components/CardsArray"
-import userContext from "../context/User/userContext";
+import CharityForm from './CharityForm';
+// import userContext from "../context/User/userContext";
 //import react from 'react';
 
 const CharityZone = (props) => {
 
     props.useScrollToTop();
     const [state, setstate] = useState('Delhi');
+    const [allCardsInfo, setAllCardsInfo] = useState([]);
 
-    const context = useContext(userContext);
-    const { allCardsInfo, getAllCharities } = context;
-
-    // const cardinfo = {
-    //     title:"Emergency Response: Keep 1000 Vulnerable Children Safe and in Education",
-    //     description:"Help keep 1000 at-risk children safe and in learning during the biggest global education emergency since World War II.",
-    // }
-
-    // const [allCardsInfolocal, setallCardsInfolocal] = useState(null)
-    //const [allCardsInfo, setallCardsInfo] = useState([])
-
-    useEffect(()=>{
-        getAllCharities();
+    useEffect(async() => {
+        try {
+            const url = "http://localhost:5000/api/charity/fetchallcharities"
+            const response = await fetch(url, {
+                method: 'GET', 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accept':'application/json',
+                }
+            });
+            const data = await response.json();
+            setAllCardsInfo(data)
+            //console.log(allCardsInfo)
+        } catch(error) {
+            console.log(error)
+        }
     }, [])
-
 
     const [coords, setcoords] = useState({
         xcoords:170,
@@ -44,12 +46,11 @@ const CharityZone = (props) => {
             setstate(e.target.getAttribute("title")) 
         }
     }
-
-  
-
+    
     return (
         <>   
-        <Navbar/>
+            <Navbar/>
+
             <div className="mapContainer">
                 <Map coords={coords} handleOnClick={handleOnClick}  /> 
                 <h3 className="mapState">{state}</h3>   
@@ -73,26 +74,21 @@ const CharityZone = (props) => {
                     Add New Charity
                 </a>
                 <div className=" row row-cols-1 row-cols-md-3 g-4 mx-0 justify-content-evenly card-container gx-5">
-                    {/* {allCardsInfo && <CardsArray info={allCardsInfo} />} */}
                     {
                         allCardsInfo.map(card => (
                             <DonateCard
                                 key={card._id}
                                 title={card.charityName}
-                                description={card.description || "No Description"}
-
-                                />
+                                description={card.description}
+                            />
                         ))
                     }{' '}
-                    
                 </div>
             </section>
-            
 
-        {/* <EditCharityForm button_name="Update"/> */}
+            {/* <EditCharityForm button_name="Update"/> */}
 
-        <Footer/>
-            
+            <Footer/>
         </>
     )
 }

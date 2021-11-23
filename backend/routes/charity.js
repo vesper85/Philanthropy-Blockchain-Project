@@ -8,18 +8,10 @@ router.get('/fetchallcharities', async(req, res) => {
 
     console.log("/fetchallcharities route")
     let allCharaties = await Charity.find();
-    //console.log(allCharaties);
     res.json(allCharaties);
     } catch(error) {
         console.log(error);
     }
-    //let allCharities = {}
-    //await Charity.find({}, (err, charities) => {
-    //    charities.forEach(charity => {
-    //        allCharities[charity._id] = charity
-    //    })
-    //    res.send(allCharities)
-    //})
 })
 
 //createcharity post

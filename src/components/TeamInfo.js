@@ -25,7 +25,7 @@ export default function TeamInfo() {
             <div className="row people">
                 <div className="col-md-3 col-lg-3 item ">
                     <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" className="box teamBoxShadow"><img className="rounded-circle" src={avatar_saurabh} />
-                        <h3 className="name">Sarurabh Parate</h3>
+                        <h3 className="name">Saurabh Parate</h3>
                         <p className="title">student</p>
                         <p className="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
                         <div className="social"><a href="#"><i className="fa fa-facebook-official"></i></a><a href="#"><i className="fa fa-twitter"></i></a><a href="#"><i className="fa fa-instagram"></i></a></div>
