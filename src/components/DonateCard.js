@@ -4,7 +4,7 @@ import coverImg from './sample/cover-image.png'
 import status from './sample/status.svg'
 
 const DonateCard = (props) => {
-    const {title, description} = props.cardInfo;
+    const {title, description} = props;
     return (
         <>
             <div className="col card-content mb-5">

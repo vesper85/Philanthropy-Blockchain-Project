@@ -5,8 +5,8 @@ import './Home.css'
 import './Charityzone.css'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import CharityForm from './CharityForm';
-import CardsArray from "../components/CardsArray"
+//import CharityForm from './CharityForm';
+//import CardsArray from "../components/CardsArray"
 import userContext from "../context/User/userContext";
 //import react from 'react';
 
@@ -23,8 +23,14 @@ const CharityZone = (props) => {
     //     description:"Help keep 1000 at-risk children safe and in learning during the biggest global education emergency since World War II.",
     // }
 
-    // const [allCardsInfo, setallCardsInfo] = useState(null)
-    
+    // const [allCardsInfolocal, setallCardsInfolocal] = useState(null)
+    //const [allCardsInfo, setallCardsInfo] = useState([])
+
+    useEffect(()=>{
+        getAllCharities();
+    }, [])
+
+
     const [coords, setcoords] = useState({
         xcoords:170,
         ycoords:153
@@ -39,11 +45,7 @@ const CharityZone = (props) => {
         }
     }
 
-    useEffect(()=>{
-        getAllCharities()
-        // console.log(allCardsInfo)
-    }, [])
-    
+  
 
     return (
         <>   
@@ -72,6 +74,17 @@ const CharityZone = (props) => {
                 </a>
                 <div className=" row row-cols-1 row-cols-md-3 g-4 mx-0 justify-content-evenly card-container gx-5">
                     {/* {allCardsInfo && <CardsArray info={allCardsInfo} />} */}
+                    {
+                        allCardsInfo.map(card => (
+                            <DonateCard
+                                key={card._id}
+                                title={card.charityName}
+                                description={card.description || "No Description"}
+
+                                />
+                        ))
+                    }{' '}
+                    
                 </div>
             </section>
             

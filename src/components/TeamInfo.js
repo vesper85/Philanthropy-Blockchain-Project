@@ -16,43 +16,43 @@ export default function TeamInfo() {
     }
    
     return (
-        <section class="team-boxed">
-        <div class="container">
-            <div class="intro">
-                <h2 class="text-center">Team </h2>
-                <p class="text-center">our team and some text</p>
+        <section className="team-boxed">
+        <div className="container">
+            <div className="intro">
+                <h2 className="text-center">Team </h2>
+                <p className="text-center">our team and some text</p>
             </div>
-            <div class="row people">
-                <div class="col-md-3 col-lg-3 item ">
-                    <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" class="box teamBoxShadow"><img class="rounded-circle" src={avatar_saurabh} />
-                        <h3 class="name">Sarurabh Parate</h3>
-                        <p class="title">student</p>
-                        <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
-                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+            <div className="row people">
+                <div className="col-md-3 col-lg-3 item ">
+                    <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" className="box teamBoxShadow"><img className="rounded-circle" src={avatar_saurabh} />
+                        <h3 className="name">Sarurabh Parate</h3>
+                        <p className="title">student</p>
+                        <p className="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
+                        <div className="social"><a href="#"><i className="fa fa-facebook-official"></i></a><a href="#"><i className="fa fa-twitter"></i></a><a href="#"><i className="fa fa-instagram"></i></a></div>
                     </div>
                 </div>
-                <div class="col-md-3 col-lg-3 item" >
-                    <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" class="box teamBoxShadow"><img class="rounded-circle" src={avatar} alt="parikshit D." />
-                        <h3 class="name">Parikshit D.</h3>
-                        <p class="title">student</p>
-                        <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
-                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                <div className="col-md-3 col-lg-3 item" >
+                    <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" className="box teamBoxShadow"><img className="rounded-circle" src={avatar} alt="parikshit D." />
+                        <h3 className="name">Parikshit D.</h3>
+                        <p className="title">student</p>
+                        <p className="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
+                        <div className="social"><a href="#"><i className="fa fa-facebook-official"></i></a><a href="#"><i className="fa fa-twitter"></i></a><a href="#"><i className="fa fa-instagram"></i></a></div>
                     </div>
                 </div>
-                <div class="col-md-3 col-lg-3 item" >
-                    <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" class="box teamBoxShadow"><img class="rounded-circle" src={avatar_gitesh} />
-                        <h3 class="name">Gitesh Patil</h3>
-                        <p class="title">student</p>
-                        <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
-                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                <div className="col-md-3 col-lg-3 item" >
+                    <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" className="box teamBoxShadow"><img className="rounded-circle" src={avatar_gitesh} />
+                        <h3 className="name">Gitesh Patil</h3>
+                        <p className="title">student</p>
+                        <p className="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
+                        <div className="social"><a href="#"><i className="fa fa-facebook-official"></i></a><a href="#"><i className="fa fa-twitter"></i></a><a href="#"><i className="fa fa-instagram"></i></a></div>
                     </div>
                 </div>
-                <div class="col-md-3 col-lg-3 item" >
-                    <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" class="box teamBoxShadow"><img class="rounded-circle" src={avatar_rahul} />
-                        <h3 class="name">Rahul Sharma</h3>
-                        <p class="title">student</p>
-                        <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
-                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                <div className="col-md-3 col-lg-3 item" >
+                    <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" className="box teamBoxShadow"><img className="rounded-circle" src={avatar_rahul} />
+                        <h3 className="name">Rahul Sharma</h3>
+                        <p className="title">student</p>
+                        <p className="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
+                        <div className="social"><a href="#"><i className="fa fa-facebook-official"></i></a><a href="#"><i className="fa fa-twitter"></i></a><a href="#"><i className="fa fa-instagram"></i></a></div>
                     </div>
                 </div>
             </div>

@@ -21,9 +21,10 @@ const UserState = ({children}) => {
     //global state for storing profile info, to display userinfo and edit profile
     const [userProfile, setuserProfile] = useState({email:"",username:"", address:"", firstname:"", lastname:"", phoneno:"", age:""});
 
-    const [profileImg, setprofileImg] = useState("")
+    const [profileImg, setprofileImg] = useState("");
 
-    const [allCardsInfo, setallCardsInfo] = useState({})
+    const [allCardsInfo, setallCardsInfo] = useState([]);
+
 
     //gets userInfo
     const getProfileInfo = async() =>{
@@ -65,10 +66,9 @@ const UserState = ({children}) => {
                     'accept':'application/json',
                 }
             });
-            const data = await response.json();
-            setallCardsInfo(data)
-            // console.log(typeof(data), data)
-            console.log(allCardsInfo)
+            const json = await response.json();
+            setallCardsInfo(json)
+            //console.log(allCardsInfo)
         } catch(error) {
             console.log(error)
         }
