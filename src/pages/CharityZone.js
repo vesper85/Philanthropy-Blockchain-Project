@@ -70,6 +70,7 @@ const CharityZone = (props) => {
                   <DonateCard cardInfo={cardInfo} />
                 </div>
             </section>
+            
 
         {/* <EditCharityForm button_name="Update"/> */}
 
