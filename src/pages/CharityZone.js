@@ -6,7 +6,6 @@ import './Charityzone.css'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CharityForm from './CharityForm';
-// import userContext from "../context/User/userContext";
 //import react from 'react';
 
 const CharityZone = (props) => {
@@ -80,6 +79,8 @@ const CharityZone = (props) => {
                                 key={card._id}
                                 title={card.charityName}
                                 description={card.description}
+                                goal={card.goal}
+                                fundsRaised={card.fundsRaised}
                             />
                         ))
                     }{' '}

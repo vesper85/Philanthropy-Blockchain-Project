@@ -152,37 +152,36 @@
 }
 
 
+/* Status card */
+.status-card{
+    margin-top: 1rem;
+    min-height:fit-content;
+    max-height: 20vh;
+    overflow: hidden;
+}
+.status-card p{
+    margin: 0px;
+    padding: 0px;
+}
+.status-card-body{
+    background-color: var(--royal-blue);
+    padding: 10px;
+}
 
- /* Status card */
- .status-card{
-     margin-top: 1rem;
-     min-height:fit-content;
-     max-height: 20vh;
-     overflow: hidden;
- }
- .status-card p{
-     margin: 0px;
-     padding: 0px;
- }
- .status-card-body{
-     background-color: var(--royal-blue);
-     padding: 10px;
- }
+.status-card  .card-body  p {
+    margin-left: 20px;
+}
+.status-card-status{
 
- .status-card  .card-body  p {
-     margin-left: 20px;
- }
- .status-card-status{
-
-     color: gainsboro;
-     font-size: 0.8rem;
- }
- .current-status{
-     color: white;
-     text-transform: uppercase;
-     font-size: 1rem;
-     font-weight: bold;
- }
+    color: gainsboro;
+    font-size: 0.8rem;
+}
+.current-status{
+    color: white;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: bold;
+}
 
  .donate-btn{
     display: flex;
@@ -234,4 +233,8 @@
 
 .button{
     background-image: linear-gradient(-44deg, var(--bright-turquoise) 0%, var(--royal-blue) 100%);
+}
+
+a {
+    text-decoration: none;
 }
