@@ -74,6 +74,7 @@ const CharityZone = (props) => {
                     {/* {allCardsInfo && <CardsArray info={allCardsInfo} />} */}
                 </div>
             </section>
+            
 
         {/* <EditCharityForm button_name="Update"/> */}
 

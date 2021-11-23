@@ -1,34 +1,62 @@
 import React from 'react'
-import photo from "./icons/photo.png"
+//import photo from "./icons/photo.png"
+import avatar from "./icons/avatar.png"
+import avatar_rahul from "./icons/avatar_rahul.png";
+import avatar_saurabh from "./icons/avatar_saurabh.png";
+import avatar_gitesh from "./icons/avatar_gitesh.png";
 
 export default function TeamInfo() {
+
+    if (window.innerWidth < 768) {
+        [].slice.call(document.querySelectorAll('[data-bss-disabled-mobile]')).forEach(function (elem) {
+            elem.classList.remove('animated');
+            elem.removeAttribute('data-bss-hover-animate');
+            elem.removeAttribute('data-aos');
+        });
+    }
+   
     return (
-        <div>
-            <div className="container mb-4 pt-5 pb-3">
-            <h3 className="sec-header mb-4 pb-2 border-bottom border-info">Team Info</h3>
-                <div className="row ps-5" >
-                    <div className="col-lg-3 team-container">
-                        <div className="team-name"><img className=" rounded-circle" src={photo}></img></div>
-                        <h2 className="sec-subtitle team-name pt-3">Saurabh Parate</h2>
-                        <p className="team-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut aspernatur obcaecati eligendi iusto. Ducimus praesentium esse illum ab, dolorum laboriosam iusto dicta architecto atque.</p>
+        <section class="team-boxed">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">Team </h2>
+                <p class="text-center">our team and some text</p>
+            </div>
+            <div class="row people">
+                <div class="col-md-3 col-lg-3 item ">
+                    <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" class="box teamBoxShadow"><img class="rounded-circle" src={avatar_saurabh} />
+                        <h3 class="name">Sarurabh Parate</h3>
+                        <p class="title">student</p>
+                        <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
                     </div>
-                    <div className="col-lg-3 team-container">
-                        <div className="team-name"><img className=" rounded-circle" src={photo}></img></div>
-                        <h2 className="sec-subtitle team-name pt-3">Parikshit Deshmukh</h2>
-                        <p className="team-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores odio at aliquam consectetur quo adipisci dignissimos, nobis vel nisi, hic ipsum, deleniti saepe? Soluta nesciunt </p>
+                </div>
+                <div class="col-md-3 col-lg-3 item" >
+                    <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" class="box teamBoxShadow"><img class="rounded-circle" src={avatar} alt="parikshit D." />
+                        <h3 class="name">Parikshit D.</h3>
+                        <p class="title">student</p>
+                        <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
                     </div>
-                    <div className="col-lg-3 team-container">
-                    <   div className="team-name"><img className=" rounded-circle" src={photo}></img></div>
-                        <h2 className="sec-subtitle team-name pt-3">Gitesh Patil</h2>
-                        <p className="team-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta corrupti cumque accusamus vitae, in accusantium. Ad libero, reprehenderit omnis cupiditate voluptatibus </p>
+                </div>
+                <div class="col-md-3 col-lg-3 item" >
+                    <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" class="box teamBoxShadow"><img class="rounded-circle" src={avatar_gitesh} />
+                        <h3 class="name">Gitesh Patil</h3>
+                        <p class="title">student</p>
+                        <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
                     </div>
-                    <div className="col-lg-3 team-container">
-                        <div className="team-name"><img className=" rounded-circle" src={photo}></img></div>
-                        <h2 className="sec-subtitle team-name pt-3">Rahul Sharma</h2>
-                        <p className="team-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut aspernatur obcaecati eligendi iusto. Ducimus praesentium esse illum ab, dolorum laboriosam iusto dicta architecto atque.</p>
+                </div>
+                <div class="col-md-3 col-lg-3 item" >
+                    <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" class="box teamBoxShadow"><img class="rounded-circle" src={avatar_rahul} />
+                        <h3 class="name">Rahul Sharma</h3>
+                        <p class="title">student</p>
+                        <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
     )
 }
