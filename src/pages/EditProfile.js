@@ -1,37 +1,51 @@
-import React,{useEffect, useContext} from "react";
+import React,{useEffect, useContext, useState} from "react";
 import { useHistory } from "react-router";
 import userContext from "../context/User/userContext";
-
-//import Navbar from "../components/Navbar";
+import { initializeApp } from "firebase/app";
+// importing firebaseconfig
+import firebaseConfig from "../config/firebaseConfig";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import "./EditProfile.css"
+//initialize firebase instances
 
+const firebaseApp = initializeApp(firebaseConfig);
+const firebaseStorage = getStorage(firebaseApp);
+
+
+// component starts here
 export const EditProfile = (props) => {
-
   // scroll to top on component render
   props.useScrollToTop();
   
   //hook declaration
   const history = useHistory();
   const context = useContext(userContext);
-  const { getProfileInfo,userProfile, setuserProfile, loggedIn } = context;
+  const { getProfileInfo,userProfile, setuserProfile,profileImg } = context;
   const {firstname, lastname,username, address, age, phoneNumber, email} = userProfile;
-
-  //loades image file 
-    const loadFile = (e)=> {
-      try {
-        let image = document.getElementById('output');
-        image.src = URL.createObjectURL(e.target.files[0]);
-      } catch (error) {
-        console.error(error.message)
-      }
-       
-    };
+  const [profileImglocal, setprofileImglocal] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+  
 
     //use Effect hook used as component didmount
     useEffect(() => {
       getProfileInfo();
       
     }, [])
+
+      //loades image file onchange
+      const loadFile = (e)=> {
+        try {
+          let image = document.getElementById('output');
+          let file = e.target.files[0];
+          //console.log(file.name);
+          setprofileImglocal(file);
+          image.src = URL.createObjectURL(e.target.files[0]);
+        } catch (error) {
+          console.error(error.message)
+        } 
+      };
+
+
+  
   
     // input field onchange handler 
     const onChange = (e)=>{
@@ -57,12 +71,19 @@ export const EditProfile = (props) => {
                   firstname:userProfile.firstname,
                   lastname:userProfile.lastname,
                   phoneNumber:userProfile.phoneNumber,
-                  age:userProfile.age
+                  age:userProfile.age,
+        
                 })
                 
             });
             const json = await response.json();
             setuserProfile(json);
+       
+            let imgRef = ref(firebaseStorage, `profile/${username}`);
+              uploadBytes(imgRef, profileImglocal).then(() => {
+              console.log('image Uploaded!');
+            });
+
             history.push('/');
       } catch (error) {
             console.error(error.message);
@@ -82,8 +103,8 @@ export const EditProfile = (props) => {
           
         <div className="col-md-6 text-center">
           <div className="container d-flex align-items-center justify-content-center" id="profileImage" >
-              <img id="output"  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="profile pic" />
-              {/*<input type="file" accept="image/*" name="image" id="file"  onChange={loadFile} />*/}
+              <img id="output"  src={profileImg || profileImglocal} alt="profile pic" />
+              {/*https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png*/}
           </div>
 
           <label htmlFor="file-upload" className="custom-file-upload mt-3">
@@ -192,7 +213,7 @@ export const EditProfile = (props) => {
                   />
                 </div>
 
-                <div className="mb-1 col-md-12">
+                {/*<div className="mb-1 col-md-12">
                   <label htmlFor="password" className="form-label">
                     <div>Password</div>
                   </label>
@@ -203,7 +224,7 @@ export const EditProfile = (props) => {
                     id="password"
                     defaultValue={""}
                   />
-                </div>
+                </div>*/}
               </div>
 
               {/*<div className="row">

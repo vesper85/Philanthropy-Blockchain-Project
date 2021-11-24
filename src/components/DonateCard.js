@@ -1,29 +1,31 @@
 import React from 'react'
-import coverImg from './sample/cover-image.png'
+import { Link } from 'react-router-dom';
+import coverImg from './sample/india_flood.jpeg'
 import status from './sample/status.svg'
 
 const DonateCard = (props) => {
-    const {title, description} = props.cardInfo;
+    const {title, description, goal, fundsRaised} = props;
     return (
         <>
-            <div className="col card-content mb-5">
-                <div className="card h-100">
-                <img src={coverImg} className="card-img-top" alt="this is an im"/>
-                <div className="card-body">
-                    <p className="card-title">{title}</p>
-                    <p className="card-text">{description}</p>
-                </div>
+        <div className="col card-content mb-5">
+            <div className="card h-100">
+                <Link to="/charitydetails" >
+                    <img src={coverImg} className="card-img-top" alt="this is an image"/>
+                    <div className="card-body">
+                        <p className="card-title">{title}</p>
+                        <p className="card-text">{description.substring(0,115) + "...."}</p>
+                    </div>
+                </Link>
+                
                 {/* footer */}
                 <div className="card-footer">
-
                     {/* Progress bar */}
                     <div>
                         <div className="progress my-1">
                             <div className="progress-bar w-25" role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                         </div>
-                        <p className="card-text "><small className="text-muted">US$ 34.72 (฿ 0.0008) raised of US$ 20,000 goal</small></p>
+                        <p className="card-text "><small className="text-muted">INR {fundsRaised} (฿ 0.0008) raised of INR {goal} goal</small></p>
                     </div>
-
 
                     {/* Status card */}
                     <div className="status-card">
@@ -42,13 +44,14 @@ const DonateCard = (props) => {
                         </div>
                     </div>
 
-
-                    <div className="align-left my-1 w-100 mt-4 donate-btn">
-                        <a href="/" className="btn dnt">Donate</a>
+                    <div className="w-100">
+                        <span className="align-left my-1 mt-4 donate-btn">
+                            <a href="/" className="btn dnt">Donate</a>
+                        </span>
                     </div>
                 </div>
-                </div>
             </div>
+        </div>
         </>
     )
 }

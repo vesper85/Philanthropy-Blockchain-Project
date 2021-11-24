@@ -4,14 +4,14 @@ const router = express.Router()
 
 //fetchallcharities get
 router.get('/fetchallcharities', async(req, res) => {
+    try {
+
     console.log("/fetchallcharities route")
-    let allCharities = {}
-    await Charity.find({}, (err, charities) => {
-        charities.forEach(charity => {
-            allCharities[charity._id] = charity
-        })
-        res.send(allCharities)
-    })
+    let allCharaties = await Charity.find();
+    res.json(allCharaties);
+    } catch(error) {
+        console.log(error);
+    }
 })
 
 //createcharity post
