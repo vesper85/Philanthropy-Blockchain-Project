@@ -76,6 +76,7 @@ const CharityZone = (props) => {
                     {
                         allCardsInfo.map(card => (
                             <DonateCard
+                                key={card._id + "5"}
                                 id={card._id}
                                 title={card.charityName}
                                 description={card.description}

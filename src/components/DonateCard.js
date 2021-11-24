@@ -1,10 +1,17 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
 import coverImg from './sample/india_flood.jpeg'
 import status from './sample/status.svg'
 
 const DonateCard = (props) => {
     const {title, description, goal, fundsRaised} = props;
+    const [progress, setProgress] = useState(0);
+
+    useEffect(async() => {
+        let goalProgress = (fundsRaised / goal) * 100
+        setProgress(goalProgress)
+    }, [])
+
     return (
         <>
         <div className="col card-content mb-5">
@@ -22,7 +29,7 @@ const DonateCard = (props) => {
                     {/* Progress bar */}
                     <div>
                         <div className="progress my-1">
-                            <div className="progress-bar w-25" role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                            <div className="progress-bar w-50" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100">{progress}%</div>
                         </div>
                         <p className="card-text "><small className="text-muted">INR {fundsRaised} (฿ 0.0008) raised of INR {goal} goal</small></p>
                     </div>
@@ -37,7 +44,7 @@ const DonateCard = (props) => {
                                     <div className="col-md-9">
                                     <div className=" status-card-body">
                                         <p className=" status-card-status">Status</p>
-                                        <p className="card-text current-status"> longer.</p>
+                                        <p className="card-text current-status">Active</p>
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +52,7 @@ const DonateCard = (props) => {
                     </div>
 
                     <div className="w-100">
-                        <span className="align-left my-1 mt-4 donate-btn">
+                        <span className="align-left my-1 mt-3 donate-btn">
                             <a href="/" className="btn dnt">Donate</a>
                         </span>
                     </div>
