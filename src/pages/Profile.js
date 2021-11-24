@@ -55,7 +55,7 @@ export const Profile = () => {
                 <a href="/" className="btn btn-sm btn-default float-right">Message</a>
               </div>
             </div> */}
-            <div className="card-body pt-0 pt-md-4">
+            <div className="card-body-1 pt-0 pt-md-4">
               <div className="row">
                 <div className="col">
                   <div className="card-profile-stats d-flex justify-content-center" style={{margin:"100px"}} >
@@ -99,21 +99,23 @@ export const Profile = () => {
                 
               </div>
             </div>
-            <div className="card-body">
+            <div className="card-body-1">
               <form/>
                 <h6 className="heading-small text-muted mb-4">User information</h6>
                 <div className="pl-lg-4">
                   <div className="row">
                     <div className="col-lg-6">
                       <div className="form-group focused">
-                        <label className="form-control-label" htmlFor="input-username">First Name</label>
-                        <input type="text" id="input-username" className="form-control form-control-alternative" />
+                        <label className="form-control-label " style={{fontSize:"20px"}} htmlFor="input-username">First Name</label>
+                       <div>
+                           Rahul 
+                       </div>
                       </div>
                     </div>
                     <div className="col-lg-6">
                       <div className="form-group">
                         <label className="form-control-label" htmlFor="input-email">Last Name</label>
-                        <input type="email" id="input-email" className="form-control form-control-alternative"/>
+                      
                       </div>
                     </div>
                   </div>
@@ -121,13 +123,13 @@ export const Profile = () => {
                     <div className="col-lg-6">
                       <div className="form-group focused">
                         <label className="form-control-label" htmlFor="input-first-name"> User Name</label>
-                        <input type="text" id="input-first-name" className="form-control form-control-alternative" />
+                        
                       </div>
                     </div>
                     <div className="col-lg-6">
                       <div className="form-group focused">
                         <label className="form-control-label" htmlFor="input-last-name">Email Address</label>
-                        <input type="text" id="input-last-name" className="form-control form-control-alternative"/>
+                       
                       </div>
                     </div>
                   </div>
@@ -141,7 +143,7 @@ export const Profile = () => {
                     <div className="col-md-8">
                       <div className="form-group focused">
                         <label className="form-control-label" htmlFor="input-address">Address</label>
-                        <input id="input-address" className="form-control form-control-alternative" type="text"/>
+                        
                       </div>
                     </div>
                   </div>
@@ -149,14 +151,14 @@ export const Profile = () => {
                     <div className="col-lg-4">
                       <div className="form-group focused">
                         <label className="form-control-label" htmlFor="input-city">Phone Number</label>
-                        <input type="number" id="input-city" className="form-control form-control-alternative" />
+                      
                       </div>
                     </div>
                     
                     <div className="col-lg-4">
                       <div className="form-group">
                         <label className="form-control-label" htmlFor="input-country">Email</label>
-                        <input type="text" id="input-postal-code" className="form-control form-control-alternative" />
+                     
                       </div>
                     </div>
                   </div>
@@ -172,20 +174,20 @@ export const Profile = () => {
                     <div className="col-lg-4">
                       <div className="form-group focused">
                         <label className="form-control-label" htmlFor="input-city">Charity Id</label>
-                        <input type="number" id="input-city" className="form-control form-control-alternative" />
+                     
                       </div>
                     </div>
                     
                     <div className="col-lg-4">
                       <div className="form-group">
                         <label className="form-control-label" htmlFor="input-country">Time Stamp</label>
-                        <input type="text" id="input-postal-code" className="form-control form-control-alternative" />
+                       
                       </div>
                     </div>
                     <div className="col-lg-4">
                       <div className="form-group">
                         <label className="form-control-label" htmlFor="input-country">Amount</label>
-                        <input type="text" id="input-postal-code" className="form-control form-control-alternative" />
+                        
                       </div>
                     </div>
                   </div>
