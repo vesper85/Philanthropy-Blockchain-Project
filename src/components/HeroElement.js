@@ -1,16 +1,16 @@
 import React from 'react'
 
-export default function HeroElement() {
+export default function HeroElement(props) {
+    const {title, description, previousWork, goal, fundsRaised} = props;
 
     return (
-        
         // section-1 charity info
         <div className="container my-5">
             <div style={{marginBottom:"80px", marginTop:"80px"}}>
                 <div className="row featurette my-5 p-2">
                     <div className="col-md-7">
-                        <h2 className="featurette-heading">First featurette heading. </h2>
-                        <p className="lead"> Some great placeholder content for the first featurette here. Imagine some exciting prose here. Some great placeholder content for the first featurette here. Imagine some exciting prose here. </p>
+                        <h2 className="featurette-heading">{title}</h2>
+                        <p className="lead hero-ele-charity-description">{description}</p>
                     </div>
                     <div className="col-md-5">
                         <img className="mx-auto" src="https://source.unsplash.com/440x420/?charity"/>
@@ -22,7 +22,7 @@ export default function HeroElement() {
             <div className="container my-5" >
                 <div className="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
                     <div className="col-lg-7 p-3 p-lg-5 pt-lg-3">
-                        <h2 className="lh-1"> Heading</h2>
+                        <h2 className="lh-1">Some Statistics</h2>
                         <p className="lead">Quickly design and customize responsive mobile-first sites with Bootstrap.</p>
                         <div className="row">
                             <div className="details-container col-lg-4 ">
@@ -63,9 +63,6 @@ export default function HeroElement() {
                     </div>
                 </div>
             </div>
-
-            
-
         </div>
     )
 }

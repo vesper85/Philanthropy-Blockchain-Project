@@ -51,9 +51,7 @@ function App() {
           <Route exact path="/charityform">
             <CharityForm/>
           </Route>
-          <Route exact path="/charitydetails">
-            <CharityDetails/>
-          </Route>
+          <Route exact path="/charitydetails" component={CharityDetails} />
         </Switch>
       </Router>
       </UserState>

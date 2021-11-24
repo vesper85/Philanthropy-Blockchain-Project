@@ -10,6 +10,9 @@ const charitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    previousWork: {
+        type: String
+    },
     cause: {
         type: String,
         required: true

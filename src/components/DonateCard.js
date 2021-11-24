@@ -9,7 +9,7 @@ const DonateCard = (props) => {
         <>
         <div className="col card-content mb-5">
             <div className="card h-100">
-                <Link to="/charitydetails" >
+                <Link to={{pathname:"/charitydetails", state:props}} >
                     <img src={coverImg} className="card-img-top" alt="this is an image"/>
                     <div className="card-body">
                         <p className="card-title">{title}</p>

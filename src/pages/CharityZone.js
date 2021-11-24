@@ -79,6 +79,7 @@ const CharityZone = (props) => {
                                 key={card._id}
                                 title={card.charityName}
                                 description={card.description}
+                                previousWork={card.previousWork}
                                 goal={card.goal}
                                 fundsRaised={card.fundsRaised}
                             />
