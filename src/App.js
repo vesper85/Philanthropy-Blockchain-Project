@@ -14,6 +14,7 @@ import { Registration } from './pages/Registration';
 import {EditProfile} from './pages/EditProfile'
 import EditCharityForm from './components/EditCharityForm';
 import CharityDetails from './pages/CharityDetails'
+import {Profile} from './pages/Profile'
 
 
 function App() {
@@ -54,6 +55,9 @@ function App() {
           </Route>
           <Route exact path="/charitydetails">
             <CharityDetails/>
+          </Route>
+          <Route exact path="/profile">
+            <Profile/>
           </Route>
         </Switch>
       </Router>
