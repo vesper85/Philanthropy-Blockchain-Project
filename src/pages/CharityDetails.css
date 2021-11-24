@@ -19,3 +19,7 @@
 .hero-ele-charity-description {
     margin-top: 1em;
 }
+
+.charity-details-admin-buttons {
+    justify-content: flex-end!important;
+}

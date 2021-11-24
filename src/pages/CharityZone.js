@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import DonateCard from '../components/DonateCard';
 import Map from '../components/Map'
 import './Home.css'
 import './Charityzone.css'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import CharityForm from './CharityForm';
+import { Link } from 'react-router-dom';
 //import react from 'react';
 
 const CharityZone = (props) => {
@@ -69,19 +69,22 @@ const CharityZone = (props) => {
                 <div className="cards-container-title top-0">
                     Philanthropy zone
                 </div>
-                <a className="cards-container-title top-0 add-new-btn" href="/charityform">
+                <Link to={{pathname:"/charityform", state:{button_name:"Add New"}}} className="cards-container-title top-0 add-new-btn">
                     Add New Charity
-                </a>
+                </Link>
                 <div className=" row row-cols-1 row-cols-md-3 g-4 mx-0 justify-content-evenly card-container gx-5">
                     {
                         allCardsInfo.map(card => (
                             <DonateCard
-                                key={card._id}
+                                id={card._id}
                                 title={card.charityName}
                                 description={card.description}
                                 previousWork={card.previousWork}
                                 goal={card.goal}
                                 fundsRaised={card.fundsRaised}
+                                cause={card.cause}
+                                city={card.city}
+                                state={card.state}
                             />
                         ))
                     }{' '}

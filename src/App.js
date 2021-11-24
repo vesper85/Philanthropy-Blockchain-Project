@@ -49,9 +49,7 @@ function App() {
           <Route exact path="/editprofile">
             <EditProfile useScrollToTop={useScrollToTop} />
           </Route>
-          <Route exact path="/charityform">
-            <CharityForm/>
-          </Route>
+          <Route exact path="/charityform" component={CharityForm} />
           <Route exact path="/charitydetails" component={CharityDetails} />
           <Route exact path="/profile">
             <Profile/>

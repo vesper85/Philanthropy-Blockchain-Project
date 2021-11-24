@@ -21,6 +21,14 @@ const charitySchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
+    },
     fundsRaised: {
         type: Number,
         default: 0

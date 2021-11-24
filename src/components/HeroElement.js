@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 export default function HeroElement(props) {
     const {title, description, previousWork, goal, fundsRaised} = props;
@@ -55,13 +56,19 @@ export default function HeroElement(props) {
             <div  style={{marginTop:"100px"}}>
                 <div className="row featurette my-5">
                     <div className="col-md-7 order-md-2">
-                        <h2 className="featurette-heading">Some more information </h2>
-                        <p className="lead"> Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+                        <h2 className="featurette-heading">Some Notable Work</h2>
+                        <p className="lead">{previousWork}</p>
                     </div>
                     <div className="col-md-5 order-md-1">
                         <img src="https://source.unsplash.com/440x420/?charity,help"/>
                     </div>
                 </div>
+            </div>
+
+            {/* Admin Buttons */}
+            <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 charity-details-admin-buttons">
+                <Link to={{pathname:"/charityform", state:{button_name:"update", info:props}}} type="button" className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Update</Link>
+                <Link to="/" type="button" className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Delete</Link>
             </div>
         </div>
     )
