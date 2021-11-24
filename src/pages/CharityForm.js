@@ -6,7 +6,7 @@ import './CharityForm.css'
 export default function CharityForm(props) {
     const history = useHistory();
     const event = props.location.state.button_name
-    const info = props.location.state.info || null
+    const info = props.location.state.info
 
     const [credentialCharity, setCredentialCharity] = useState({
         charityName:info.title || "", 

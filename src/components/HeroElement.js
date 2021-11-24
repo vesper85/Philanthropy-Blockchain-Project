@@ -1,8 +1,27 @@
 import React from 'react'
+import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 
 export default function HeroElement(props) {
-    const {title, description, previousWork, goal, fundsRaised} = props;
+    const {id, title, description, previousWork, goal, fundsRaised} = props;
+    const history = useHistory()
+
+    const deleteCharity = async() => {
+        try {
+            const url = "http://localhost:5000/api/charity/deletecharity/" + id
+            const response = await fetch(url,
+                {
+                    method: 'DELETE', 
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+            history.go(-1)
+        } catch (error) {
+            console.error(error.message)
+        }
+    }
 
     return (
         // section-1 charity info
@@ -68,7 +87,7 @@ export default function HeroElement(props) {
             {/* Admin Buttons */}
             <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 charity-details-admin-buttons">
                 <Link to={{pathname:"/charityform", state:{button_name:"update", info:props}}} type="button" className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Update</Link>
-                <Link to="/" type="button" className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Delete</Link>
+                <button onClick={deleteCharity} type="button" className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Delete</button>
             </div>
         </div>
     )

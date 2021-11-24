@@ -69,7 +69,7 @@ const CharityZone = (props) => {
                 <div className="cards-container-title top-0">
                     Philanthropy zone
                 </div>
-                <Link to={{pathname:"/charityform", state:{button_name:"Add New"}}} className="cards-container-title top-0 add-new-btn">
+                <Link to={{pathname:"/charityform", state:{button_name:"Add New", info:{title:"", description:"", previousWork:"", goal:0, fundsRaised:0, cause:"", city:"", state:""}}}} className="cards-container-title top-0 add-new-btn">
                     Add New Charity
                 </Link>
                 <div className=" row row-cols-1 row-cols-md-3 g-4 mx-0 justify-content-evenly card-container gx-5">
