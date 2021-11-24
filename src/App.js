@@ -14,6 +14,7 @@ import { Registration } from './pages/Registration';
 import {EditProfile} from './pages/EditProfile'
 import CharityForm from './pages/CharityForm';
 import CharityDetails from './pages/CharityDetails'
+import {Profile} from './pages/Profile'
 
 function App() {
   const useScrollToTop = () => {
@@ -52,6 +53,9 @@ function App() {
             <CharityForm/>
           </Route>
           <Route exact path="/charitydetails" component={CharityDetails} />
+          <Route exact path="/profile">
+            <Profile/>
+          </Route>
         </Switch>
       </Router>
       </UserState>
