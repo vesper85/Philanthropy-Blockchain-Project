@@ -14,7 +14,7 @@ const Login = () => {
   const [credentialSignUp, setcredentialSignUp] = useState({email:"",username:"", password:"", rpassword:"", address:"", firstname:"", lastname:"", phoneno:"", age:""})
   
   const context = useContext(userContext);
-  const {globalCredentials, setglobalCredentials,setloggedIn} = context;
+  const { setglobalCredentials,setloggedIn} = context;
   
   const history = useHistory();
   

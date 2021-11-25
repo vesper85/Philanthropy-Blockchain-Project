@@ -9,7 +9,7 @@ export const Registration = () => {
   const history = useHistory();
 
   const context = useContext(userContext);
-  const {globalCredentials, setglobalCredentials} = context;
+  const {globalCredentials} = context;
 
   const [credentialSignUp, setcredentialSignUp] = useState({email:globalCredentials.email,username:globalCredentials.username, password:globalCredentials.password, rpassword:globalCredentials.rpassword, address:"", firstname:"", lastname:"", phoneNumber:"", age:""});
   const onChangeSignUp = (e)=>{
@@ -20,6 +20,7 @@ export const Registration = () => {
     e.preventDefault();
     try {
       const url = "http://localhost:5000/api/user/createuser"
+      /*eslint no-unused-vars:*/
       const response = await fetch(url,
         {
           method: 'POST', 

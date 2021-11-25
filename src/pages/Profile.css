@@ -100,6 +100,9 @@
     margin-bottom: .5rem;
     color: #32325d;
   }
+  .main-content >.h3{
+    font-size: 0.1rem;
+  }
   
   .main-content .display-2 {
     font-size: 2.75rem;
@@ -319,8 +322,8 @@
 
   .main-content .btn-info {
     color: #fff;
-    border-color: #11cdef;
-    background-color: #11cdef;
+    border-color: #00ffc3;
+    background-color: #00ffc3;
     box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
   }
   
