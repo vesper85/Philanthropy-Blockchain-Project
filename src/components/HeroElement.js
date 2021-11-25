@@ -3,12 +3,14 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 
 export default function HeroElement(props) {
+    // eslint-disable-next-line
     const {id, title, description, previousWork, goal, fundsRaised} = props;
     const history = useHistory()
 
     const deleteCharity = async() => {
         try {
-            const url = "http://localhost:5000/api/charity/deletecharity/" + id
+            const url = "http://localhost:5000/api/charity/deletecharity/" + id;
+            //eslint-disable-next-line
             const response = await fetch(url,
                 {
                     method: 'DELETE', 
@@ -33,7 +35,7 @@ export default function HeroElement(props) {
                         <p className="lead hero-ele-charity-description">{description}</p>
                     </div>
                     <div className="col-md-5">
-                        <img className="mx-auto" src="https://source.unsplash.com/440x420/?charity"/>
+                        <img className="mx-auto" src="https://source.unsplash.com/440x420/?charity" alt="unsplash" />
                     </div>
                 </div>
             </div>
@@ -79,7 +81,7 @@ export default function HeroElement(props) {
                         <p className="lead">{previousWork}</p>
                     </div>
                     <div className="col-md-5 order-md-1">
-                        <img src="https://source.unsplash.com/440x420/?charity,help"/>
+                        <img src="https://source.unsplash.com/440x420/?charity,help" alt="unsplash"  />
                     </div>
                 </div>
             </div>

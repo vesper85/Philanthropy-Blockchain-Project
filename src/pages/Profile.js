@@ -1,18 +1,19 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import './Profile.css';
-import { useState, useContext, useEffect } from 'react';
+import {  useContext, useEffect } from 'react';
 import userContext from '../context/User/userContext';
 import { Link } from 'react-router-dom';
 
 export const Profile = () => {
   const context = useContext(userContext);
-  const { getProfileInfo, userProfile, setuserProfile, profileImg } = context;
+  const { getProfileInfo, userProfile, profileImg } = context;
   const { firstname, lastname, username, address, age, phoneNumber, email } =
     userProfile;
 
   useEffect(() => {
     getProfileInfo();
+	// eslint-disable-next-line
   }, []);
 
   return (

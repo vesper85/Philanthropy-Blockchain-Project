@@ -13,19 +13,25 @@ const DonateCard = (props) => {
     const [progress, setProgress] = useState(0);
     const [image, setImage] = useState(coverImg)
 
-    useEffect(async() => {
+    useEffect(() => {
+        getCardInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const getCardInfo = async() => {
         let goalProgress = (fundsRaised / goal) * 100
         setProgress(goalProgress)
         let imgLoaded = await getDownloadURL( ref(firebaseStorage, `charitycover/${title}`))
         setImage(imgLoaded);
-    }, [])
+    }
 
+let progressc = "50";
     return (
         <>
         <div className="col card-content mb-5">
             <div className="card h-100">
                 <Link to={{pathname:"/charitydetails", state:props}} >
-                    <img src={image} className="card-img-top" alt="this is an image"/>
+                    <img src={image} className="card-img-top" alt="profileIMG"/>
                     <div className="card-body">
                         <p className="card-title">{title}</p>
                         <p className="card-text">{description.substring(0,115) + "...."}</p>
@@ -37,7 +43,7 @@ const DonateCard = (props) => {
                     {/* Progress bar */}
                     <div>
                         <div className="progress my-1">
-                            <div className="progress-bar w-50" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100">{progress}%</div>
+                            <div className="progress-bar" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100" id="customP" style={{width:`${progressc + "%"}`}}>{progress}%</div>
                         </div>
                         <p className="card-text "><small className="text-muted">INR {fundsRaised} (฿ 0.0008) raised of INR {goal} goal</small></p>
                     </div>

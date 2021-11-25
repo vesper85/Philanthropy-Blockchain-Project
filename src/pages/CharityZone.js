@@ -11,11 +11,16 @@ import { Link } from 'react-router-dom';
 const CharityZone = (props) => {
 
     props.useScrollToTop();
-    const [state, setstate] = useState('Delhi');
+    const [Istate, setIstate] = useState('Delhi');
     const [allCardsInfo, setAllCardsInfo] = useState([]);
-    const [filterState, setfilterState] = useState([])
+    //eslint-disable-next-line
 
-    useEffect(async() => {
+    useEffect(() => {
+        getAllCharities();
+    }, [])
+
+
+   const  getAllCharities = async() => {
         try {
             const url = "http://localhost:5000/api/charity/fetchallcharities"
             const response = await fetch(url, {
@@ -31,41 +36,28 @@ const CharityZone = (props) => {
         } catch(error) {
             console.log(error)
         }
-    }, [])
+    }
+
+        
 
     const [coords, setcoords] = useState({
         xcoords:170,
         ycoords:153
     })
+
     
     const handleOnClick = (e) => {
         if(e.target.getAttribute("title")) {
+            setIstate(e.target.getAttribute("title"))
             let x = e.pageX - 17.3 -50  ;
             let y = e.pageY - 74 - 53.8 - 15;
             setcoords({xcoords:x,ycoords:y})
-            setstate(e.target.getAttribute("title"))
+
             
         }
     }
 
-    const filterByState = async (e) => {
-        try {
-            const url = "http://localhost:5000/api/charity/fetchcharities";
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'accept':'application/json',
-                    'state':state
-                }
-            });
-            const data = await response.json();
-            setfilterState(data);
-        } catch(error) {
-            console.log(error)
-        }
-    }
-    
+  
 
     return (
         <>   
@@ -73,9 +65,17 @@ const CharityZone = (props) => {
 
             <div className="mapContainer">
                 <Map coords={coords} handleOnClick={handleOnClick}  /> 
-                <h3 className="mapState">{state}</h3>
-                <div className="mapStateContainer">
-                    {"No charities available in the region"}
+                <div className="mapStateContainer text-center">
+                <h3 className="mapState">{Istate}</h3>
+                    <div className="mt-4 text-center " id="filterCharityWrapper">
+                    {
+                        allCardsInfo.map((state,idx,arr) => (
+                
+                             <p key={idx} className="text-start">{state.state === Istate ? idx+1 + " : " + state.charityName:""}</p>
+                        )) 
+                    }{' '}
+                      
+                    </div>
                 </div>  
             </div>
                 <div className="filler_map"></div>

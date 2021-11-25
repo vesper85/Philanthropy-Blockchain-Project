@@ -3,7 +3,7 @@ import userContext from './userContext'
 //initialize firebase instances
 import { initializeApp } from "firebase/app";
 import firebaseConfig from '../../config/firebaseConfig';
-import { getStorage, ref, uploadBytes,getDownloadURL } from "firebase/storage";
+import { getStorage, ref,getDownloadURL } from "firebase/storage";
 
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseStorage = getStorage(firebaseApp);

@@ -51,6 +51,7 @@ export default function CharityForm(props) {
         try {
             if(event === "Add New") {
                 const url = "http://localhost:5000/api/charity/createcharity"
+                //eslint-disable-next-line
                 const response = await fetch(url,
                     {
                         method: 'POST', 
@@ -73,7 +74,8 @@ export default function CharityForm(props) {
             }
             else if(event === "update") {
                 console.log(credentialCharity)
-                const url = "http://localhost:5000/api/charity/updatecharity/" + info.id
+                const url = "http://localhost:5000/api/charity/updatecharity/" + info.id;
+                //eslint-disable-next-line
                 const response = await fetch(url,
                     {
                         method: 'PUT', 

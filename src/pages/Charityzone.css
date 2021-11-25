@@ -17,7 +17,7 @@
     --athens-gray: #f7f8fa;
   }
   
-
+ 
 
 /* Map styles */
 .mapContainer {
@@ -46,9 +46,15 @@
     margin-top: 5rem;
     color: white;
 }
+.mapStateContainer {
+    transform: translateX(-200px);
+}
 
 
-
+/* filter charity  */
+#filterCharityWrapper{
+    color: white;
+}
   
 /* Map Filler */
 .filler_map{
