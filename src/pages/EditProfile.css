@@ -79,7 +79,7 @@
 }
 
 
-input[type="file"] {
+.editProfileContainer input[type="file"] {
   display: none;
 }
 .custom-file-upload {

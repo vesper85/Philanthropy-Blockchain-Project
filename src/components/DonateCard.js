@@ -2,14 +2,22 @@ import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
 import coverImg from './sample/india_flood.jpeg'
 import status from './sample/status.svg'
+import { initializeApp } from "firebase/app";
+import firebaseConfig from '../config/firebaseConfig';
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 const DonateCard = (props) => {
+    const firebaseApp = initializeApp(firebaseConfig);
+    const firebaseStorage = getStorage(firebaseApp);
     const {title, description, goal, fundsRaised} = props;
     const [progress, setProgress] = useState(0);
+    const [image, setImage] = useState(coverImg)
 
     useEffect(async() => {
         let goalProgress = (fundsRaised / goal) * 100
         setProgress(goalProgress)
+        let imgLoaded = await getDownloadURL( ref(firebaseStorage, `charitycover/${title}`))
+        setImage(imgLoaded);
     }, [])
 
     return (
@@ -17,7 +25,7 @@ const DonateCard = (props) => {
         <div className="col card-content mb-5">
             <div className="card h-100">
                 <Link to={{pathname:"/charitydetails", state:props}} >
-                    <img src={coverImg} className="card-img-top" alt="this is an image"/>
+                    <img src={image} className="card-img-top" alt="this is an image"/>
                     <div className="card-body">
                         <p className="card-title">{title}</p>
                         <p className="card-text">{description.substring(0,115) + "...."}</p>
