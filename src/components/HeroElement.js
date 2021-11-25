@@ -78,8 +78,8 @@ export default function HeroElement(props) {
             <div className="container hero-container">
                 <div className="row my-5">
                     <div className="col-lg-7 col-md-7 order-2">
-                        <h2 className="featurette-heading">Some more information </h2>
-                        <p className="lead"> Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+                        <h2 className="featurette-heading">Some Notable Work </h2>
+                        <p className="lead">{previousWork}</p>
                     </div>
                     <div className="col-lg-5 col-md-5 order-1">
                         <img  className="hero-img" src="https://source.unsplash.com/440x420/?charity,help" />
