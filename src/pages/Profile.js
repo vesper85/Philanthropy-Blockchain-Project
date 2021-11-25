@@ -1,14 +1,29 @@
 import React from 'react'
 import Navbar from '../components/Navbar';
 import './Profile.css';
+import { useState,useContext,useEffect } from 'react';
+import userContext from '../context/User/userContext';
 
 export const Profile = () => {
+
+  const context = useContext(userContext);
+  const { getProfileInfo,userProfile, setuserProfile,profileImg } = context;
+  const {firstname, lastname,username, address, age, phoneNumber, email} = userProfile;
+
+  useEffect(() => {
+    getProfileInfo();
+    
+  }, [])
+
+
+  
     return (
 	<>
 	<Navbar/>
     <div className="main-content">
 		{/* <!-- Header --> */}
-		<div className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style={{minHeight: "600px" , backgroundImage: "url(https://www.jattdisite.com/wp-content/uploads/2016/03/Night-Abstract-Facebook-Timeline-Profile-Cover-1.jpg)", backgroundSize: "cover", backgroundPosition: "center top"}}>
+		<div className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style={{minHeight: "600px" , backgroundSize: "cover", backgroundPosition: "center top"}} id="triangleBackground">
+    <span class="Triangle" id="animatedTriangle"></span>
 
 			{/* <!-- Mask --> */}
 			<span className="mask bg-gradient-default opacity-8"></span>
@@ -17,7 +32,7 @@ export const Profile = () => {
 			<div className="container-fluid d-flex align-items-center">
 				<div className="row">
 					<div className="col-lg-7 col-md-10">
-					<h1 className="display-2 text-white">Hello Jesse</h1>
+					<h1 className="display-2 text-white">{firstname + " " + lastname}</h1>
 					<p className="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
 					<a href="/" className="btn btn-info">Edit profile</a>
 					</div>
@@ -34,7 +49,7 @@ export const Profile = () => {
 							<div className="col-lg-3 order-lg-2">
 								<div className="card-profile-image">
 									<a href="/">
-									<img  src="https://www.pngitem.com/pimgs/m/287-2876223_no-profile-picture-available-hd-png-download.png" alt = "image" className="rounded-circle"/>
+									<img  src={profileImg || "https://www.pngitem.com/pimgs/m/287-2876223_no-profile-picture-available-hd-png-download.png"} alt = "profimage" className="rounded-circle"/>
 									</a>
 								</div>
 							</div>
@@ -95,16 +110,18 @@ export const Profile = () => {
 								<div className="row">
 								<div className="col-lg-6">
 									<div className="form-group focused">
-									<label className="form-control-label " style={{fontSize:"20px"}} htmlFor="input-username">First Name</label>
-									<div>
-										Rahul 
-									</div>
+									<label className="form-control-label "  htmlFor="input-username">First Name</label>
+                  <div>
+									<small className="form-text text-muted">{firstname}</small>
+                  </div>
 									</div>
 								</div>
 								<div className="col-lg-6">
 									<div className="form-group">
 									<label className="form-control-label" htmlFor="input-email">Last Name</label>
-									
+                  <div>
+                  <small className="form-text text-muted">{lastname}</small>
+                  </div>
 									</div>
 								</div>
 								</div>
@@ -112,13 +129,17 @@ export const Profile = () => {
 								<div className="col-lg-6">
 									<div className="form-group focused">
 									<label className="form-control-label" htmlFor="input-first-name"> User Name</label>
-									
+									<div>
+                  <small className="form-text text-muted">{username}</small>
+                  </div>
 									</div>
 								</div>
 								<div className="col-lg-6">
 									<div className="form-group focused">
 									<label className="form-control-label" htmlFor="input-last-name">Email Address</label>
-									
+									<div>
+                  <small className="form-text text-muted">{email}</small>
+                  </div>
 									</div>
 								</div>
 								</div>
@@ -132,7 +153,9 @@ export const Profile = () => {
 								<div className="col-md-8">
 									<div className="form-group focused">
 									<label className="form-control-label" htmlFor="input-address">Address</label>
-									
+									<div>
+                  <small className="form-text text-muted">{address}</small>
+                  </div>
 									</div>
 								</div>
 								</div>
@@ -140,7 +163,9 @@ export const Profile = () => {
 								<div className="col-lg-4">
 									<div className="form-group focused">
 									<label className="form-control-label" htmlFor="input-city">Phone Number</label>
-									
+									<div>
+                  <small className="form-text text-muted">{phoneNumber}</small>
+                  </div>
 									</div>
 								</div>
 								
