@@ -5,10 +5,8 @@ const router = express.Router()
 //fetchallcharities get
 router.get('/fetchallcharities', async(req, res) => {
     try {
-
-    console.log("/fetchallcharities route")
-    let allCharaties = await Charity.find();
-    res.json(allCharaties);
+        let allCharaties = await Charity.find();
+        res.json(allCharaties);
     } catch(error) {
         console.log(error);
     }
@@ -16,7 +14,6 @@ router.get('/fetchallcharities', async(req, res) => {
 
 //createcharity post
 router.post('/createcharity', async(req, res) => {
-    console.log("/createcharity route")
     try {
         let charity = await Charity.findOne({charityName: req.body.charityName})
         if(charity) {
@@ -34,7 +31,6 @@ router.post('/createcharity', async(req, res) => {
 
 //updatecharity put
 router.put('/updatecharity/:id', async(req, res) => {
-    console.log("/updatecharity route")
     try {
         let charity = await Charity.findById(req.params.id)
         if(!charity) {
@@ -50,7 +46,6 @@ router.put('/updatecharity/:id', async(req, res) => {
 
 //deletecharity delete
 router.delete('/deletecharity/:id', async(req, res) => {
-    console.log("/deletecharity route")
     try {
         let charity = await Charity.findById(req.params.id)
         if(!charity) {

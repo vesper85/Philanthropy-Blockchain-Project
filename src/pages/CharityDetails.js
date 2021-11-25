@@ -8,11 +8,15 @@ import HeroElement from '../components/HeroElement'
 
 export default function CharityDetails(props) {
 
+    const id = props.location.state.id
     const description = props.location.state.description
     const title = props.location.state.title
     const previousWork = props.location.state.previousWork
     const goal = props.location.state.goal
     const fundsRaised = props.location.state.fundsRaised
+    const city = props.location.state.city
+    const state = props.location.state.state
+    const cause = props.location.state.cause
 
     return (
         <div>
@@ -21,11 +25,15 @@ export default function CharityDetails(props) {
             <CharityCarousel/>
 
             <HeroElement 
+                id={id}
                 title={title}
                 description={description}
                 previousWork={previousWork}
                 goal={goal}
                 fundsRaised={fundsRaised}
+                cause={cause}
+                city={city}
+                state={state}
             />
 
             <Footer/>
