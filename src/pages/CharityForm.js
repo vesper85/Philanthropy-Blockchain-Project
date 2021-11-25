@@ -2,11 +2,25 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router';
 import Navbar from '../components/Navbar';
 import './CharityForm.css'
+import cardImage from '../components/sample/india_flood.jpeg'
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../config/firebaseConfig";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function CharityForm(props) {
+    
+    const firebaseApp = initializeApp(firebaseConfig);
+    const firebaseStorage = getStorage(firebaseApp);
+    
     const history = useHistory();
+    
     const event = props.location.state.button_name
     const info = props.location.state.info
+    let imgFlag = true
+
+    if(event === "Add New") {
+        imgFlag = false
+    }
 
     const [credentialCharity, setCredentialCharity] = useState({
         charityName:info.title || "", 
@@ -19,11 +33,17 @@ export default function CharityForm(props) {
         imageURL:info.imageURL || "", 
         externalURL:info.externalURL || ""
     })
+
+    const [img, setImg] = useState(cardImage)
     
-    const onChangeCharity = (e) => {
+    const onChangeCharity = async(e) => {
         setCredentialCharity({
             ...credentialCharity, [e.target.name]: e.target.value
         })
+        if(imgFlag) {
+            let imgLoaded = await getDownloadURL( ref(firebaseStorage, `charitycover/${info.title}`))
+            setImg(imgLoaded);
+        }
     }
 
     const onSubmitCharity = async (e) => {
@@ -74,7 +94,21 @@ export default function CharityForm(props) {
                     }
                 );
             }
+            let imgRef = ref(firebaseStorage, `charitycover/${credentialCharity.charityName}`);
+                uploadBytes(imgRef, img).then(() => {
+                console.log('image Uploaded!');
+                imgFlag = true
+            });
             history.go(-1)
+        } catch (error) {
+            console.error(error.message)
+        }
+    }
+
+    const imageHandler = (e) => {
+        try {
+            let file = e.target.files[0];
+            setImg(file);
         } catch (error) {
             console.error(error.message)
         }
@@ -117,17 +151,20 @@ export default function CharityForm(props) {
                                 <span className="details">Goal</span>
                                 <input type="number" name="goal" placeholder="Enter goal amount" defaultValue={info.goal || ""} required />
                             </div>
+                            <div className="input-box" style={{width:"100%"}}>
+                                <span className="details">Stats</span>
+                                <textarea  type="text" name="stats" rows="3" placeholder="Enter Three Stats" defaultValue={info.stats || ""} style={{fontSize:"13px"}}></textarea>
+                            </div>
                             <div className="input-box">
-                                <span className="details">Image url</span>
-                                <input type="url" name="imageURL" placeholder="Enter Image url" defaultValue={info.imageURL || ""}/>
+                                <div className="details">Image url</div>
+                                <label htmlFor="img-upload" className="custom-file-upload">
+                                    <i className="fa fa-cloud-upload"></i>  Upload Images
+                                </label>
+                                <input id="img-upload" accept="image/*" name="imageURL" type="file" onChange={imageHandler} style={{display:"none"}}/>
                             </div>
                             <div className="input-box">
                                 <span className="details">External url</span>
                                 <input type="url" name="externalURL" placeholder="Enter External url" defaultValue={info.externalURL || ""}/>
-                            </div>
-                            <div className="input-box" style={{width:"100%"}}>
-                                <span className="details">Stats</span>
-                                <textarea  type="text" name="stats" rows="3" placeholder="Enter Three Stats" defaultValue={info.stats || ""} style={{fontSize:"13px"}}></textarea>
                             </div>
                         </div>
                         <div className="button">
