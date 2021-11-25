@@ -13,6 +13,7 @@ const CharityZone = (props) => {
     props.useScrollToTop();
     const [state, setstate] = useState('Delhi');
     const [allCardsInfo, setAllCardsInfo] = useState([]);
+    const [filterState, setfilterState] = useState([])
 
     useEffect(async() => {
         try {
@@ -42,17 +43,40 @@ const CharityZone = (props) => {
             let x = e.pageX - 17.3 -50  ;
             let y = e.pageY - 74 - 53.8 - 15;
             setcoords({xcoords:x,ycoords:y})
-            setstate(e.target.getAttribute("title")) 
+            setstate(e.target.getAttribute("title"))
+            
+        }
+    }
+
+    const filterByState = async (e) => {
+        try {
+            const url = "http://localhost:5000/api/charity/fetchcharities";
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accept':'application/json',
+                    'state':state
+                }
+            });
+            const data = await response.json();
+            setfilterState(data);
+        } catch(error) {
+            console.log(error)
         }
     }
     
+
     return (
         <>   
             <Navbar/>
 
             <div className="mapContainer">
                 <Map coords={coords} handleOnClick={handleOnClick}  /> 
-                <h3 className="mapState">{state}</h3>   
+                <h3 className="mapState">{state}</h3>
+                <div className="mapStateContainer">
+                    {"No charities available in the region"}
+                </div>  
             </div>
                 <div className="filler_map"></div>
             {/* SVG background */}

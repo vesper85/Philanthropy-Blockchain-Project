@@ -12,6 +12,17 @@ router.get('/fetchallcharities', async(req, res) => {
     }
 })
 
+// Route 2 fetch charity from db using id of the charity  GET"api/charity/fetchcharity" 
+router.get('/fetchcharity', async(req, res) => {
+    try {
+        let charity = await Charity.findById(req.header('state'));
+        res.json(charity);
+    } catch(error) {
+        console.log(error);
+    }
+})
+
+
 //createcharity post
 router.post('/createcharity', async(req, res) => {
     try {
