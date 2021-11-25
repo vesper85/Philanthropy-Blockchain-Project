@@ -40,10 +40,6 @@ export default function CharityForm(props) {
         setCredentialCharity({
             ...credentialCharity, [e.target.name]: e.target.value
         })
-        if(imgFlag) {
-            let imgLoaded = await getDownloadURL( ref(firebaseStorage, `charitycover/${info.title}`))
-            setImg(imgLoaded);
-        }
     }
 
     const onSubmitCharity = async (e) => {
