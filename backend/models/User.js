@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
     company:{
         type:String,
     },
+    superUser:{
+        type:Boolean,
+        default:false
+    },
     donationMade:{
         type:[{
             charityId:{

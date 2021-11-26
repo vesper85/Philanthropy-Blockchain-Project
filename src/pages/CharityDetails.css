@@ -1,8 +1,32 @@
+.carousel-container{
+    /* width: 100%; */
+    text-align: center;
+    margin-top: 3.96rem;
+}
+
+.hero-container{
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+}
+
+.hero-ele-charity-description {
+    margin-top: 1em;
+}
+
+.hero-img{
+    width: 100%;
+}
+
+.hero-text{
+    text-align: center;
+    text-align: justify;
+}
+
 .details-container{
-    width: 11rem;
+    width: 100%;
     /* margin: 0.2rem; */
-    padding-left: 1rem;
-    padding-right: 1rem;
+    /* padding-left: 1rem;
+    padding-right: 1rem; */
 }
 
 .details-title{
@@ -11,7 +35,13 @@
 
 .details-text{
     display: block;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
     text-align: justify;
+}
+
+@media only screen and (min-width: 576px){
+    .charity-details-admin-buttons {
+        justify-content: flex-end!important;
+    }
   }

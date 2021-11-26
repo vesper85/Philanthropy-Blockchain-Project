@@ -22,7 +22,7 @@ const Footer = () => {
                         <h5 className="font-weight-bold">Contact</h5>
                         <div className="footer-line mb-3"></div>
                         <p>2125, Some Street, Any City, Maharashtra, India</p>
-                        <p>companyname@email.com</p>
+                        <p>gocharity@abc.com</p>
                         <p>+91 830 889 3558</p>
                         <p>+01 335 633 77</p>
                     </div>

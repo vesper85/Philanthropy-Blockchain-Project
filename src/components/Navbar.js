@@ -46,7 +46,7 @@ const Navbar = () => {
                             <Link className={`nav-link mx-3 ${location.pathname==="/login" ?"active":""}`}  to="/login">Login</Link>
                         </li>
                         <li className={`${loggedIn ? "nav-item": "d-none "}`}>
-                            <Link className={`nav-link mx-3 ${location.pathname==="/editprofile" ?"active":""}`}  to="/editprofile">Profile</Link>
+                            <Link className={`nav-link mx-3 ${location.pathname==="/profile" ?"active":""}`}  to="/profile">Profile</Link>
                         </li>
                         <li className={`${loggedIn ? "d-none": "nav-item mx-3 text-center"}`}>
                             <Link className={`btn px-3 `} id="auth-btn" to="/login">Signup</Link>

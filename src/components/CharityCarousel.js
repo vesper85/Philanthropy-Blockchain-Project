@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function CharityCarousel() {
     return (
-        <div >
-            <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+        <div className="carousel-container" >
+            <div id="carouselExampleIndicators" className="carousel slide " data-bs-ride="carousel" >
                 <div className="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -11,13 +11,13 @@ export default function CharityCarousel() {
                 </div>
                 <div className="carousel-inner">
                     <div className="carousel-item active">
-                        <img src="https://source.unsplash.com/1600x700/?nature" className="d-block w-100" alt="..." />
+                        <img src="https://source.unsplash.com/1326x550/?nature" className="d-block w-100" alt="..." />
                     </div>
                     <div className="carousel-item">
-                        <img src="https://source.unsplash.com/1600x700/?charity" className="d-block w-100" alt="..." />
+                        <img src="https://source.unsplash.com/1326x550/?charity" className="d-block w-100" alt="..." />
                     </div>
                     <div className="carousel-item">
-                        <img src="https://source.unsplash.com/1600x700/?help" className="d-block w-100" alt="..." />
+                        <img src="https://source.unsplash.com/1326x550/?help" className="d-block w-100" alt="..." />
                     </div>
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

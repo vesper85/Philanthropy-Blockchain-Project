@@ -1,20 +1,29 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import DonateCard from '../components/DonateCard';
 import Map from '../components/Map'
 import './Home.css'
 import './Charityzone.css'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import CharityForm from './CharityForm';
+import { Link } from 'react-router-dom';
 //import react from 'react';
 
 const CharityZone = (props) => {
 
+    //state declaration
     props.useScrollToTop();
-    const [state, setstate] = useState('Delhi');
+    const [Istate, setIstate] = useState('Delhi');
     const [allCardsInfo, setAllCardsInfo] = useState([]);
+    const [mapFilter, setmapFilter] = useState("ALL")
+    //eslint-disable-next-line
 
-    useEffect(async() => {
+    useEffect(() => {
+        console.log("charityzone useEffect triggred");
+        getAllCharities();
+    }, [])
+
+
+   const  getAllCharities = async() => {
         try {
             const url = "http://localhost:5000/api/charity/fetchallcharities"
             const response = await fetch(url, {
@@ -30,29 +39,67 @@ const CharityZone = (props) => {
         } catch(error) {
             console.log(error)
         }
-    }, [])
+    }
+
+        
 
     const [coords, setcoords] = useState({
         xcoords:170,
         ycoords:153
     })
+
     
     const handleOnClick = (e) => {
         if(e.target.getAttribute("title")) {
+            setIstate(e.target.getAttribute("title"))
             let x = e.pageX - 17.3 -50  ;
             let y = e.pageY - 74 - 53.8 - 15;
             setcoords({xcoords:x,ycoords:y})
-            setstate(e.target.getAttribute("title")) 
+            setmapFilter(e.target.getAttribute("title"))
         }
     }
-    
+
+    const cardFilter = (state)=>{
+        if(mapFilter === "ALL")
+        {
+            return true;
+        }
+        else{
+            if(mapFilter === state)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    const clearFilter = ()=>{
+        setmapFilter("ALL");
+    }
+        
+
+  
+
     return (
         <>   
             <Navbar/>
 
             <div className="mapContainer">
                 <Map coords={coords} handleOnClick={handleOnClick}  /> 
-                <h3 className="mapState">{state}</h3>   
+                <div className="mapStateContainer text-center">
+                <h3 className="mapState">{mapFilter}</h3>
+                    <div className="mt-4 text-center " id="filterCharityWrapper">
+                    {
+                        allCardsInfo.filter(card =>{
+                            return cardFilter(card.state);
+                        }).map((state,idx,arr) => (
+                
+                             <p key={idx} className="text-start">{" >  " + state.charityName}</p>
+                        )) 
+                    }{' '}
+                      
+                    </div>
+                </div>  
             </div>
                 <div className="filler_map"></div>
             {/* SVG background */}
@@ -69,18 +116,26 @@ const CharityZone = (props) => {
                 <div className="cards-container-title top-0">
                     Philanthropy zone
                 </div>
-                <a className="cards-container-title top-0 add-new-btn" href="/charityform">
+                <Link to={{pathname:"/charityform", state:{button_name:"Add New", info:{title:"", description:"", previousWork:"", goal:0, fundsRaised:0, cause:"", city:"", state:""}}}} className="cards-container-title top-0 add-new-btn">
                     Add New Charity
-                </a>
+                </Link>
+                <button className="clear-btn top-0 end-0  add-new-btn" onClick={clearFilter}> clear filter</button>
                 <div className=" row row-cols-1 row-cols-md-3 g-4 mx-0 justify-content-evenly card-container gx-5">
                     {
-                        allCardsInfo.map(card => (
+                        allCardsInfo.filter(card =>{
+                            return cardFilter(card.state);
+                        }).map(card => (
                             <DonateCard
-                                key={card._id}
+                                key={card._id + "5"}
+                                id={card._id}
                                 title={card.charityName}
                                 description={card.description}
+                                previousWork={card.previousWork}
                                 goal={card.goal}
                                 fundsRaised={card.fundsRaised}
+                                cause={card.cause}
+                                city={card.city}
+                                state={card.state}
                             />
                         ))
                     }{' '}

@@ -10,12 +10,23 @@ const charitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    previousWork: {
+        type: String
+    },
     cause: {
         type: String,
         required: true
     },
     goal: {
         type: Number,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
         required: true
     },
     fundsRaised: {
