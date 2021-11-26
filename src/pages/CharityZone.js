@@ -16,6 +16,7 @@ const CharityZone = (props) => {
     //eslint-disable-next-line
 
     useEffect(() => {
+        console.log("charityzone useEffect triggred");
         getAllCharities();
     }, [])
 
@@ -71,7 +72,7 @@ const CharityZone = (props) => {
                     {
                         allCardsInfo.map((state,idx,arr) => (
                 
-                             <p key={idx} className="text-start">{state.state === Istate ? idx+1 + " : " + state.charityName:""}</p>
+                             <p key={idx} className="text-start">{state.state === Istate ?  " >    " + state.charityName:""}</p>
                         )) 
                     }{' '}
                       
