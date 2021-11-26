@@ -28,7 +28,7 @@ const DonateCard = (props) => {
 let progressc = "50";
     return (
         <>
-        <div className="col card-content mb-5">
+        <div className={`col card-content mb-5`}>
             <div className="card h-100">
                 <Link to={{pathname:"/charitydetails", state:props}} >
                     <img src={image} className="card-img-top" alt="profileIMG"/>

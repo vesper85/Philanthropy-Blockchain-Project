@@ -10,9 +10,11 @@ import { Link } from 'react-router-dom';
 
 const CharityZone = (props) => {
 
+    //state declaration
     props.useScrollToTop();
     const [Istate, setIstate] = useState('Delhi');
     const [allCardsInfo, setAllCardsInfo] = useState([]);
+    const [mapFilter, setmapFilter] = useState("ALL")
     //eslint-disable-next-line
 
     useEffect(() => {
@@ -53,10 +55,28 @@ const CharityZone = (props) => {
             let x = e.pageX - 17.3 -50  ;
             let y = e.pageY - 74 - 53.8 - 15;
             setcoords({xcoords:x,ycoords:y})
-
-            
+            setmapFilter(e.target.getAttribute("title"))
         }
     }
+
+    const cardFilter = (state)=>{
+        if(mapFilter === "ALL")
+        {
+            return true;
+        }
+        else{
+            if(mapFilter === state)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    const clearFilter = ()=>{
+        setmapFilter("ALL");
+    }
+        
 
   
 
@@ -67,12 +87,14 @@ const CharityZone = (props) => {
             <div className="mapContainer">
                 <Map coords={coords} handleOnClick={handleOnClick}  /> 
                 <div className="mapStateContainer text-center">
-                <h3 className="mapState">{Istate}</h3>
+                <h3 className="mapState">{mapFilter}</h3>
                     <div className="mt-4 text-center " id="filterCharityWrapper">
                     {
-                        allCardsInfo.map((state,idx,arr) => (
+                        allCardsInfo.filter(card =>{
+                            return cardFilter(card.state);
+                        }).map((state,idx,arr) => (
                 
-                             <p key={idx} className="text-start">{state.state === Istate ?  " >    " + state.charityName:""}</p>
+                             <p key={idx} className="text-start">{" >  " + state.charityName}</p>
                         )) 
                     }{' '}
                       
@@ -97,9 +119,12 @@ const CharityZone = (props) => {
                 <Link to={{pathname:"/charityform", state:{button_name:"Add New", info:{title:"", description:"", previousWork:"", goal:0, fundsRaised:0, cause:"", city:"", state:""}}}} className="cards-container-title top-0 add-new-btn">
                     Add New Charity
                 </Link>
+                <button className="clear-btn top-0 end-0  add-new-btn" onClick={clearFilter}> clear filter</button>
                 <div className=" row row-cols-1 row-cols-md-3 g-4 mx-0 justify-content-evenly card-container gx-5">
                     {
-                        allCardsInfo.map(card => (
+                        allCardsInfo.filter(card =>{
+                            return cardFilter(card.state);
+                        }).map(card => (
                             <DonateCard
                                 key={card._id + "5"}
                                 id={card._id}

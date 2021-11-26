@@ -120,6 +120,16 @@
     color:#04053e;
 }
 
+.clear-btn{
+    position: absolute;
+    margin: 4rem 2rem;
+    font-size: 0.75em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: none;
+    background-color: var(--athens-gray);
+}
+
 
 /* Section 2 card container wrapper */
 .card-conatiner-warpper{
