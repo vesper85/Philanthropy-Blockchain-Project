@@ -20,7 +20,7 @@ export const Profile = () => {
     <>
       <Navbar />
       <div className="main-content">
-        {/* <!-- Header --> */}
+        {/* <!-- Header --> */} 
         <div
           className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
           style={{
@@ -30,7 +30,16 @@ export const Profile = () => {
           }}
           id="triangleBackground"
         >
-          <span className="Triangle" id="animatedTriangle"></span>
+          <span className="Triangle" id="ATriangle1"></span>
+          <span className="Triangle" id="ATriangle2"></span>
+          <span className="Triangle" id="ATriangle3"></span>
+          <span className="Triangle" id="ATriangle4"></span>
+          <span className="Triangle" id="ATriangle5"></span>
+          <span className="Triangle" id="ATriangle6"></span>
+          <span className="Triangle" id="ATriangle7"></span>
+          <span className="Triangle" id="ATriangle8"></span>
+          <span className="Triangle" id="ATriangle9"></span>
+          <span className="Triangle" id="ATriangle10"></span>
 
           {/* <!-- Mask --> */}
           <span className="mask bg-gradient-default opacity-8"></span>
@@ -55,7 +64,7 @@ export const Profile = () => {
         </div>
 
         {/* <!-- Page content --> */}
-        <div className="container-fluid mt--7">
+        <div className="container-fluid mt--7" id="profileInfoWrapper">
           <div className="row">
             <div className="col-xl-4 order-xl-2 mb-5 mb-xl-0">
               <div className="card card-profile shadow rounded-0">

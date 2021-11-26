@@ -12,7 +12,7 @@ const CharityZone = (props) => {
 
     //state declaration
     props.useScrollToTop();
-    const [Istate, setIstate] = useState('Delhi');
+
     const [allCardsInfo, setAllCardsInfo] = useState([]);
     const [mapFilter, setmapFilter] = useState("ALL")
     //eslint-disable-next-line
@@ -51,7 +51,6 @@ const CharityZone = (props) => {
     
     const handleOnClick = (e) => {
         if(e.target.getAttribute("title")) {
-            setIstate(e.target.getAttribute("title"))
             let x = e.pageX - 17.3 -50  ;
             let y = e.pageY - 74 - 53.8 - 15;
             setcoords({xcoords:x,ycoords:y})
