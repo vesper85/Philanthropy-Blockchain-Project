@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router';
 import Navbar from '../components/Navbar';
 import './CharityForm.css'
@@ -40,10 +40,6 @@ export default function CharityForm(props) {
         setCredentialCharity({
             ...credentialCharity, [e.target.name]: e.target.value
         })
-        if(imgFlag) {
-            let imgLoaded = await getDownloadURL( ref(firebaseStorage, `charitycover/${info.title}`))
-            setImg(imgLoaded);
-        }
     }
 
     const onSubmitCharity = async (e) => {
@@ -116,6 +112,17 @@ export default function CharityForm(props) {
         }
     }
 
+    const loadImg = async() => {
+        if(imgFlag) {
+            let imgLoaded = await getDownloadURL(ref(firebaseStorage, `charitycover/${info.title}`))
+            setImg(imgLoaded)
+        }
+    }
+
+    useEffect(() => {
+        loadImg()
+    }, []) 
+
     return (
     <>
         <Navbar/>
@@ -179,3 +186,6 @@ export default function CharityForm(props) {
     </>
     )
 }
+
+// Issue 1: When you add new charity - if quickly go to zone page - it tries to load image from firebase when it is not even completely uploaded on firebase - results in default image being loaded and red warning in console
+// Issue 2: When update/delete charity - firebase info does not update

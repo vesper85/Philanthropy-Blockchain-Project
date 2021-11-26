@@ -43,7 +43,7 @@ let progressc = "50";
                     {/* Progress bar */}
                     <div>
                         <div className="progress my-1">
-                            <div className="progress-bar" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100" id="customP" style={{width:`${progressc + "%"}`}}>{progress}%</div>
+                            <div className="progress-bar" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100" style={{width:`${progress+'%'}`}}>{progress}%</div>
                         </div>
                         <p className="card-text "><small className="text-muted">INR {fundsRaised} (฿ 0.0008) raised of INR {goal} goal</small></p>
                     </div>

@@ -4,8 +4,8 @@
 *{
     margin: 0px;
     padding:0px ;
-  }
-  :root{
+}
+:root {
     --color-primary:#28283D;
     --color-secondary:#fff;
     --deep-cove: #04053e;
@@ -15,9 +15,8 @@
     --dull-turquoise:#04E3AE;
     --royal-blue: #5a33e9;
     --athens-gray: #f7f8fa;
-  }
-  
- 
+}  
+
 
 /* Map styles */
 .mapContainer {
@@ -64,8 +63,6 @@
 }
 
 
-
-
 /* SVG background 2 */
 .svg_background_2{
     position: relative;
@@ -101,7 +98,7 @@
 /* card container title */
 .cards-container-title{
     position: absolute;
-    margin: 8rem 2rem;
+    margin: 4rem 2rem;
     font-size: 1em;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -127,7 +124,7 @@
 /* Section 2 card container wrapper */
 .card-conatiner-warpper{
     position: relative;
-    padding: 15em 2em;
+    padding: 11em 2em 4em 2em;
     width: 100%;
     height: 100%;
     background-color: var(--athens-gray);
