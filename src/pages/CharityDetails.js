@@ -22,7 +22,9 @@ export default function CharityDetails(props) {
         <div>
             <Navbar/>
 
-            <CharityCarousel/>
+            <CharityCarousel
+                title={title}
+            />
 
             <HeroElement 
                 id={id}

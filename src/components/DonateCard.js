@@ -24,8 +24,7 @@ const DonateCard = (props) => {
         let imgLoaded = await getDownloadURL( ref(firebaseStorage, `charitycover/${title}`))
         setImage(imgLoaded);
     }
-
-let progressc = "50";
+    
     return (
         <>
         <div className={`col card-content mb-5`}>

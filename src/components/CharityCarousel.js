@@ -1,6 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import defaultImg from './sample/flood.jpg'
+import { initializeApp } from "firebase/app";
+import firebaseConfig from '../config/firebaseConfig';
+import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
 
-export default function CharityCarousel() {
+export default function CharityCarousel(props) {
+
+    const firebaseApp = initializeApp(firebaseConfig);
+    const firebaseStorage = getStorage(firebaseApp);
+
+    const [imagesArray, setImage] = useState([defaultImg])
+    const { title } = props
+
+    const getImages = async() => {
+        // Create a reference under which you want to list
+        const listRef = ref(firebaseStorage, `charityimages/${title}`);
+        const imArray = []
+        // Find all the prefixes and items.
+        listAll(listRef)
+        .then((res) => {
+            res.items.forEach((itemRef) => {
+                imArray.push(getDownloadURL(itemRef))
+            });
+            setImage(imArray)
+            console.log(imagesArray)
+        }).catch((error) => {
+            console.error(error)
+        });
+    }
+    
+    useEffect(() => {
+        // getImages()
+    }, [])
+
     return (
         <div className="carousel-container" >
             <div id="carouselExampleIndicators" className="carousel slide " data-bs-ride="carousel" >
@@ -29,7 +61,6 @@ export default function CharityCarousel() {
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
-
         </div>
     )
 }
