@@ -159,6 +159,13 @@
     background-color: var(--athens-gray);
     padding: 1rem;
 }
+
+.card-img-top{
+    background-size: contain;
+    height: 35vh;
+    max-height: 40vh;
+    /*filter: blur(10px);*/
+}
 /* Progress bar */
 .progress-bar{
     background-color: var(--royal-blue);
