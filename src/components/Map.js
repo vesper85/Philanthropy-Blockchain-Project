@@ -4,7 +4,7 @@ import * as React from "react"
 function Map(props) {
 
   return (
-    
+    <div className="Container-fluid">
     <svg
       xmlnsmapsvg="http://mapsvg.com"
       xmlnsdc="http://purl.org/dc/elements/1.1/"
@@ -209,6 +209,7 @@ function Map(props) {
       <use xlinkHref="#markerIcon" x={props.coords.xcoords} id="marker"  y={props.coords.ycoords} width="35" height="54"  className="hoverRED" fill={props.fill} />
       
     </svg>
+    </div>
   )
 }
 

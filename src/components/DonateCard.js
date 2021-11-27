@@ -51,12 +51,12 @@ const DonateCard = (props) => {
 
                     {/* Status card */}
                     <div className="status-card">
-                        <div className="card mb-3" >
+                        <div className="card mb-3">
                             <div className="row g-0">
-                                <div className="col-md-3 text-center align-self-center status-card-img">
+                                <div className="col-md-3 col-sm-3 col-xs-3 text-center align-self-center status-card-img">
                                     <img src={status} className="img-fluid rounded-start" alt="..."/>
                                 </div>
-                                    <div className="col-md-9">
+                                    <div className="col-md-9 col-sm-9 col-xs-9">
                                     <div className=" status-card-body">
                                         <p className=" status-card-status">Status</p>
                                         <p className="card-text current-status">Active</p>
