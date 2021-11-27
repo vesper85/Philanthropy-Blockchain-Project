@@ -258,3 +258,9 @@
 a {
     text-decoration: none;
 }
+
+.charity-carousel-image {
+    max-height: 85vh;
+    min-height: 45vh;
+    aspect-ratio: 1.5;
+}

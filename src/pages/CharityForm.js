@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router';
 import Navbar from '../components/Navbar';
 import './CharityForm.css'
@@ -17,13 +17,9 @@ export default function CharityForm(props) {
     
     const event = props.location.state.button_name
     const info = props.location.state.info
-    let coverImgFlag = true
-    let charityImgsFlag = true
-
-    if(event === "Add New") {
-        coverImgFlag = false
-        charityImgsFlag = false
-    }
+    
+    let coverImageUpload = false
+    let charityImgsUpdate = false
 
     const [credentialCharity, setCredentialCharity] = useState({
         charityName:info.title || "", 
@@ -99,18 +95,20 @@ export default function CharityForm(props) {
                     }
                 );
             }
-            let coverImgRef = ref(firebaseStorage, `charitycover/${credentialCharity.charityName}`);
+            if(coverImageUpload) {
+                let coverImgRef = ref(firebaseStorage, `charitycover/${credentialCharity.charityName}`);
                 uploadBytes(coverImgRef, img).then(() => {
-                console.log('cover image Uploaded!');
-                coverImgFlag = true
-            });
-
-            for(let i=0; i<charityImages.length; i++) {
-                let charityImgsRef = ref(firebaseStorage, `charityimages/${credentialCharity.charityName}/${i}`);
-                uploadBytes(charityImgsRef, charityImages[i]).then(() => {
-                    console.log('images Uploaded!');
-                    charityImgsFlag = true
+                    console.log('cover image Uploaded!');
                 });
+            }
+            
+            if(charityImgsUpdate) {
+                for(let i=0; i<charityImages.length; i++) {
+                    let charityImgsRef = ref(firebaseStorage, `charityimages/${credentialCharity.charityName}/${i}`);
+                    uploadBytes(charityImgsRef, charityImages[i]).then(() => {
+                        console.log('images Uploaded!');
+                    });
+                }
             }
             
             history.go(-1)
@@ -123,16 +121,9 @@ export default function CharityForm(props) {
         try {
             let file = e.target.files[0];
             setImg(file);
+            coverImageUpload = true
         } catch (error) {
             console.error(error.message)
-        }
-    }
-
-    const loadcoverImg = async() => {
-        //If there is an image then only load it
-        if(coverImgFlag) {
-            let imgLoaded = await getDownloadURL(ref(firebaseStorage, `charitycover/${info.title}`))
-            setImg(imgLoaded)
         }
     }
 
@@ -143,34 +134,13 @@ export default function CharityForm(props) {
             for(let i=0; i<length; i++) {
                 let file = e.target.files[i]
                 imageArray.push(file)
+                charityImgsUpdate = true
             }
             setCharityImages(imageArray)
         } catch(err) {
             console.error(err.message)
         }
-    }
-
-    const loadCharityImages = async() => {
-        // Create a reference under which you want to list
-        const listRef = ref(firebaseStorage, `charityimages/${credentialCharity.charityName}`);
-        const imArray = []
-        // Find all the prefixes and items.
-        listAll(listRef)
-        .then((res) => {
-            res.items.forEach((itemRef) => {
-                imArray.push(getDownloadURL(itemRef))
-            });
-            setCharityImages(imArray)
-        }).catch((error) => {
-            console.error(error)
-        });
-        
-    }
-
-    useEffect(() => {
-        loadcoverImg()
-        loadCharityImages()
-    }, []) 
+    } 
 
     return (
     <>

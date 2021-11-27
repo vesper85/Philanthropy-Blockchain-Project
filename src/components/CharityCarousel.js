@@ -9,28 +9,26 @@ export default function CharityCarousel(props) {
     const firebaseApp = initializeApp(firebaseConfig);
     const firebaseStorage = getStorage(firebaseApp);
 
-    const [imagesArray, setImage] = useState([defaultImg])
+    const [url, setUrl] = useState([defaultImg])
     const { title } = props
 
     const getImages = async() => {
         // Create a reference under which you want to list
         const listRef = ref(firebaseStorage, `charityimages/${title}`);
-        const imArray = []
         // Find all the prefixes and items.
         listAll(listRef)
         .then((res) => {
-            res.items.forEach((itemRef) => {
-                imArray.push(getDownloadURL(itemRef))
-            });
-            setImage(imArray)
-            console.log(imagesArray)
+            let promises = res.items.map((imageRef) => getDownloadURL(imageRef))
+            Promise.all(promises).then((urls) => {
+                setUrl(urls)
+            })
         }).catch((error) => {
             console.error(error)
         });
     }
     
     useEffect(() => {
-        // getImages()
+        getImages()
     }, [])
 
     return (
@@ -42,7 +40,7 @@ export default function CharityCarousel(props) {
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <div className="carousel-inner">
-                    <div className="carousel-item active">
+                    {/* <div className="carousel-item active">
                         <img src="https://source.unsplash.com/1326x550/?nature" className="d-block w-100" alt="..." />
                     </div>
                     <div className="carousel-item">
@@ -50,7 +48,29 @@ export default function CharityCarousel(props) {
                     </div>
                     <div className="carousel-item">
                         <img src="https://source.unsplash.com/1326x550/?help" className="d-block w-100" alt="..." />
+                    </div> */}
+                    
+                    <div className="carousel-item active">
+                        <img src={url[0]} className="d-block w-100 charity-carousel-image" alt="..." />
                     </div>
+                    <div className="carousel-item">
+                        <img src={url[1]} className="d-block w-100 charity-carousel-image" alt="..." />
+                    </div>
+                    <div className="carousel-item">
+                        <img src={url[2]} className="d-block w-100 charity-carousel-image" alt="..." />
+                    </div>
+
+                    {/* {
+                        url.map((imurl, idx, url) => 
+                            // return <img src={url.urlLink} key={index} alt="images" style={{width:"100%", height:"auto"}}/>
+                            // console.log(imurl)
+                            (
+                                <div className="carousel-item">
+                                    <img src={url[idx]} className="d-block w-100 charity-carousel-image" alt="..." />
+                                </div>
+                            )
+                        )
+                    } {' '} */}
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
