@@ -4,7 +4,7 @@ import * as React from "react"
 function Map(props) {
 
   return (
-    <div className="Container-fluid">
+    <div className="Container-fluid map" id="map-1">
     <svg
       xmlnsmapsvg="http://mapsvg.com"
       xmlnsdc="http://purl.org/dc/elements/1.1/"

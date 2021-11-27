@@ -6,6 +6,7 @@ import './Charityzone.css'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
+import Dropdown from '../components/Dropdown';
 //import react from 'react';
 
 const CharityZone = (props) => {
@@ -86,7 +87,10 @@ const CharityZone = (props) => {
             <div className="mapContainer">
                 <Map coords={coords} handleOnClick={handleOnClick}  /> 
                 <div className="mapStateContainer text-center">
-                <h3 className="mapState">{mapFilter}</h3>
+                <div className="dropdown-container align-items-center" id="dd-1">
+                    <Dropdown />
+                </div>
+                <h3 className="mapState" id="map-2">{mapFilter}</h3>
                     <div className="mt-4 text-center " id="filterCharityWrapper">
                     {
                         allCardsInfo.filter(card =>{

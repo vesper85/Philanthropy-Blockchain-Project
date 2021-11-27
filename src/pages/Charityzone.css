@@ -264,3 +264,33 @@ a {
     min-height: 45vh;
     aspect-ratio: 1.5;
 }
+
+.map{
+    padding: 0em;
+}
+
+.dropdown-container{
+    padding: 0em;
+    visibility: hidden;
+}
+
+@media only screen and (max-width:576px){
+    #map-1{
+        display: none;
+    }
+}
+
+@media only screen and (max-width:576px){
+    #dd-1{
+        visibility: inherit;
+        transform: translateX(200px);
+    }
+}
+
+@media only screen and (max-width:576px){
+    #map-2,#filterCharityWrapper{
+        transform: translateX(200px);
+        text-align: center;
+        width: 100%;
+    }
+}
