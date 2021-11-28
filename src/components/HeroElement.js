@@ -1,11 +1,16 @@
 import React from 'react'
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../config/firebaseConfig";
+import { getStorage, ref, deleteObject, listAll } from "firebase/storage";
 
 export default function HeroElement(props) {
     // eslint-disable-next-line
-    const {id, title, description, previousWork, goal, fundsRaised} = props;
+    const {id, title, description, previousWork, goal, fundsRaised} = props
     const history = useHistory()
+    const firebaseApp = initializeApp(firebaseConfig)
+    const firebaseStorage = getStorage(firebaseApp)
 
     const deleteCharity = async() => {
         try {
@@ -19,6 +24,23 @@ export default function HeroElement(props) {
                     }
                 }
             );
+
+            //Delete cover image from firebase storage
+            const delRef = ref(firebaseStorage, `charitycover/${title}`);
+            deleteObject(delRef).then(() => {
+                console.log("cover image deleted from firebase")
+            }).catch((error) => {
+                console.error(error)
+            })
+
+            //Delete carousel images from firebase storage
+            const listRef = ref(firebaseStorage, `charityimages/${title}`);
+            listAll(listRef).then((res) => {
+                res.items.map((imageRef) => deleteObject(imageRef))
+            }).catch((error) => {
+                console.error(error)
+            });
+
             history.go(-1)
         } catch (error) {
             console.error(error.message)

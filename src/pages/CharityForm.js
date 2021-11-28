@@ -64,6 +64,7 @@ export default function CharityForm(props) {
     }
 
     useEffect(() => {
+        // To reflect changes in the state of coverImageUpload and charityImgsUpload
         console.log("update cover image:" + coverImageUpload)
         console.log("update carousel images: " + charityImgsUpload)
     }, [coverImageUpload, charityImgsUpload])
@@ -214,5 +215,4 @@ export default function CharityForm(props) {
     )
 }
 
-// Issue 1: When you add new charity - if quickly go to zone page - it tries to load image from firebase when it is not even completely uploaded on firebase - results in default image being loaded and red warning in console
-// Issue 2: When update/delete charity - firebase info does not update
+// Issue: When you add new charity - if quickly go to zone page - it tries to load image from firebase when it is not even completely uploaded on firebase - results in default image being loaded and red warning in console

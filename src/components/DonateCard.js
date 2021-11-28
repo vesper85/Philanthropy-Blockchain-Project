@@ -20,7 +20,7 @@ const DonateCard = (props) => {
     }, [])
 
     const getCardInfo = async() => {
-        let goalProgress = (fundsRaised / goal) * 100
+        let goalProgress = ((fundsRaised / goal) * 100).toFixed(2)
         setProgress(goalProgress)
         let imgLoaded = await getDownloadURL( ref(firebaseStorage, `charitycover/${title}`))
         setImage(imgLoaded);
