@@ -1,13 +1,18 @@
 import React from 'react'
 
-function Dropdown() {
+function Dropdown(props) {
+    const {mapFilter, setmapFilter} = props;
+    const handleOnClick = (e)=>{
+       setmapFilter(e.target.textContent);
+       console.log(mapFilter);
+    }
     return (
         <div>
             <div className="dropdown">
                 <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                     Filter
                 </button>
-                <ul className="dropdown-menu dropdown-menu-dark" id="dropDownStateList" aria-labelledby="dropdownMenuButton2">
+                <ul className="dropdown-menu dropdown-menu-dark" onClick={handleOnClick} id="dropDownStateList" aria-labelledby="dropdownMenuButton2">
                     <li>Andhra Pradesh</li>
                     <li>Arunachal Pradesh</li>
                     <li>Assam</li>
