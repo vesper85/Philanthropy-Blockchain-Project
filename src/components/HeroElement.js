@@ -26,7 +26,7 @@ export default function HeroElement(props) {
             );
 
             //Delete cover image from firebase storage
-            const delRef = ref(firebaseStorage, `charitycover/${title}`);
+            const delRef = ref(firebaseStorage, `charitycover/${title}`)
             deleteObject(delRef).then(() => {
                 console.log("cover image deleted from firebase")
             }).catch((error) => {

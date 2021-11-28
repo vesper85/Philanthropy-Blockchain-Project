@@ -28,7 +28,6 @@ const DonateCard = (props) => {
     
     return (
         <>
-    
         <div className={`col card-content mb-5`}>
             <div className="card h-100">
                 <Link to={{pathname:"/charitydetails", state:props}} >

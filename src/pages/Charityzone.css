@@ -122,10 +122,17 @@
     height: 0.125rem;
 }
 
-.add-new-btn{
-    margin-left: 20em;
+.add-new-btn{ 
     text-decoration: none;
-    color:#04053e;
+    padding: 0.5em;
+    background-color: #5a33e9;
+    color:#f7f8fa
+}
+
+.add-new-btn-div {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0em 3em;
 }
 
 .clear-btn{
