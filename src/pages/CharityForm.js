@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
 import Navbar from '../components/Navbar';
 import './CharityForm.css'
@@ -6,7 +6,7 @@ import cardImage from '../components/sample/india_flood.jpeg'
 import charityDefaultImage from '../components/sample/flood.jpg'
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../config/firebaseConfig";
-import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 export default function CharityForm(props) {
     
@@ -17,9 +17,6 @@ export default function CharityForm(props) {
     
     const event = props.location.state.button_name
     const info = props.location.state.info
-    
-    let coverImageUpload = false
-    let charityImgsUpdate = false
 
     const [credentialCharity, setCredentialCharity] = useState({
         charityName:info.title || "", 
@@ -35,9 +32,41 @@ export default function CharityForm(props) {
 
     //cover-image
     const [img, setImg] = useState(cardImage)
+    const [coverImageUpload, setCoverImageUpload] = useState(false)
     
     //charity images for carousel
     const [charityImages, setCharityImages] = useState([charityDefaultImage])
+    const [charityImgsUpload, setCharityImgsUpload] = useState(false)
+
+    const coverImageHandler = (e) => {
+        try {
+            let file = e.target.files[0];
+            setImg(file);
+            setCoverImageUpload(true)
+        } catch (error) {
+            console.error(error.message)
+        }
+    }
+
+    const imagesHandler = (e) => {
+        try {
+            let length = e.target.files.length
+            let imageArray = []
+            for(let i=0; i<length; i++) {
+                let file = e.target.files[i]
+                imageArray.push(file)
+            }
+            setCharityImages(imageArray)
+            setCharityImgsUpload(true)
+        } catch(err) {
+            console.error(err.message)
+        }
+    }
+
+    useEffect(() => {
+        console.log("update cover image:" + coverImageUpload)
+        console.log("update carousel images: " + charityImgsUpload)
+    }, [coverImageUpload, charityImgsUpload])
 
     const onChangeCharity = async(e) => {
         setCredentialCharity({
@@ -95,6 +124,7 @@ export default function CharityForm(props) {
                     }
                 );
             }
+
             if(coverImageUpload) {
                 let coverImgRef = ref(firebaseStorage, `charitycover/${credentialCharity.charityName}`);
                 uploadBytes(coverImgRef, img).then(() => {
@@ -102,7 +132,7 @@ export default function CharityForm(props) {
                 });
             }
             
-            if(charityImgsUpdate) {
+            if(charityImgsUpload) {
                 for(let i=0; i<charityImages.length; i++) {
                     let charityImgsRef = ref(firebaseStorage, `charityimages/${credentialCharity.charityName}/${i}`);
                     uploadBytes(charityImgsRef, charityImages[i]).then(() => {
@@ -114,31 +144,6 @@ export default function CharityForm(props) {
             history.go(-1)
         } catch (error) {
             console.error(error.message)
-        }
-    }
-
-    const coverImageHandler = (e) => {
-        try {
-            let file = e.target.files[0];
-            setImg(file);
-            coverImageUpload = true
-        } catch (error) {
-            console.error(error.message)
-        }
-    }
-
-    const imagesHandler = (e) => {
-        try {
-            let length = e.target.files.length
-            let imageArray = []
-            for(let i=0; i<length; i++) {
-                let file = e.target.files[i]
-                imageArray.push(file)
-                charityImgsUpdate = true
-            }
-            setCharityImages(imageArray)
-        } catch(err) {
-            console.error(err.message)
         }
     } 
 
