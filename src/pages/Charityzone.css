@@ -28,6 +28,7 @@
     background-color: var(--color-primary);
     padding: 90px 50px;
     font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
 }
   
 .mapContainer path {
@@ -46,7 +47,10 @@
     color: white;
 }
 .mapStateContainer {
-    transform: translateX(-200px);
+    /*margin-left: 20vw;*/
+    transform: translateX(100px);
+    overflow: hidden;
+    /*align-items: center;*/
 }
 
 
@@ -263,4 +267,89 @@ a {
     max-height: 85vh;
     min-height: 45vh;
     aspect-ratio: 1.5;
+}
+
+.map{
+    padding: 0em;
+}
+
+.dropdown-container{
+    padding: 0em;
+    visibility: hidden;
+}
+
+@media only screen and (max-width:661px){
+    #map-1{
+        display: none;
+    }
+    .mapStateContainer{
+        display:block !important;
+        margin: auto;
+        margin-top: 2rem;
+    }
+    .mapState{
+        margin-top: 2rem;
+    }
+}
+
+@media only screen and (max-width:661px){
+    #dd-1{
+        visibility: inherit;
+        /*transform: translateX(200px);*/
+    }
+}
+/*
+@media only screen and (max-width:576px){
+    #map-2,#filterCharityWrapper{
+        transform: translateX(200px);
+        text-align: center;
+        width: 100%;
+    }
+}*/
+
+@media only screen and (max-width:1170px){
+    .mapStateContainer{
+        /*transform: translateX(200px);*/
+    }
+}
+
+@media only screen and (max-width:1050px){
+    .mapStateContainer{
+        transform: translateX(2vw);
+    }
+}
+@media only screen and (max-width:890px){
+    .mapStateContainer{
+        display: none;
+    }
+}
+@media only screen and (max-width:400px){
+    .card-conatiner-warpper{
+        padding: 11em 0em 4em 0em;
+        
+    }
+}
+
+#dropDownStateList{
+    border-radius: 0%;
+    width: 40vw;
+    font-size: 0.8rem;
+}
+#dropDownStateList::-webkit-scrollbar {
+    width: 2px;
+}
+#dropDownStateList li{
+    padding: 8px;
+}
+
+
+
+#dropdownMenuButton2{
+    border-radius: 0%;
+    width: 40vw;
+}
+
+.dropdown-menu-dark{
+    height: 30vh;
+    overflow-y: scroll;
 }
