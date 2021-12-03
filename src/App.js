@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import './App.css';
 import Home from './pages/Home';
 import {
@@ -15,6 +15,8 @@ import {EditProfile} from './pages/EditProfile'
 import CharityForm from './pages/CharityForm';
 import CharityDetails from './pages/CharityDetails'
 import {Profile} from './pages/Profile'
+import Web3 from 'web3';
+//import truffle from 'truffle'
 
 function App() {
   const useScrollToTop = () => {
@@ -25,7 +27,28 @@ function App() {
      // the window object is a normal DOM object and is safe to use in React.
     }, [location]);
   };
- 
+
+  const [account, setAccount] = useState("");
+
+  async function loadBlockChain() {
+    const web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
+    const network = await web3.eth.net.getNetworkType();
+    console.log(network);
+    const accounts = await web3.eth.getAccounts();
+    setAccount(accounts[0]);
+    console.log(accounts[0]);
+    //console.log(truffle)
+  }
+
+  //const testFunction = ()=>{
+  //  const testContract = 
+  //}
+  
+  useEffect(() => {
+    loadBlockChain();
+  } , []);
+
+  //console.log(account);
   return (
     <div className="App">
       <UserState>
