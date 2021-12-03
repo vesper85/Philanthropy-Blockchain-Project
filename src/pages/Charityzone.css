@@ -23,12 +23,13 @@
     display: flex;
     justify-content: space-between;
     /*margin-left: 50px;*/
+    min-height: 80vh;
     height: fit-content;
     width: 100%;
     background-color: var(--color-primary);
     padding: 90px 50px;
     font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
+    overflow: hidden;
 }
   
 .mapContainer path {
@@ -50,6 +51,9 @@
     /*margin-left: 20vw;*/
     transform: translateX(100px);
     overflow: hidden;
+    min-height: 50vh;
+    
+    /*height: inherit;*/
     /*align-items: center;*/
 }
 
@@ -303,6 +307,10 @@ a {
     #dd-1{
         visibility: inherit;
         /*transform: translateX(200px);*/
+    }
+    .mapStateContainer{
+        font-size: 0.75rem;
+        min-height: 50vh;
     }
 }
 /*

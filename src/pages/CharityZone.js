@@ -88,7 +88,7 @@ const CharityZone = (props) => {
                 <Map coords={coords} handleOnClick={handleOnClick}  /> 
                 <div className="mapStateContainer">
                 <div className="dropdown-container align-items-center" id="dd-1">
-                    <Dropdown />
+                    <Dropdown mapFilter={mapFilter}  setmapFilter={setmapFilter} />
                 </div>
                 <h3 className="mapState" id="map-2">{mapFilter}</h3>
                     <div className="mt-4 " id="filterCharityWrapper">
