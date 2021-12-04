@@ -69,7 +69,6 @@ export default function CharityForm(props) {
         // To reflect changes in the state of coverImageUpload and charityImgsUpload
         console.log("update cover image:" + coverImageUpload)
         console.log("update carousel images: " + charityImgsUpload)
-        loadBlockChain()
     }, [coverImageUpload, charityImgsUpload])
 
     const onChangeCharity = async(e) => {
@@ -163,7 +162,7 @@ export default function CharityForm(props) {
         
         const networkId = await web3.eth.net.getId()
         const networkData = Donations.networks[networkId]
-        console.log(networkId, networkData)
+        // console.log(networkId, networkData)
         
         if(networkData) {
             const donations = new web3.eth.Contract(Donations.abi, networkData.address)
@@ -186,6 +185,10 @@ export default function CharityForm(props) {
             console.log(receipt)
         })
     }
+
+    useEffect(() => {
+        loadBlockChain();
+    }, [])
 
     return (
     <>
