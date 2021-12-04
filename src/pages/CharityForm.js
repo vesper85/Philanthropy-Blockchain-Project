@@ -190,14 +190,14 @@ export default function CharityForm(props) {
                                 <textarea  type="text" name="stats" rows="3" placeholder="Enter Three Stats" defaultValue={info.stats || ""} style={{fontSize:"13px"}}></textarea>
                             </div>
                             <div className="input-box">
-                                <div className="details">Image url</div>
+                                <div className="details">Select Cover Image</div>
                                 <label htmlFor="cover-img-upload" className="custom-file-upload">
                                     <i className="fa fa-cloud-upload"></i>  Upload Cover Image
                                 </label>
                                 <input id="cover-img-upload" accept="image/*" name="imageURL" type="file" onChange={coverImageHandler} style={{display:"none"}}/>
                             </div>
                             <div className="input-box">
-                                <span className="details">External url</span>
+                                <span className="details">Select Charity Images</span>
                                 <label htmlFor="img-upload" className="custom-file-upload">
                                     <i className="fa fa-cloud-upload"></i>  Upload Charity Images
                                 </label>
