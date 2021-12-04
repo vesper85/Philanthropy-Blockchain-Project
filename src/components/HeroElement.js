@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../config/firebaseConfig";
 import { getStorage, ref, deleteObject, listAll } from "firebase/storage";
+import Web3 from 'web3';
+import Donations from '../contracts/Donations.json';
 
 export default function HeroElement(props) {
     // eslint-disable-next-line
@@ -47,6 +49,49 @@ export default function HeroElement(props) {
         }
     }
 
+    // Blockchain Code
+
+    const [account, setAccount] = useState("");
+    const [contract, setContract] = useState(null);
+    const [count, setCount] = useState(0);
+
+    async function loadBlockChain() {
+        const web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
+        
+        const networkId = await web3.eth.net.getId()
+        const networkData = Donations.networks[networkId]
+        console.log(networkId, networkData)
+        
+        if(networkData) {
+            const donations = new web3.eth.Contract(Donations.abi, networkData.address)
+            const charityCount = await donations.methods.count().call()
+            setContract(donations)
+            setCount(charityCount)
+            console.log(charityCount)
+        } else {
+            window.alert('Donations contract not deployed to detected network.')
+        }
+        
+        const accounts = await web3.eth.getAccounts();
+        setAccount(accounts[3]);
+        console.log(accounts[3]);
+    }
+    
+    const makeDonation = (id) => {
+        contract.methods.makeDonation(id).send({from: account, value: Web3.utils.toWei('3', 'Ether'), gas: 1000000})
+        .once('receipt', (receipt) => {
+            console.log(receipt)
+        })
+    }
+
+    const handleDonation = () => {
+        makeDonation(count)
+    }
+
+    useEffect(() => {
+        loadBlockChain()
+    }, [])
+
     return (
         // section-1 charity info
         <div className="container hero-container">
@@ -87,7 +132,7 @@ export default function HeroElement(props) {
                             </div>
                         </div>
                         <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                            <button type="button" className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
+                            <button type="button" onClick={handleDonation} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
                         </div>
                     </div>
                     <div className="col-lg-5 col-md-5 shadow-lg p-2">

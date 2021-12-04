@@ -7,7 +7,6 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 import Dropdown from '../components/Dropdown';
-//import react from 'react';
 
 const CharityZone = (props) => {
 
@@ -19,7 +18,6 @@ const CharityZone = (props) => {
     //eslint-disable-next-line
 
     useEffect(() => {
-        console.log("charityzone useEffect triggred");
         getAllCharities();
     }, [])
 
@@ -42,14 +40,11 @@ const CharityZone = (props) => {
         }
     }
 
-        
-
     const [coords, setcoords] = useState({
         xcoords:170,
         ycoords:153
     })
 
-    
     const handleOnClick = (e) => {
         if(e.target.getAttribute("title")) {
             let x = e.pageX - 17.3 -50  ;
@@ -76,9 +71,6 @@ const CharityZone = (props) => {
     const clearFilter = ()=>{
         setmapFilter("ALL");
     }
-        
-
-  
 
     return (
         <>   
@@ -146,8 +138,6 @@ const CharityZone = (props) => {
                     </Link>
                 </div>
             </section>
-
-            {/* <EditCharityForm button_name="Update"/> */}
 
             <Footer/>
         </>

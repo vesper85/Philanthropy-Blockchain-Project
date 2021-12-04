@@ -16,6 +16,7 @@ import CharityForm from './pages/CharityForm';
 import CharityDetails from './pages/CharityDetails'
 import {Profile} from './pages/Profile'
 import Web3 from 'web3';
+import Donations from './contracts/Donations.json'
 //import truffle from 'truffle'
 
 function App() {
@@ -29,11 +30,29 @@ function App() {
   };
 
   const [account, setAccount] = useState("");
+  const [contract, setContract] = useState(null);
+  const [count, setCount] = useState(0);
 
   async function loadBlockChain() {
     const web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
     const network = await web3.eth.net.getNetworkType();
     console.log(network);
+    
+    const networkId = await web3.eth.net.getId()
+    const networkData = Donations.networks[networkId]
+    console.log(networkId, networkData)
+    
+    if(networkData) {
+      const donations = new web3.eth.Contract(Donations.abi, networkData.address)
+      const charityCount = await donations.methods.count().call()
+      setContract(donations)
+      setCount(charityCount)
+      console.log(charityCount)
+      
+    } else {
+      window.alert('Donations contract not deployed to detected network.')
+    }
+    
     const accounts = await web3.eth.getAccounts();
     setAccount(accounts[0]);
     console.log(accounts[0]);

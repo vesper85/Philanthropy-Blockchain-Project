@@ -25,7 +25,7 @@ const DonateCard = (props) => {
         let imgLoaded = await getDownloadURL( ref(firebaseStorage, `charitycover/${title}`))
         setImage(imgLoaded);
     }
-    
+
     return (
         <>
         <div className={`col card-content mb-5`}>
@@ -67,7 +67,7 @@ const DonateCard = (props) => {
 
                     <div className="w-100">
                         <span className="align-left my-1 mt-3 donate-btn">
-                            <a href="/" className="btn dnt">Donate</a>
+                            <button className="btn dnt">Donate</button>
                         </span>
                     </div>
                 </div>
