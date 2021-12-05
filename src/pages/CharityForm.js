@@ -7,13 +7,8 @@ import charityDefaultImage from '../components/sample/flood.jpg'
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../config/firebaseConfig";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import Web3 from 'web3';
-import Donations from '../contracts/Donations.json';
-import Dropdown from '../components/Dropdown';
 
 export default function CharityForm(props) {
-
-    const [size, setsize] = useState(5)
 
     const firebaseApp = initializeApp(firebaseConfig);
     const firebaseStorage = getStorage(firebaseApp);
@@ -25,6 +20,7 @@ export default function CharityForm(props) {
 
     const [credentialCharity, setCredentialCharity] = useState({
         charityName: info.title || "",
+        walletAddress: info.walletAddress || "",
         description: info.description || "",
         previousWork: info.previousWork || "",
         cause: info.cause || "",
@@ -72,7 +68,6 @@ export default function CharityForm(props) {
         // To reflect changes in the state of coverImageUpload and charityImgsUpload
         console.log("update cover image:" + coverImageUpload)
         console.log("update carousel images: " + charityImgsUpload)
-        loadBlockChain()
     }, [coverImageUpload, charityImgsUpload])
 
     const onChangeCharity = async (e) => {
@@ -95,6 +90,7 @@ export default function CharityForm(props) {
                         },
                         body: JSON.stringify({
                             charityName: credentialCharity.charityName,
+                            walletAddress: credentialCharity.walletAddress,
                             description: credentialCharity.description,
                             previousWork: credentialCharity.previousWork,
                             cause: credentialCharity.cause,
@@ -106,7 +102,6 @@ export default function CharityForm(props) {
                         })
                     }
                 );
-                createCharity(credentialCharity.charityName)
             }
             else if (event === "update") {
                 console.log(credentialCharity)
@@ -155,41 +150,6 @@ export default function CharityForm(props) {
         }
     }
 
-    // Blockchain Code
-
-    const [account, setAccount] = useState("");
-    const [contract, setContract] = useState(null);
-    const [count, setCount] = useState(0);
-
-    async function loadBlockChain() {
-        const web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
-
-        const networkId = await web3.eth.net.getId()
-        const networkData = Donations.networks[networkId]
-        console.log(networkId, networkData)
-
-        if (networkData) {
-            const donations = new web3.eth.Contract(Donations.abi, networkData.address)
-            const charityCount = await donations.methods.count().call()
-            setContract(donations)
-            setCount(charityCount)
-            console.log(charityCount)
-        } else {
-            window.alert('Donations contract not deployed to detected network.')
-        }
-
-        const accounts = await web3.eth.getAccounts();
-        setAccount(accounts[0]);
-        console.log(accounts[0]);
-    }
-
-    const createCharity = (name) => {
-        contract.methods.createCharity(name).send({ from: account, gas: 1000000 })
-            .once('receipt', (receipt) => {
-                console.log(receipt)
-            })
-    }
-
     return (
         <>
             <Navbar />
@@ -206,13 +166,17 @@ export default function CharityForm(props) {
                                 <div className="input-box" style={{ width: "100%" }}>
                                     <span className="details">Cause</span>
                                     <div className="select">
-                                        <select className="form-select select-box select-wrapper"  required>
-                                        <option selected>Select</option>
-                                        <option value="1">Flood</option>
-                                        <option value="2">old aged people</option>
-                                        <option value="3">child</option>
+                                        <select className="form-select select-box select-wrapper" name="cause" defaultValue={info.cause || ""} required>
+                                            <option selected>Select</option>
+                                            <option value="1">Flood</option>
+                                            <option value="2">old aged people</option>
+                                            <option value="3">child</option>
                                         </select>
                                     </div>
+                                </div>
+                                <div className="input-box" style={{ width: "100%" }}>
+                                    <span className="details">Public key</span>
+                                    <input type="text" name="walletAddress" placeholder="Enter Public key for charity's Ethereum wallet" defaultValue={info.walletAddress || ""} required />
                                 </div>
                                 <div className="input-box" style={{ width: "100%" }}>
                                     <span className="details">Description</span>
@@ -228,8 +192,9 @@ export default function CharityForm(props) {
                                 </div>
                                 <div className="input-box">
                                     <span className="details">State</span>
+                                    {/* <input type="text" name="state" placeholder="Enter State" defaultValue={info.state || ""} required /> */}
                                     <div >
-                                        <select className="form-select select-box" required>  
+                                        <select className="form-select select-box" name="state" defaultValue={info.state || ""} required>  
                                             <option selected>Select</option>
                                             <option value="1">Andhra Pradesh</option>
                                             <option value="2">Arunachal Pradesh</option>
@@ -274,16 +239,9 @@ export default function CharityForm(props) {
                                     </label>
                                     <input id="cover-img-upload" accept="image/*" name="imageURL" type="file" onChange={coverImageHandler} style={{ display: "none" }} />
                                 </div>
-                                <div className="input-box">
-                                    <span className="details">Select Charity Images</span>
-                                    <label htmlFor="img-upload" className="custom-file-upload">
-                                        <i className="fa fa-cloud-upload"></i>  Upload Charity Images
-                                    </label>
-                                    <input id="img-upload" accept="image/*" name="imageURL" type="file" onChange={imagesHandler} multiple="multiple" style={{ display: "none" }} />
+                                <div className="button">
+                                    <input type="submit" defaultValue={props.button_name} />
                                 </div>
-                            </div>
-                            <div className="button">
-                                <input type="submit" defaultValue={props.button_name} />
                             </div>
                         </form>
                     </div>

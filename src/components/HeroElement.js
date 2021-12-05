@@ -9,7 +9,7 @@ import Donations from '../contracts/Donations.json';
 
 export default function HeroElement(props) {
     // eslint-disable-next-line
-    const {id, title, description, previousWork, goal, fundsRaised} = props
+    const {id, title, description, previousWork, goal, fundsRaised, walletAddress} = props
     const history = useHistory()
     const firebaseApp = initializeApp(firebaseConfig)
     const firebaseStorage = getStorage(firebaseApp)
@@ -53,43 +53,60 @@ export default function HeroElement(props) {
 
     const [account, setAccount] = useState("");
     const [contract, setContract] = useState(null);
-    const [count, setCount] = useState(0);
-
+    let web3;
     async function loadBlockChain() {
-        const web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
+        //const web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
         
+        
+        if(window.ethereum)
+            {
+                console.log('metamask exists')
+                web3 = new Web3(window.ethereum);
+                await window.ethereum.enable();
+            }
+        else if(window.web3)
+            {
+                web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
+            }
         const networkId = await web3.eth.net.getId()
         const networkData = Donations.networks[networkId]
-        console.log(networkId, networkData)
+        console.log("networkId: ", networkId, "networkData :", networkData)
         
         if(networkData) {
             const donations = new web3.eth.Contract(Donations.abi, networkData.address)
-            const charityCount = await donations.methods.count().call()
             setContract(donations)
-            setCount(charityCount)
-            console.log(charityCount)
         } else {
             window.alert('Donations contract not deployed to detected network.')
         }
-        
         const accounts = await web3.eth.getAccounts();
-        setAccount(accounts[3]);
-        console.log(accounts[3]);
+        setAccount(accounts[0]);
+        console.log("Metamask account Address :", accounts[0]);
     }
     
     const makeDonation = (id) => {
-        contract.methods.makeDonation(id).send({from: account, value: Web3.utils.toWei('3', 'Ether'), gas: 1000000})
-        .once('receipt', (receipt) => {
-            console.log(receipt)
+        let web3js = new Web3(window.web3.currentProvider); 
+        web3js.eth.sendTransaction({
+            from: account,
+            to: walletAddress,
+            value: Web3.utils.toWei('100', 'Ether')
         })
+        .then(function(receipt){
+            console.log(receipt)
+        });
+
+
+        //contract.methods.makeDonation(id).send({from: account, value: Web3.utils.toWei('3', 'Ether'), gas: 1000000})
+        //.once('receipt', (receipt) => {
+        //    console.log(receipt)
+        //})
     }
 
     const handleDonation = () => {
-        makeDonation(count)
+        makeDonation(walletAddress)
     }
 
     useEffect(() => {
-        loadBlockChain()
+        loadBlockChain();
     }, [])
 
     return (
