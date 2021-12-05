@@ -169,6 +169,10 @@
   margin: 1.25em 0em;
 }
 
+.step-heading{
+  width: fit-content;
+}
+
 @media only screen and (max-width: 576px){
   .step-subtitle{
     text-align: center;
@@ -225,7 +229,8 @@
 }
 
 .partners-heading{
-  margin: 1em 0em 0.5em;
+  width: fit-content;
+  /* margin: 1em 0em 0.5em; */
 }
 
 .logo-align{
