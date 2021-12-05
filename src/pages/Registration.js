@@ -11,7 +11,7 @@ export const Registration = () => {
   const context = useContext(userContext);
   const {globalCredentials} = context;
 
-  const [credentialSignUp, setcredentialSignUp] = useState({email:globalCredentials.email,username:globalCredentials.username, password:globalCredentials.password, rpassword:globalCredentials.rpassword, address:"", firstname:"", lastname:"", phoneNumber:"", age:""});
+  const [credentialSignUp, setcredentialSignUp] = useState({email:globalCredentials.email,username:globalCredentials.username, password:globalCredentials.password, rpassword:globalCredentials.rpassword, address:"", firstname:"", lastname:"", phoneNumber:"", age:"",userWallet:""});
   const onChangeSignUp = (e)=>{
     setcredentialSignUp({...credentialSignUp,[e.target.name]:e.target.value})
     //console.log([e.target.name],e.target.value)
@@ -36,7 +36,8 @@ export const Registration = () => {
               firstname:credentialSignUp.firstname,
               lastname:credentialSignUp.lastname,
               phoneNumber:credentialSignUp.phoneNumber,
-              age:credentialSignUp.age
+              age:credentialSignUp.age,
+              userWallet:credentialSignUp.userWallet
             })
         });
         history.go(-2);
@@ -76,6 +77,10 @@ export const Registration = () => {
               <div className="input-box_reg">
                 <span className="details">Company</span>
                 <input type="text" name="company" placeholder="Enter your company name" required />
+              </div>
+              <div className="input-box_reg">
+                <span className="details">Public key</span>
+                <input type="text" name="userWallet" placeholder="Enter your wallet's Public key " required />
               </div>
             </div>
             <div className="gender-details_reg">

@@ -37,6 +37,9 @@ const userSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
+    userWallet:{
+        type:String,
+    },
     donationMade:{
         type:[{
             charityId:{
