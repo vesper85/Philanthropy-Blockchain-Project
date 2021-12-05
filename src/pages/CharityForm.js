@@ -100,7 +100,6 @@ export default function CharityForm(props) {
                         })
                     }
                 );
-                createCharity(credentialCharity.charityName)
             }
             else if(event === "update") {
                 console.log(credentialCharity)
