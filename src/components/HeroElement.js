@@ -9,7 +9,7 @@ import Donations from '../contracts/Donations.json';
 
 export default function HeroElement(props) {
     // eslint-disable-next-line
-    const {id, title, description, previousWork, goal, fundsRaised} = props
+    const {id, title, description, previousWork, goal, fundsRaised, walletAddress} = props
     const history = useHistory()
     const firebaseApp = initializeApp(firebaseConfig)
     const firebaseStorage = getStorage(firebaseApp)
@@ -53,7 +53,6 @@ export default function HeroElement(props) {
 
     const [account, setAccount] = useState("");
     const [contract, setContract] = useState(null);
-    const [count, setCount] = useState(0);
 
     async function loadBlockChain() {
         const web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
@@ -64,10 +63,7 @@ export default function HeroElement(props) {
         
         if(networkData) {
             const donations = new web3.eth.Contract(Donations.abi, networkData.address)
-            const charityCount = await donations.methods.count().call()
             setContract(donations)
-            setCount(charityCount)
-            console.log(charityCount)
         } else {
             window.alert('Donations contract not deployed to detected network.')
         }
@@ -85,7 +81,7 @@ export default function HeroElement(props) {
     }
 
     const handleDonation = () => {
-        makeDonation(count)
+        makeDonation(walletAddress)
     }
 
     useEffect(() => {

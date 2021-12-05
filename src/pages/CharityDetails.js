@@ -17,6 +17,7 @@ export default function CharityDetails(props) {
     const city = props.location.state.city
     const state = props.location.state.state
     const cause = props.location.state.cause
+    const walletAddress = props.location.state.walletAddress
 
     return (
         <div>
@@ -29,6 +30,7 @@ export default function CharityDetails(props) {
             <HeroElement 
                 id={id}
                 title={title}
+                walletAddress={walletAddress}
                 description={description}
                 previousWork={previousWork}
                 goal={goal}

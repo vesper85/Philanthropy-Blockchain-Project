@@ -20,6 +20,7 @@ export default function CharityForm(props) {
 
     const [credentialCharity, setCredentialCharity] = useState({
         charityName:info.title || "", 
+        walletAddress:info.walletAddress || "",
         description:info.description || "", 
         previousWork:info.previousWork || "",
         cause:info.cause || "", 
@@ -89,6 +90,7 @@ export default function CharityForm(props) {
                         },
                         body: JSON.stringify({
                             charityName: credentialCharity.charityName,
+                            walletAddress: credentialCharity.walletAddress,
                             description: credentialCharity.description,
                             previousWork: credentialCharity.previousWork,
                             cause: credentialCharity.cause,
@@ -164,6 +166,10 @@ export default function CharityForm(props) {
                             <div className="input-box" style={{width:"100%"}}>
                                 <span className="details">Cause</span>
                                 <input type="text" name="cause" placeholder="Enter Cause" defaultValue={info.cause || ""} required />
+                            </div>
+                            <div className="input-box" style={{width:"100%"}}>
+                                <span className="details">Public key</span>
+                                <input type="text" name="walletAddress" placeholder="Enter Public key for charity's Ethereum wallet" defaultValue={info.walletAddress || ""} required />
                             </div> 
                             <div className="input-box" style={{width:"100%"}}>
                                 <span className="details">Description</span>
@@ -184,10 +190,6 @@ export default function CharityForm(props) {
                             <div className="input-box" style={{width:"100%"}}>
                                 <span className="details">Goal</span>
                                 <input type="number" name="goal" placeholder="Enter goal amount" defaultValue={info.goal || ""} required />
-                            </div>
-                            <div className="input-box" style={{width:"100%"}}>
-                                <span className="details">Stats</span>
-                                <textarea  type="text" name="stats" rows="3" placeholder="Enter Three Stats" defaultValue={info.stats || ""} style={{fontSize:"13px"}}></textarea>
                             </div>
                             <div className="input-box">
                                 <div className="details">Select Cover Image</div>
