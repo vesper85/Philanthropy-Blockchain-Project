@@ -33,21 +33,10 @@ const charitySchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    imageURLs: {
-        type: [{
-            url: {
-                type: String,
-                default: null
-            }
-        }]
-    },
-    externalLinks: {
-        type: [{
-            url: {
-                type: String,
-                default: null
-            }
-        }]
+    walletAddress: {
+        type: String,
+        unique: true,
+        required: true
     },
     donationHistory: {
         type: [{

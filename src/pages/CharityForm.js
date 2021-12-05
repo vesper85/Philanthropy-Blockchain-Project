@@ -7,8 +7,6 @@ import charityDefaultImage from '../components/sample/flood.jpg'
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../config/firebaseConfig";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import Web3 from 'web3';
-import Donations from '../contracts/Donations.json';
 
 export default function CharityForm(props) {
     
@@ -150,45 +148,6 @@ export default function CharityForm(props) {
             console.error(error.message)
         }
     }
-
-    // Blockchain Code
-    
-    const [account, setAccount] = useState("");
-    const [contract, setContract] = useState(null);
-    const [count, setCount] = useState(0);
-
-    async function loadBlockChain() {
-        const web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
-        
-        const networkId = await web3.eth.net.getId()
-        const networkData = Donations.networks[networkId]
-        // console.log(networkId, networkData)
-        
-        if(networkData) {
-            const donations = new web3.eth.Contract(Donations.abi, networkData.address)
-            const charityCount = await donations.methods.count().call()
-            setContract(donations)
-            setCount(charityCount)
-            console.log(charityCount)
-        } else {
-            window.alert('Donations contract not deployed to detected network.')
-        }
-        
-        const accounts = await web3.eth.getAccounts();
-        setAccount(accounts[0]);
-        console.log(accounts[0]);
-    }
-
-    const createCharity = (name) => {
-        contract.methods.createCharity(name).send({from: account, gas:1000000})
-        .once('receipt', (receipt) => {
-            console.log(receipt)
-        })
-    }
-
-    useEffect(() => {
-        loadBlockChain();
-    }, [])
 
     return (
     <>
