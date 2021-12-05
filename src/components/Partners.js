@@ -12,7 +12,7 @@ const Partners = () => {
     return(
         <div className="partners">
             <div className="container">
-                <h3 className="partners-heading"> Our Partners </h3>
+                <h3 className="partners-heading pb-2 border-bottom border-info"> Our Partners </h3>
                 <div className="partners-content">
                     <div className="row">
                         <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 logo-align">
