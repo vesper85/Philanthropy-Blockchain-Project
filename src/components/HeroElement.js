@@ -60,14 +60,14 @@ export default function HeroElement(props) {
         
         const networkId = await web3.eth.net.getId()
         const networkData = Donations.networks[networkId]
-        console.log(networkId, networkData)
+        console.log("networkId: ", networkId, networkData)
         
         if(networkData) {
             const donations = new web3.eth.Contract(Donations.abi, networkData.address)
             const charityCount = await donations.methods.count().call()
             setContract(donations)
             setCount(charityCount)
-            console.log(charityCount)
+            console.log("charityCount: ",charityCount)
         } else {
             window.alert('Donations contract not deployed to detected network.')
         }

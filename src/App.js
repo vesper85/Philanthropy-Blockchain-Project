@@ -34,7 +34,17 @@ function App() {
   const [count, setCount] = useState(0);
 
   async function loadBlockChain() {
-    const web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
+    let web3;
+    if(window.ethereum)
+    {
+      console.log('metamask exists')
+      web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+    }
+    else if(window.web3)
+    {
+      web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
+    }
     const network = await web3.eth.net.getNetworkType();
     console.log(network);
     
@@ -55,7 +65,7 @@ function App() {
     
     const accounts = await web3.eth.getAccounts();
     setAccount(accounts[0]);
-    console.log(accounts[0]);
+    console.log(accounts);
     //console.log(truffle)
   }
 
