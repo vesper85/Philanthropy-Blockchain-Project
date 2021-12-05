@@ -59,6 +59,7 @@ export default function HeroElement(props) {
         
         const networkId = await web3.eth.net.getId()
         const networkData = Donations.networks[networkId]
+        console.log("networkId: ", networkId, networkData)
         // console.log(networkId, networkData)
         
         if(networkData) {
