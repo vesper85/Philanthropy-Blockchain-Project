@@ -89,8 +89,7 @@ form .input-box span.details_reg{
     border-color: black;
 }
 
-.user-details .input-box textarea:focus,
-.user-details .input-box textarea:valid{
+.user-details .input-box textarea:focus{
      border-color: black;
 }
 
@@ -175,3 +174,26 @@ form .user-details .input-box{
     flex-direction: column;
   }
 }
+
+.select-box{
+    padding: 0.6em;
+    border-radius: 0%;
+    border-color: #ccc;
+}
+
+.select-box:focus{
+    outline: none;
+    box-shadow: none;
+    border-color: black;
+}
+
+.select-container{
+    max-height: 40px;
+}
+
+.select-wrapper{
+    overflow-y: scroll;
+    overflow-x: auto;
+}
+
+

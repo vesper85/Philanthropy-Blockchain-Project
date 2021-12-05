@@ -33,7 +33,7 @@ function Dropdown(props) {
                     <li>Mizoram</li>
                     <li>Nagaland</li>
                     <li>Odisha</li>
-                    <li>Punja</li>
+                    <li>Punjab</li>
                     <li>Rajasthan</li>
                     <li>Sikkim</li>
                     <li>Tamil Nadu</li>
