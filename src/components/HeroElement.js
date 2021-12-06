@@ -57,17 +57,14 @@ export default function HeroElement(props) {
     async function loadBlockChain() {
         //const web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
         
-        
-        if(window.ethereum)
-            {
-                console.log('metamask exists')
-                web3 = new Web3(window.ethereum);
-                await window.ethereum.enable();
-            }
-        else if(window.web3)
-            {
-                web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
-            }
+        if(window.ethereum) {
+            console.log('metamask exists')
+            web3 = new Web3(window.ethereum);
+            await window.ethereum.enable();
+        }
+        else if(window.web3) {
+            web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
+        }
         const networkId = await web3.eth.net.getId()
         const networkData = Donations.networks[networkId]
         console.log("networkId: ", networkId, "networkData :", networkData)
@@ -88,7 +85,7 @@ export default function HeroElement(props) {
         web3js.eth.sendTransaction({
             from: account,
             to: walletAddress,
-            value: Web3.utils.toWei('100', 'Ether')
+            value: Web3.utils.toWei('5', 'Ether')
         })
         .then(function(receipt){
             console.log(receipt)

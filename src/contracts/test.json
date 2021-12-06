@@ -12,8 +12,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.10+commit.fc410830\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"testvar\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/test.sol\":\"test\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/test.sol\":{\"keccak256\":\"0x34236e711b8bb292f8bcbce670e0fdc2482a4d90e93f1bab94eaa0f071b17e33\",\"urls\":[\"bzz-raw://0a9a90eb8e5895e9d2c9b9bb21e149eb29c88c98f85c23cbf2857493037d83d3\",\"dweb:/ipfs/Qmaid5XPHrLzbhxaoJu2tQxJbZdXAEQiKYLypR5dQBYhiR\"]}},\"version\":1}",
@@ -252,19 +251,19 @@
   "sourceMap": "36:48:2:-:0;;;79:1;57:23;;36:48;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "36:48:2:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;57:23;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;;;;:::o;7:77:3:-;44:7;73:5;62:16;;7:77;;;:::o;90:118::-;177:24;195:5;177:24;:::i;:::-;172:3;165:37;90:118;;:::o;214:222::-;307:4;345:2;334:9;330:18;322:26;;358:71;426:1;415:9;411:17;402:6;358:71;:::i;:::-;214:222;;;;:::o",
   "source": "pragma solidity >=0.4.22 <0.9.0;\r\n\r\ncontract test {\r\n    uint public testvar = 9;\r\n}",
-  "sourcePath": "G:\\PROJECTS\\philanthropy_blockchain_project\\contracts\\test.sol",
+  "sourcePath": "C:\\Users\\Win 10 Pc\\Desktop\\EDAI\\Philanthropy-Blockchain-Project\\contracts\\test.sol",
   "ast": {
     "absolutePath": "project:/contracts/test.sol",
     "exportedSymbols": {
       "test": [
-        72
+        180
       ]
     },
-    "id": 73,
+    "id": 181,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 68,
+        "id": 176,
         "literals": [
           "solidity",
           ">=",
@@ -284,9 +283,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 72,
+        "id": 180,
         "linearizedBaseContracts": [
-          72
+          180
         ],
         "name": "test",
         "nameLocation": "45:4:2",
@@ -295,12 +294,12 @@
           {
             "constant": false,
             "functionSelector": "978aceda",
-            "id": 71,
+            "id": 179,
             "mutability": "mutable",
             "name": "testvar",
             "nameLocation": "69:7:2",
             "nodeType": "VariableDeclaration",
-            "scope": 72,
+            "scope": 180,
             "src": "57:23:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -309,7 +308,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 69,
+              "id": 177,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
               "src": "57:4:2",
@@ -320,7 +319,7 @@
             },
             "value": {
               "hexValue": "39",
-              "id": 70,
+              "id": 178,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -337,7 +336,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 73,
+        "scope": 181,
         "src": "36:48:2",
         "usedErrors": []
       }
@@ -348,14 +347,14 @@
     "absolutePath": "project:/contracts/test.sol",
     "exportedSymbols": {
       "test": [
-        72
+        180
       ]
     },
-    "id": 73,
+    "id": 181,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 68,
+        "id": 176,
         "literals": [
           "solidity",
           ">=",
@@ -375,9 +374,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 72,
+        "id": 180,
         "linearizedBaseContracts": [
-          72
+          180
         ],
         "name": "test",
         "nameLocation": "45:4:2",
@@ -386,12 +385,12 @@
           {
             "constant": false,
             "functionSelector": "978aceda",
-            "id": 71,
+            "id": 179,
             "mutability": "mutable",
             "name": "testvar",
             "nameLocation": "69:7:2",
             "nodeType": "VariableDeclaration",
-            "scope": 72,
+            "scope": 180,
             "src": "57:23:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -400,7 +399,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 69,
+              "id": 177,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
               "src": "57:4:2",
@@ -411,7 +410,7 @@
             },
             "value": {
               "hexValue": "39",
-              "id": 70,
+              "id": 178,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -428,7 +427,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 73,
+        "scope": 181,
         "src": "36:48:2",
         "usedErrors": []
       }
@@ -448,8 +447,7 @@
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-05T14:01:12.281Z",
-  "networkType": "ethereum",
+  "updatedAt": "2021-12-06T12:15:49.595Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
