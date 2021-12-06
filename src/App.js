@@ -15,6 +15,7 @@ import {EditProfile} from './pages/EditProfile'
 import CharityForm from './pages/CharityForm';
 import CharityDetails from './pages/CharityDetails'
 import {Profile} from './pages/Profile'
+import AboutUs from './pages/AboutUs';
 //import truffle from 'truffle'
 
 function App() {
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route exact path="/zone">
             <CharityZone useScrollToTop={useScrollToTop} />
+          </Route>
+          <Route exact path="/aboutus">
+            <AboutUs useScrollToTop={useScrollToTop} />
           </Route>
           <Route exact path="/login">
             <Login/>
