@@ -1,0 +1,128 @@
+/* team INFO */
+
+.team-boxed {
+    color: #313437;
+    background-color: #eef4f7;
+    margin-top: 3.96rem;
+    align-content: center;
+}
+  
+.team-boxed p {
+    color: #7d8285;
+} 
+
+.team-boxed h2 {
+    
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-top: 40px;
+    color: inherit;
+}
+  
+@media (max-width:767px) {
+    .team-boxed h2 {
+        margin-bottom: 25px;
+        padding-top: 25px;
+        font-size: 24px;
+    }
+}
+  
+.team-boxed .intro {
+    font-size: 16px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+  
+.team-boxed .intro p {
+    margin-bottom: 0;
+}
+  
+.team-boxed .people {
+    padding: 50px 0;
+}
+  
+.team-boxed .item {
+    text-align: center;
+}
+  
+.team-boxed .item .box {
+    text-align: center;
+    padding: 30px;
+    background-color: #fff;
+    margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 1030px){
+    .team-boxed .item .box{
+        height: 38rem;
+    }
+}
+
+@media only screen and (max-width: 992px) and (min-width: 300px){
+    .team-boxed .item .box{
+        margin: 0px 12px 50px 12px;
+    }
+}
+
+@media only screen and (width: 1024px) and (height: 1366px){
+    .team-boxed{
+        margin-top: 8.5rem;
+    }
+}
+
+@media only screen and (max-width: 780px) and (min-width: 750px){
+    .team-boxed{
+        margin-top: 6rem;
+    }
+}
+
+@media only screen and (max-width: 420px) and (min-width: 370px){
+    .team-boxed{
+        margin-top: 4.2rem;
+    }
+}
+
+.team-boxed .item .name {
+    font-weight: bold;
+    margin-top: 28px;
+    margin-bottom: 8px;
+    color: inherit;
+}
+  
+.team-boxed .item .title {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #d0d0d0;
+    letter-spacing: 2px;
+    font-size: 13px;
+}
+  
+.team-boxed .item .description {
+    font-size: 15px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+  
+.team-boxed .item img {
+    max-width: 160px;
+}
+  
+.team-boxed .social {
+    font-size: 18px;
+    color: #a2a8ae;
+}
+  
+.team-boxed .social a {
+    color: inherit;
+    margin: 0 10px;
+    display: inline-block;
+    opacity: 0.7;
+}
+  
+.team-boxed .social a:hover {
+    opacity: 1;
+}
+  
+.teamBoxShadow{
+    box-shadow: 4px 4px 11px var(--bs-gray-500);
+}
