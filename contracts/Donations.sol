@@ -33,12 +33,12 @@ contract Donations {
         emit CharityCreated(_id, _name, 0);
     }
 
-    function updateAmount(string memory _id, uint _amount) public {
-        charities[_id].amount = charities[_id].amount + _amount;
+    function updateAmount(string memory _id) public payable {
+        charities[_id].amount = charities[_id].amount + msg.value;
         emit AmountUpdated(_id, charities[_id].name, charities[_id].amount);
     }
 
-    function transferAmount(address _charityAddress, string memory _id) public payable {
+    function transferAmount(address _charityAddress, string memory _id) public {
         uint _amount = charities[_id].amount;
         address payable _address = payable(_charityAddress);
         _address.transfer(_amount);

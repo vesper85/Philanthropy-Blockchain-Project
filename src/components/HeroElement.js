@@ -9,7 +9,7 @@ import Donations from '../contracts/Donations.json';
 
 export default function HeroElement(props) {
     // eslint-disable-next-line
-    const {id, title, description, previousWork, goal, fundsRaised, walletAddress} = props
+    const {id, title, description, previousWork, goal, fundsRaised, walletAddress, isVerified} = props
     const history = useHistory()
     const firebaseApp = initializeApp(firebaseConfig)
     const firebaseStorage = getStorage(firebaseApp)
@@ -80,26 +80,37 @@ export default function HeroElement(props) {
         console.log("Metamask account Address :", accounts[0]);
     }
     
-    const makeDonation = (id) => {
-        let web3js = new Web3(window.web3.currentProvider); 
-        web3js.eth.sendTransaction({
-            from: account,
-            to: walletAddress,
-            value: Web3.utils.toWei('5', 'Ether')
-        })
-        .then(function(receipt){
+    const makeDonation = (id, amount) => {
+        console.log(isVerified)
+        if(isVerified == true) {
+            console.log("here")
+            let web3js = new Web3(window.web3.currentProvider); 
+            web3js.eth.sendTransaction({
+                from: account,
+                to: walletAddress,
+                value: Web3.utils.toWei('5', 'Ether')
+            })
+            .then(function(receipt){
+                console.log(receipt)
+            });
+        } else {
+            contract.methods.updateAmount(id).send({from:account, value: amount, gas: 1000000})
+        }
+    }
+
+    const transferAmount = () => {
+        contract.methods.transferAmount(walletAddress, id).send({from: account})
+        .once('receipt', (receipt) => {
             console.log(receipt)
-        });
-
-
-        //contract.methods.makeDonation(id).send({from: account, value: Web3.utils.toWei('3', 'Ether'), gas: 1000000})
-        //.once('receipt', (receipt) => {
-        //    console.log(receipt)
-        //})
+        })
     }
 
     const handleDonation = () => {
-        makeDonation(walletAddress)
+        makeDonation(id, Web3.utils.toWei('3', 'Ether'))
+    }
+
+    const handleTransfer = () => {
+        transferAmount()
     }
 
     useEffect(() => {
@@ -147,6 +158,7 @@ export default function HeroElement(props) {
                         </div>
                         <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
                             <button type="button" onClick={handleDonation} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
+                            <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>
                         </div>
                     </div>
                     <div className="col-lg-5 col-md-5 shadow-lg p-2">

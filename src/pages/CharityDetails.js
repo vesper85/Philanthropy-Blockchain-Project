@@ -18,6 +18,7 @@ export default function CharityDetails(props) {
     const state = props.location.state.state
     const cause = props.location.state.cause
     const walletAddress = props.location.state.walletAddress
+    const isVerified = props.location.state.isVerified
 
     return (
         <div>
@@ -31,6 +32,7 @@ export default function CharityDetails(props) {
                 id={id}
                 title={title}
                 walletAddress={walletAddress}
+                isVerified={isVerified}
                 description={description}
                 previousWork={previousWork}
                 goal={goal}

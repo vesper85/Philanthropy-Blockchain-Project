@@ -30,7 +30,7 @@ contract('Donations', ([deployer, charity, donor]) => {
         })
 
         it('allows to update the charity funds', async() => {
-            result = await donation.updateAmount('61aca840f00521751db3e26b', web3.utils.toWei('5', 'Ether'))
+            result = await donation.updateAmount('61aca840f00521751db3e26b', {value: web3.utils.toWei('1', 'Ether')})
             const event = result.logs[0].args
             assert.equal(event.id, '61aca840f00521751db3e26b', 'id is correct')
             assert.equal(event.name, 'New contract test charity', 'name is correct')
@@ -38,7 +38,7 @@ contract('Donations', ([deployer, charity, donor]) => {
         })
 
         it('allows to update the charity funds second time', async() => {
-            result = await donation.updateAmount('61aca840f00521751db3e26b', web3.utils.toWei('5', 'Ether'))
+            result = await donation.updateAmount('61aca840f00521751db3e26b', {value: web3.utils.toWei('1', 'Ether')})
             const event = result.logs[0].args
             assert.equal(event.id, '61aca840f00521751db3e26b', 'id is correct')
             assert.equal(event.name, 'New contract test charity', 'name is correct')
@@ -46,7 +46,7 @@ contract('Donations', ([deployer, charity, donor]) => {
         })
 
         it('allows to update the charity funds third time', async() => {
-            result = await donation.updateAmount('61aca840f00521751db3e26b', web3.utils.toWei('5', 'Ether'))
+            result = await donation.updateAmount('61aca840f00521751db3e26b', {value: web3.utils.toWei('1', 'Ether')})
             const event = result.logs[0].args
             assert.equal(event.id, '61aca840f00521751db3e26b', 'id is correct')
             assert.equal(event.name, 'New contract test charity', 'name is correct')
@@ -54,19 +54,19 @@ contract('Donations', ([deployer, charity, donor]) => {
         })
 
         it('allows to transfer funds', async() => {
-            let oldCharityBalance = await web3.eth.getBalance('0x6029f0c802CdB7776F2803BD73835578b72cF8f2')
+            let oldCharityBalance = await web3.eth.getBalance('0xd43f453840A3C9dBA02D0D8e7aAf44946628E3AE')
             oldCharityBalance = new web3.utils.BN(oldCharityBalance)
             
-            result = await donation.transferAmount('0x6029f0c802CdB7776F2803BD73835578b72cF8f2', '61aca840f00521751db3e26b', {value: '15000000000000000000'})
+            result = await donation.transferAmount('0xd43f453840A3C9dBA02D0D8e7aAf44946628E3AE', '61aca840f00521751db3e26b')
             const event = result.logs[0].args
             assert.equal(event.id, '61aca840f00521751db3e26b', 'id is correct')
             assert.equal(event.name, 'New contract test charity', 'name is correct')
             assert.equal(event.amount, '0', 'amount is correct')
 
-            let newCharityBalance = await web3.eth.getBalance("0x6029f0c802CdB7776F2803BD73835578b72cF8f2")
+            let newCharityBalance = await web3.eth.getBalance("0xd43f453840A3C9dBA02D0D8e7aAf44946628E3AE")
             newCharityBalance = new web3.utils.BN(newCharityBalance)
 
-            let amount = web3.utils.toWei('15', 'Ether')
+            let amount = web3.utils.toWei('3', 'Ether')
             amount = new web3.utils.BN(amount)
 
             const expectedBalance = oldCharityBalance.add(amount)

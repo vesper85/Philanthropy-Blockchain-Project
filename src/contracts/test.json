@@ -12,7 +12,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.10+commit.fc410830\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"testvar\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/test.sol\":\"test\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/test.sol\":{\"keccak256\":\"0x34236e711b8bb292f8bcbce670e0fdc2482a4d90e93f1bab94eaa0f071b17e33\",\"urls\":[\"bzz-raw://0a9a90eb8e5895e9d2c9b9bb21e149eb29c88c98f85c23cbf2857493037d83d3\",\"dweb:/ipfs/Qmaid5XPHrLzbhxaoJu2tQxJbZdXAEQiKYLypR5dQBYhiR\"]}},\"version\":1}",
@@ -256,14 +257,14 @@
     "absolutePath": "project:/contracts/test.sol",
     "exportedSymbols": {
       "test": [
-        180
+        179
       ]
     },
-    "id": 181,
+    "id": 180,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 176,
+        "id": 175,
         "literals": [
           "solidity",
           ">=",
@@ -283,9 +284,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 180,
+        "id": 179,
         "linearizedBaseContracts": [
-          180
+          179
         ],
         "name": "test",
         "nameLocation": "45:4:2",
@@ -294,12 +295,12 @@
           {
             "constant": false,
             "functionSelector": "978aceda",
-            "id": 179,
+            "id": 178,
             "mutability": "mutable",
             "name": "testvar",
             "nameLocation": "69:7:2",
             "nodeType": "VariableDeclaration",
-            "scope": 180,
+            "scope": 179,
             "src": "57:23:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -308,7 +309,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 177,
+              "id": 176,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
               "src": "57:4:2",
@@ -319,7 +320,7 @@
             },
             "value": {
               "hexValue": "39",
-              "id": 178,
+              "id": 177,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -336,7 +337,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 181,
+        "scope": 180,
         "src": "36:48:2",
         "usedErrors": []
       }
@@ -347,14 +348,14 @@
     "absolutePath": "project:/contracts/test.sol",
     "exportedSymbols": {
       "test": [
-        180
+        179
       ]
     },
-    "id": 181,
+    "id": 180,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 176,
+        "id": 175,
         "literals": [
           "solidity",
           ">=",
@@ -374,9 +375,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 180,
+        "id": 179,
         "linearizedBaseContracts": [
-          180
+          179
         ],
         "name": "test",
         "nameLocation": "45:4:2",
@@ -385,12 +386,12 @@
           {
             "constant": false,
             "functionSelector": "978aceda",
-            "id": 179,
+            "id": 178,
             "mutability": "mutable",
             "name": "testvar",
             "nameLocation": "69:7:2",
             "nodeType": "VariableDeclaration",
-            "scope": 180,
+            "scope": 179,
             "src": "57:23:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -399,7 +400,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 177,
+              "id": 176,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
               "src": "57:4:2",
@@ -410,7 +411,7 @@
             },
             "value": {
               "hexValue": "39",
-              "id": 178,
+              "id": 177,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -427,7 +428,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 181,
+        "scope": 180,
         "src": "36:48:2",
         "usedErrors": []
       }
@@ -442,12 +443,13 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xe545b2E79A0b368d8C7518e3cc83a68f4B7297AD",
-      "transactionHash": "0x9e9b88fd046bb1ef5a40a644f5809770a6042e33a76fc8bfbe24856bba6822ff"
+      "address": "0xb6F4f3f7C20391895F8F67dDA4a1E76D658f98C6",
+      "transactionHash": "0x49553032bab6e3269f7894760446513a308f26cacf959300cc6618fcc0bad0a0"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-06T12:15:49.595Z",
+  "updatedAt": "2021-12-06T18:42:37.835Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},
