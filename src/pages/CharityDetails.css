@@ -45,3 +45,44 @@
         justify-content: flex-end!important;
     }
   }
+
+#staticBackdrop{
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.hero-container .modal {
+    transform: translateY(35vh);
+ }
+ .hero-container button{
+     border-radius: 0%;
+ }
+ .hero-container .btn:focus,.hero-container .btn:active{
+   outline: none !important;
+   box-shadow: none !important;
+}
+.hero-container .modal-body div{
+    margin: 5px;
+}
+
+#customRange1::-webkit-slider-thumb {
+    height: 20px;
+    width: 20px;
+    background:  #f0932b;
+  }
+  
+  #customRange1::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    background:  #f0932b;
+  }
+  
+  #customRange1::-ms-thumb {
+    height: 20px;
+    width: 20px;
+    background:  #f0932b;
+  }
+  #customRange1:focus::-webkit-slider-thumb,#customRange1:active::-webkit-slider-thumb{
+      outline: none !important;
+      box-shadow: none !important;
+      border: #f9ca24 solid 4px;
+  }

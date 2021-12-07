@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
@@ -7,6 +7,7 @@ import { getStorage, ref, deleteObject, listAll } from "firebase/storage";
 import Web3 from 'web3';
 import Donations from '../contracts/Donations.json';
 
+
 export default function HeroElement(props) {
     // eslint-disable-next-line
     const {id, title, description, previousWork, goal, fundsRaised, walletAddress} = props
@@ -14,6 +15,8 @@ export default function HeroElement(props) {
     const firebaseApp = initializeApp(firebaseConfig)
     const firebaseStorage = getStorage(firebaseApp)
 
+    const donationModalToggle = useRef();
+    const [donAmount, setdonAmount] = useState(0);
     const deleteCharity = async() => {
         try {
             const url = "http://localhost:5000/api/charity/deletecharity/" + id;
@@ -88,7 +91,7 @@ export default function HeroElement(props) {
         web3js.eth.sendTransaction({
             from: account,
             to: walletAddress,
-            value: Web3.utils.toWei('100', 'Ether')
+            value: Web3.utils.toWei(donAmount, 'Ether')
         })
         .then(function(receipt){
             console.log(receipt)
@@ -101,9 +104,18 @@ export default function HeroElement(props) {
         //})
     }
 
-    const handleDonation = () => {
-        makeDonation(walletAddress)
+    const toggleModal = () => {
+        console.log('donate btn clicked !!');
+        donationModalToggle.current.click();
+        //makeDonation(walletAddress);
     }
+
+    const rangeOnChange = (e)=>{
+        setdonAmount(e.target.value)
+        //console.log(e.target.value)
+    }
+
+    
 
     useEffect(() => {
         loadBlockChain();
@@ -112,6 +124,41 @@ export default function HeroElement(props) {
     return (
         // section-1 charity info
         <div className="container hero-container">
+            
+
+
+            {/* Donatin button hidden */}
+            <button type="button" ref={donationModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Launch static backdrop modal
+            </button>
+
+            {/* Donation modal */}
+            <div className="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content" style={{borderRadius:"0px"}}>
+                <div className="modal-header">
+                    <h5 className="modal-title " id="staticBackdropLabel">Donate</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
+                    <div><h6>From:</h6>{ account }</div>
+                    <div><h6>To:</h6> {walletAddress} </div>
+                    <div className="mt-4"><h6>Value {donAmount} </h6>  </div>
+                    
+                    <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" onChange={rangeOnChange}></input>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Reject</button>
+                    <button type="button" onClick={makeDonation} className="btn btn-primary">Confirm</button>
+                </div>
+                </div>
+            </div>
+            </div>
+             
+
+
+
+
             <div className="row my-5 p-2">
                 <div className="col-lg-7 col-md-7">
                     <h2 className="featurette-heading">{title}</h2>
@@ -149,7 +196,7 @@ export default function HeroElement(props) {
                             </div>
                         </div>
                         <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                            <button type="button" onClick={handleDonation} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
+                            <button type="button" onClick={toggleModal} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold box-shadow: none;">Donate</button>
                         </div>
                     </div>
                     <div className="col-lg-5 col-md-5 shadow-lg p-2">
