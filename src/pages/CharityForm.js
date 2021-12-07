@@ -7,6 +7,8 @@ import charityDefaultImage from '../components/sample/flood.jpg'
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../config/firebaseConfig";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
+import Web3 from 'web3';
+import Donations from '../contracts/Donations.json';
 
 export default function CharityForm(props) {
 
@@ -27,9 +29,9 @@ export default function CharityForm(props) {
         goal: info.goal || 0,
         city: info.city || "",
         state: info.state || "",
-        imageURL: info.imageURL || "",
-        externalURL: info.externalURL || ""
     })
+
+    const [checkbox, setCheckbox] = useState(info.isVerified || false)
 
     //cover-image
     const [img, setImg] = useState(cardImage)
@@ -65,6 +67,10 @@ export default function CharityForm(props) {
     }
 
     useEffect(() => {
+        loadBlockChain();
+    }, [])
+
+    useEffect(() => {
         // To reflect changes in the state of coverImageUpload and charityImgsUpload
         console.log("update cover image:" + coverImageUpload)
         console.log("update carousel images: " + charityImgsUpload)
@@ -97,11 +103,14 @@ export default function CharityForm(props) {
                             goal: credentialCharity.goal,
                             city: credentialCharity.city,
                             state: credentialCharity.state,
-                            imageURL: credentialCharity.imageURL,
-                            externalURL: credentialCharity.externalURL
+                            isVerified: checkbox
                         })
                     }
                 );
+                if(!checkbox) {
+                    console.log(contract)
+                    contract.methods.createCharity(credentialCharity.charityName).send({from: account})
+                }
             }
             else if (event === "update") {
                 console.log(credentialCharity)
@@ -121,8 +130,6 @@ export default function CharityForm(props) {
                             goal: credentialCharity.goal,
                             city: credentialCharity.city,
                             state: credentialCharity.state,
-                            imageURL: credentialCharity.imageURL,
-                            externalURL: credentialCharity.externalURL
                         })
                     }
                 );
@@ -150,6 +157,39 @@ export default function CharityForm(props) {
         }
     }
 
+    // Blockchain code
+
+    const [contract, setContract] = useState(null);
+    const [account, setAccount] = useState("");
+
+    let web3;
+    async function loadBlockChain() {
+        if(window.ethereum) {
+            console.log('metamask exists')
+            web3 = new Web3(window.ethereum);
+            await window.ethereum.enable();
+        }
+        else if(window.web3) {
+            web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
+        }
+        const networkId = await web3.eth.net.getId()
+        const networkData = Donations.networks[networkId]
+        console.log("networkId: ", networkId, "networkData :", networkData)
+        
+        if(networkData) {
+            const donations = new web3.eth.Contract(Donations.abi, networkData.address)
+            setContract(donations)
+        } else {
+            window.alert('Donations contract not deployed to detected network.')
+        }
+        const accounts = await web3.eth.getAccounts();
+        setAccount(accounts[0]);
+    }
+
+    const checkboxHandler = () => { 
+        setCheckbox(!checkbox)
+    }
+
     return (
         <>
             <Navbar />
@@ -163,7 +203,11 @@ export default function CharityForm(props) {
                                     <span className="details">Charity Name</span>
                                     <input type="text" name="charityName" placeholder="Enter Charity Name" defaultValue={info.title || ""} required />
                                 </div>
-                                <div className="input-box" style={{ width: "100%" }}>
+                                <div className="input-box" style={{width:"100%"}}>
+                                    <span className="details">Cause</span>
+                                    <input type="text" name="cause" placeholder="Enter Cause" defaultValue={info.cause || ""} required />
+                                </div>
+                                {/* <div className="input-box" style={{ width: "100%" }}>
                                     <span className="details">Cause</span>
                                     <div className="select">
                                         <select className="form-select select-box select-wrapper" name="cause" defaultValue={info.cause || ""} required>
@@ -173,7 +217,7 @@ export default function CharityForm(props) {
                                             <option value="3">child</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="input-box" style={{ width: "100%" }}>
                                     <span className="details">Public key</span>
                                     <input type="text" name="walletAddress" placeholder="Enter Public key for charity's Ethereum wallet" defaultValue={info.walletAddress || ""} required />
@@ -192,8 +236,12 @@ export default function CharityForm(props) {
                                 </div>
                                 <div className="input-box">
                                     <span className="details">State</span>
+                                    <input type="text" name="state" placeholder="Enter State" defaultValue={info.state || ""} required />
+                                </div>
+                                {/* <div className="input-box">
+                                    <span className="details">State</span>
                                     {/* <input type="text" name="state" placeholder="Enter State" defaultValue={info.state || ""} required /> */}
-                                    <div >
+                                    {/* <div >
                                         <select className="form-select select-box" name="state" defaultValue={info.state || ""} required>  
                                             <option selected></option>
                                             <option value="1">Andhra Pradesh</option>
@@ -227,10 +275,17 @@ export default function CharityForm(props) {
                                             <option value="29">West Bengal</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div className="input-box" style={{ width: "100%" }}>
+                                </div> */}
+                                <div className="input-box">
                                     <span className="details">Goal</span>
                                     <input type="number" name="goal" placeholder="Enter goal amount" defaultValue={info.goal || ""} required />
+                                </div>
+                                <div className="input-box">
+                                    <span className="details">Verified</span>
+                                    <div className="verified-checkbox-container">
+                                        <span className="verified-box-label">Is the charity verified ?</span>
+                                        <input className="verified-box-box" type="checkbox" name="isVerified" checked={checkbox} onChange={checkboxHandler} />
+                                    </div>
                                 </div>
                                 <div className="input-box">
                                     <span className="details">Select Cover Image</span>

@@ -102,14 +102,14 @@ export default function HeroElement(props) {
     }
 
     const transferAmount = () => {
-        contract.methods.transferAmount(walletAddress, id).send({from: account})
+        contract.methods.transferAmount(walletAddress, title).send({from: account})
         .once('receipt', (receipt) => {
             console.log(receipt)
         })
     }
 
     const handleDonation = () => {
-        makeDonation(id, Web3.utils.toWei('3', 'Ether'))
+        makeDonation(title, Web3.utils.toWei('3', 'Ether'))
     }
 
     const handleTransfer = () => {
@@ -166,7 +166,7 @@ export default function HeroElement(props) {
                     <p className="lead hero-ele-charity-description">{description}</p>
                 </div>
                 <div className="col-lg-5 col-md-5">
-                    <img className="mx-auto hero-img" src="https://source.unsplash.com/440x420/?charity"/>
+                    <img className="mx-auto hero-img" src="https://source.unsplash.com/420x380/?charity"/>
                 </div>
             </div>
             
@@ -202,7 +202,7 @@ export default function HeroElement(props) {
                         </div>
                     </div>
                     <div className="col-lg-5 col-md-5 shadow-lg p-2">
-                        <img className="image-fluid hero-img" src="https://source.unsplash.com/420x400/?technology" alt="" />
+                        <img className="image-fluid hero-img" src="https://source.unsplash.com/420x380/?technology" alt="" />
                     </div>
                 </div>
             </div>
@@ -215,7 +215,7 @@ export default function HeroElement(props) {
                         <p className="lead">{previousWork}</p>
                     </div>
                     <div className="col-lg-5 col-md-5 order-1">
-                        <img  className="hero-img" src="https://source.unsplash.com/440x420/?charity,help" />
+                        <img  className="hero-img" src="https://source.unsplash.com/420x380/?charity,help" />
                     </div>
                 </div>
             </div>

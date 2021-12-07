@@ -196,4 +196,30 @@ form .user-details .input-box{
     overflow-x: auto;
 }
 
+.verified-checkbox-container{
+    display: flex;
+    justify-content: space-between;
+    width: 65%;
+}
 
+.verified-box-label {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    color: #969697;
+    font-size: 0.9rem;
+}
+
+.verified-box-box {
+    width: 1.5em !important;
+}
+
+@media only screen and (max-width: 576px){
+    .verified-checkbox-container{
+        width: 45%;
+    }
+    .verified-box-box{
+        width: 1.2em !important;
+    }
+}
