@@ -17,7 +17,7 @@ export default function TeamInfo() {
                 <p className="text-center">our team and some text</p>
             </div>
             <div className="row people">
-                <div className="col-md-3 col-lg-3 item ">
+                <div className="col-md-6 col-lg-3 item ">
                     <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" className="box teamBoxShadow"><img className="rounded-circle" src={avatar_saurabh} alt="saurabh" />
                         <h3 className="name">Saurabh Parate</h3>
                         <p className="title">student</p>
@@ -25,7 +25,7 @@ export default function TeamInfo() {
                         <div className="social"><a href="/"><i className="fa fa-facebook-official"></i></a><a href="/"><i className="fa fa-twitter"></i></a><a href="/"><i className="fa fa-instagram"></i></a></div>
                     </div>
                 </div>
-                <div className="col-md-3 col-lg-3 item" >
+                <div className="col-md-6 col-lg-3 item" >
                     <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" className="box teamBoxShadow"><img className="rounded-circle" src={avatar} alt="parikshit D." />
                         <h3 className="name">Parikshit D.</h3>
                         <p className="title">student</p>
@@ -33,7 +33,7 @@ export default function TeamInfo() {
                         <div className="social"><a href="/"><i className="fa fa-facebook-official"></i></a><a href="/"><i className="fa fa-twitter"></i></a><a href="/"><i className="fa fa-instagram"></i></a></div>
                     </div>
                 </div>
-                <div className="col-md-3 col-lg-3 item" >
+                <div className="col-md-6 col-lg-3 item" >
                     <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" className="box teamBoxShadow"><img className="rounded-circle" src={avatar_gitesh} alt="gitesh"  />
                         <h3 className="name">Gitesh Patil</h3>
                         <p className="title">student</p>
@@ -41,7 +41,7 @@ export default function TeamInfo() {
                         <div className="social"><a href="/"><i className="fa fa-facebook-official"></i></a><a href="/"><i className="fa fa-twitter"></i></a><a href="/"><i className="fa fa-instagram"></i></a></div>
                     </div>
                 </div>
-                <div className="col-md-3 col-lg-3 item" >
+                <div className="col-md-6 col-lg-3 item" >
                     <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" className="box teamBoxShadow"><img className="rounded-circle" src={avatar_rahul} alt="rahul" />
                         <h3 className="name">Rahul Sharma</h3>
                         <p className="title">student</p>

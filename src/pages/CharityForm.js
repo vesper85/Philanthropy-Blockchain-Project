@@ -195,7 +195,7 @@ export default function CharityForm(props) {
                                     {/* <input type="text" name="state" placeholder="Enter State" defaultValue={info.state || ""} required /> */}
                                     <div >
                                         <select className="form-select select-box" name="state" defaultValue={info.state || ""} required>  
-                                            <option selected>Select</option>
+                                            <option selected></option>
                                             <option value="1">Andhra Pradesh</option>
                                             <option value="2">Arunachal Pradesh</option>
                                             <option value="3">Assam</option>
@@ -233,15 +233,22 @@ export default function CharityForm(props) {
                                     <input type="number" name="goal" placeholder="Enter goal amount" defaultValue={info.goal || ""} required />
                                 </div>
                                 <div className="input-box">
-                                    <div className="details">Select Cover Image</div>
+                                    <span className="details">Select Cover Image</span>
                                     <label htmlFor="cover-img-upload" className="custom-file-upload">
                                         <i className="fa fa-cloud-upload"></i>  Upload Cover Image
                                     </label>
                                     <input id="cover-img-upload" accept="image/*" name="imageURL" type="file" onChange={coverImageHandler} style={{ display: "none" }} />
                                 </div>
-                                <div className="button">
-                                    <input type="submit" defaultValue={props.button_name} />
+                                <div className="input-box">
+                                    <span className="details">Select Charity Images</span>
+                                    <label htmlFor="img-upload" className="custom-file-upload">
+                                        <i className="fa fa-cloud-upload"></i>  Upload Charity Images
+                                    </label>
+                                    <input id="img-upload" accept="image/*" name="imageURL" type="file" onChange={imagesHandler} multiple="multiple" style={{display:"none"}}/>
                                 </div>
+                            </div>
+                            <div className="button">
+                                <input type="submit" defaultValue={props.button_name}/>
                             </div>
                         </form>
                     </div>

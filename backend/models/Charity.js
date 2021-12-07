@@ -38,6 +38,10 @@ const charitySchema = new mongoose.Schema({
         unique: true,
         required: true
     },
+    isVerified: {
+        type: Boolean,
+        default: true
+    },
     donationHistory: {
         type: [{
             userId: {

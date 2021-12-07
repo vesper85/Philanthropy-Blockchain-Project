@@ -10,7 +10,7 @@ import Donations from '../contracts/Donations.json';
 
 export default function HeroElement(props) {
     // eslint-disable-next-line
-    const {id, title, description, previousWork, goal, fundsRaised, walletAddress} = props
+    const {id, title, description, previousWork, goal, fundsRaised, walletAddress, isVerified} = props
     const history = useHistory()
     const firebaseApp = initializeApp(firebaseConfig)
     const firebaseStorage = getStorage(firebaseApp)
@@ -60,17 +60,14 @@ export default function HeroElement(props) {
     async function loadBlockChain() {
         //const web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
         
-        
-        if(window.ethereum)
-            {
-                console.log('metamask exists')
-                web3 = new Web3(window.ethereum);
-                await window.ethereum.enable();
-            }
-        else if(window.web3)
-            {
-                web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
-            }
+        if(window.ethereum) {
+            console.log('metamask exists')
+            web3 = new Web3(window.ethereum);
+            await window.ethereum.enable();
+        }
+        else if(window.web3) {
+            web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
+        }
         const networkId = await web3.eth.net.getId()
         const networkData = Donations.networks[networkId]
         console.log("networkId: ", networkId, "networkData :", networkData)
@@ -86,33 +83,37 @@ export default function HeroElement(props) {
         console.log("Metamask account Address :", accounts[0]);
     }
     
-    const makeDonation = (id) => {
-        let web3js = new Web3(window.web3.currentProvider); 
-        web3js.eth.sendTransaction({
-            from: account,
-            to: walletAddress,
-            value: Web3.utils.toWei(donAmount, 'Ether')
-        })
-        .then(function(receipt){
+    const makeDonation = (id, amount) => {
+        console.log(isVerified)
+        if(isVerified == true) {
+            console.log("here")
+            let web3js = new Web3(window.web3.currentProvider); 
+            web3js.eth.sendTransaction({
+                from: account,
+                to: walletAddress,
+                value: Web3.utils.toWei('5', 'Ether')
+            })
+            .then(function(receipt){
+                console.log(receipt)
+            });
+        } else {
+            contract.methods.updateAmount(id).send({from:account, value: amount, gas: 1000000})
+        }
+    }
+
+    const transferAmount = () => {
+        contract.methods.transferAmount(walletAddress, id).send({from: account})
+        .once('receipt', (receipt) => {
             console.log(receipt)
-        });
-
-
-        //contract.methods.makeDonation(id).send({from: account, value: Web3.utils.toWei('3', 'Ether'), gas: 1000000})
-        //.once('receipt', (receipt) => {
-        //    console.log(receipt)
-        //})
+        })
     }
 
-    const toggleModal = () => {
-        console.log('donate btn clicked !!');
-        donationModalToggle.current.click();
-        //makeDonation(walletAddress);
+    const handleDonation = () => {
+        makeDonation(id, Web3.utils.toWei('3', 'Ether'))
     }
 
-    const rangeOnChange = (e)=>{
-        setdonAmount(e.target.value)
-        //console.log(e.target.value)
+    const handleTransfer = () => {
+        transferAmount()
     }
 
     
@@ -145,7 +146,7 @@ export default function HeroElement(props) {
                     <div><h6>To:</h6> {walletAddress} </div>
                     <div className="mt-4"><h6>Value {donAmount} </h6>  </div>
                     
-                    <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" onChange={rangeOnChange}></input>
+                    <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1"></input>
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Reject</button>
@@ -196,7 +197,8 @@ export default function HeroElement(props) {
                             </div>
                         </div>
                         <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                            <button type="button" onClick={toggleModal} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold box-shadow: none;">Donate</button>
+                            <button type="button" onClick={handleDonation} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
+                            <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>
                         </div>
                     </div>
                     <div className="col-lg-5 col-md-5 shadow-lg p-2">
