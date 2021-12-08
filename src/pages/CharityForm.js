@@ -13,6 +13,10 @@ import Loading from '../components/Loading';
 
 export default function CharityForm(props) {
 
+    useEffect(() => {
+        window.scrollTo({ top: 0 })
+    }, [])
+
     const firebaseApp = initializeApp(firebaseConfig);
     const firebaseStorage = getStorage(firebaseApp);
 
