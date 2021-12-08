@@ -223,3 +223,14 @@ form .user-details .input-box{
         width: 1.2em !important;
     }
 }
+
+.loading-modal{
+    display: block;
+}
+
+.loading-blur{
+    filter: brightness(0.7);
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+}

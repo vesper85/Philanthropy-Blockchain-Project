@@ -9,7 +9,7 @@ import firebaseConfig from "../config/firebaseConfig";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Web3 from 'web3';
 import Donations from '../contracts/Donations.json';
-import ReactLoading from 'react-loading';
+import Loading from '../components/Loading';
 
 export default function CharityForm(props) {
 
@@ -42,9 +42,11 @@ export default function CharityForm(props) {
     const [charityImages, setCharityImages] = useState([charityDefaultImage])
     const [charityImgsUpload, setCharityImgsUpload] = useState(false)
 
+    const [submitPressed, setSubmitPressed] = useState(false)
+
     const [uploadingCoverImage, setUploadingCoverImage] = useState(false)
     const [progressCoverImage, setProgressCoverImage] = useState(0)
-    const [submitPressed, setSubmitPressed] = useState(false)
+
     const [uploadingCharityImages, setUploadingCharityImages] = useState(false)
 
     const coverImageHandler = (e) => {
@@ -217,16 +219,16 @@ export default function CharityForm(props) {
                     });
                 }
             }
-            // if(progressCoverImage == 100) {
-            //     history.go(-1)
-            // } 
+            if(!coverImageUpload && !charityImgsUpload) {
+                history.go(-1)
+            }
         } catch (error) {
             console.error(error.message)
         }
     }
 
     useEffect(() => {
-        if(submitPressed && progressCoverImage == 100) {
+        if(submitPressed && progressCoverImage == 100 && coverImageUpload) {
             history.go(-1)
         }
     }, [progressCoverImage])
@@ -266,9 +268,9 @@ export default function CharityForm(props) {
 
     return (
         <>
-            {uploadingCoverImage && <ReactLoading type="cylon" color="#00ffc3" height={'5%'} width={'15%'} />}
+            {uploadingCoverImage && <Loading />}
             <Navbar />
-            <div className="cf-container charity-form">
+            <div className={uploadingCoverImage ? "cf-container charity-form loading-blur" : "cf-container charity-form"}>
                 <div className="cf-container_det">
                     <div className="cf-title">Charity Form</div>
                     <div className="cf-content">
@@ -387,5 +389,3 @@ export default function CharityForm(props) {
         </>
     )
 }
-
-// Issue: When you add new charity - if quickly go to zone page - it tries to load image from firebase when it is not even completely uploaded on firebase - results in default image being loaded and red warning in console
