@@ -48,6 +48,7 @@ export default function CharityForm(props) {
     const [progressCoverImage, setProgressCoverImage] = useState(0)
 
     const [uploadingCharityImages, setUploadingCharityImages] = useState(false)
+    const [progressCharityImages, setProgressCharityImages] = useState({})
 
     const coverImageHandler = (e) => {
         try {
@@ -158,7 +159,7 @@ export default function CharityForm(props) {
                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                     
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log('Charity cover image upload is ' + progress + '% done');
+                    // console.log('Charity cover image upload is ' + progress + '% done');
                     setUploadingCoverImage(true)
                     setProgressCoverImage(progress)
 
@@ -196,9 +197,12 @@ export default function CharityForm(props) {
                     (snapshot) => {
                         // Observe state change events such as progress, pause, and resume
                         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                        
+
                         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                         console.log('Charity image ' + i + ' upload is ' + progress + '% done');
+
+                        setUploadingCharityImages(true)
+                        setProgressCharityImages({i: progress})
 
                         switch (snapshot.state) {
                         case 'paused':
@@ -216,6 +220,7 @@ export default function CharityForm(props) {
                         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                             console.log('image ' + i + ' is available at', downloadURL);
                         });
+                        setUploadingCharityImages(false)
                     });
                 }
             }
@@ -268,7 +273,7 @@ export default function CharityForm(props) {
 
     return (
         <>
-            {uploadingCoverImage && <Loading />}
+            {uploadingCoverImage && <Loading progressCoverImage={progressCoverImage} />}
             <Navbar />
             <div className={uploadingCoverImage ? "cf-container charity-form loading-blur" : "cf-container charity-form"}>
                 <div className="cf-container_det">
