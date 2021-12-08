@@ -6,9 +6,10 @@ import cardImage from '../components/sample/india_flood.jpeg'
 import charityDefaultImage from '../components/sample/flood.jpg'
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../config/firebaseConfig";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Web3 from 'web3';
 import Donations from '../contracts/Donations.json';
+import ReactLoading from 'react-loading';
 
 export default function CharityForm(props) {
 
@@ -40,6 +41,11 @@ export default function CharityForm(props) {
     //charity images for carousel
     const [charityImages, setCharityImages] = useState([charityDefaultImage])
     const [charityImgsUpload, setCharityImgsUpload] = useState(false)
+
+    const [uploadingCoverImage, setUploadingCoverImage] = useState(false)
+    const [progressCoverImage, setProgressCoverImage] = useState(0)
+    const [submitPressed, setSubmitPressed] = useState(false)
+    const [uploadingCharityImages, setUploadingCharityImages] = useState(false)
 
     const coverImageHandler = (e) => {
         try {
@@ -85,6 +91,7 @@ export default function CharityForm(props) {
     const onSubmitCharity = async (e) => {
         e.preventDefault();
         try {
+            setSubmitPressed(true)
             if (event === "Add New") {
                 const url = "http://localhost:5000/api/charity/createcharity"
                 //eslint-disable-next-line
@@ -137,25 +144,92 @@ export default function CharityForm(props) {
 
             if (coverImageUpload) {
                 let coverImgRef = ref(firebaseStorage, `charitycover/${credentialCharity.charityName}`);
-                uploadBytes(coverImgRef, img).then(() => {
-                    console.log('cover image Uploaded!');
+                const uploadTask = uploadBytesResumable(coverImgRef, img)
+                // Register three observers:
+                // 1. 'state_changed' observer, called any time the state changes
+                // 2. Error observer, called on failure
+                // 3. Completion observer, called on successful completion
+                
+                uploadTask.on('state_changed', 
+                (snapshot) => {
+                    // Observe state change events such as progress, pause, and resume
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Charity cover image upload is ' + progress + '% done');
+                    setUploadingCoverImage(true)
+                    setProgressCoverImage(progress)
+
+                    switch (snapshot.state) {
+                    case 'paused':
+                        console.log('Charity cover image upload is paused');
+                        break;
+                    case 'running':
+                        console.log('Charity cover image upload is running');
+                        break;
+                    }
+                }, 
+                (error) => {
+                    console.log('Error while uploading cover-image: ', error);
+                }, 
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        console.log('Cover image available at', downloadURL);
+                    });
+                    setUploadingCoverImage(false)
                 });
             }
 
             if (charityImgsUpload) {
                 for (let i = 0; i < charityImages.length; i++) {
                     let charityImgsRef = ref(firebaseStorage, `charityimages/${credentialCharity.charityName}/${i}`);
-                    uploadBytes(charityImgsRef, charityImages[i]).then(() => {
-                        console.log('images Uploaded!');
+
+                    const uploadTask = uploadBytesResumable(charityImgsRef, charityImages[i])
+                    // Register three observers:
+                    // 1. 'state_changed' observer, called any time the state changes
+                    // 2. Error observer, called on failure
+                    // 3. Completion observer, called on successful completion
+                    
+                    uploadTask.on('state_changed', 
+                    (snapshot) => {
+                        // Observe state change events such as progress, pause, and resume
+                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                        
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Charity image ' + i + ' upload is ' + progress + '% done');
+
+                        switch (snapshot.state) {
+                        case 'paused':
+                            console.log('Charity image ' + i + ' upload is paused');
+                            break;
+                        case 'running':
+                            console.log('Charity image ' + i + ' upload is running');
+                            break;
+                        }
+                    }, 
+                    (error) => {
+                        console.log('Error while uploading charity image ' + i + ': ', error);
+                    }, 
+                    () => {
+                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                            console.log('image ' + i + ' is available at', downloadURL);
+                        });
                     });
                 }
             }
-
-            history.go(-1)
+            // if(progressCoverImage == 100) {
+            //     history.go(-1)
+            // } 
         } catch (error) {
             console.error(error.message)
         }
     }
+
+    useEffect(() => {
+        if(submitPressed && progressCoverImage == 100) {
+            history.go(-1)
+        }
+    }, [progressCoverImage])
 
     // Blockchain code
 
@@ -192,6 +266,7 @@ export default function CharityForm(props) {
 
     return (
         <>
+            {uploadingCoverImage && <ReactLoading type="cylon" color="#00ffc3" height={'5%'} width={'15%'} />}
             <Navbar />
             <div className="cf-container charity-form">
                 <div className="cf-container_det">
