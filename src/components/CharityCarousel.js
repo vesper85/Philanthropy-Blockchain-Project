@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import defaultImg from './sample/flood.jpg'
+import defaultImg from './sample/loading_bg.gif'
 import { initializeApp } from "firebase/app";
 import firebaseConfig from '../config/firebaseConfig';
 import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
@@ -9,7 +9,7 @@ export default function CharityCarousel(props) {
     const firebaseApp = initializeApp(firebaseConfig);
     const firebaseStorage = getStorage(firebaseApp);
 
-    const [url, setUrl] = useState([defaultImg])
+    const [url, setUrl] = useState([defaultImg, defaultImg, defaultImg])
     const { title } = props
 
     const getImages = async() => {
