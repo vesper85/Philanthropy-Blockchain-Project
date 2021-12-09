@@ -12,6 +12,16 @@ router.get('/fetchallstats', async(req, res) => {
     }
 })
 
+//fetchstats get
+router.get('/fetchstats', async(req, res) => {
+    try {
+        let stats = await Stats.find({cause:req.header('cause')});
+        res.json(stats);
+    } catch(error) {
+        console.log(error);
+    }
+})
+
 //createnewstats post
 router.post('/createnewstats', async(req, res) => {
     try {

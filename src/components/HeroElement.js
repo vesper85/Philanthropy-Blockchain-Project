@@ -10,13 +10,20 @@ import Donations from '../contracts/Donations.json';
 
 export default function HeroElement(props) {
     // eslint-disable-next-line
-    const {id, title, description, previousWork, goal, fundsRaised, walletAddress, isVerified} = props
+    const {id, title, cause, description, previousWork, goal, fundsRaised, walletAddress, isVerified} = props
     const history = useHistory()
     const firebaseApp = initializeApp(firebaseConfig)
     const firebaseStorage = getStorage(firebaseApp)
 
     const donationModalToggle = useRef();
     const [donAmount, setdonAmount] = useState(0);
+
+    const [stats, setStats] = useState({
+        stat1: 'More than a third of the world’s malnourished children live in India',
+        stat2: 'More than 2/3rds deaths of under-fives attributed to malnutrition',
+        stat3: '95.1M children deprived of midday meals at school during COVID-19'
+    })
+
     const deleteCharity = async() => {
         try {
             const url = "http://localhost:5000/api/charity/deletecharity/" + id;
@@ -51,6 +58,29 @@ export default function HeroElement(props) {
             console.error(error.message)
         }
     }
+
+    const getStats = async() => {
+        try {
+            const url = "http://localhost:5000/api/stats/fetchstats"
+            const response = await fetch(url, {
+                method: 'GET', 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accept':'application/json',
+                    'cause': `${cause}`
+                }
+            });
+            const data = await response.json();
+            setStats(data[0])
+            console.log(data[0])
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getStats()
+    }, [])
 
     // Blockchain Code
 
@@ -116,8 +146,6 @@ export default function HeroElement(props) {
         transferAmount()
     }
 
-    
-
     useEffect(() => {
         loadBlockChain();
     }, [])
@@ -180,19 +208,19 @@ export default function HeroElement(props) {
                             <div className="col-lg-4 col-md-12">
                                 <div className="details-container">
                                     <div className="details-title"><img  className="rounded mx-auto d-block pb-1" src="https://give-marketplace-dev.s3.ap-south-1.amazonaws.com/static/images/home/homev2/Mission+10+Million+Meals/Homepage%2Bicons_A.png" alt="" height="100px" width="100px" /></div>
-                                    <p className="details-text">More than a third of the world’s malnourished children live in India</p>
+                                    <p className="details-text">{stats && stats.stat1 || 'More than a third of the world’s malnourished children live in India'}</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-12">
                                 <div className="details-container">
                                     <div className="details-title"><img  className="rounded mx-auto d-block pb-1" src="https://give-marketplace-dev.s3.ap-south-1.amazonaws.com/static/images/home/homev2/Mission+10+Million+Meals/Homepage%2Bicons_B.png" alt="" height="100px" width="100px"/></div>
-                                    <p className="details-text">More than 2/3rds deaths of under-fives attributed to malnutrition</p>
+                                    <p className="details-text">{stats && stats.stat2 || 'More than 2/3rds deaths of under-fives attributed to malnutrition'}</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-12">
                                 <div className="details-container">
                                     <div className="details-title"><img  className="rounded mx-auto d-block pb-1" src="https://give-marketplace-dev.s3.ap-south-1.amazonaws.com/static/images/home/homev2/Mission+10+Million+Meals/impactmidday+mea.png" alt="" height="100px" width="100px"/></div>
-                                    <p className="details-text">95.1M children deprived of midday meals at school during COVID-19</p>
+                                    <p className="details-text">{stats && stats.stat3 || '95.1M children deprived of midday meals at school during COVID-19'}</p>
                                 </div>
                             </div>
                         </div>

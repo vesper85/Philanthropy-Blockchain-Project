@@ -22,7 +22,7 @@ const CharityZone = (props) => {
     }, [])
 
 
-   const  getAllCharities = async() => {
+   const getAllCharities = async() => {
         try {
             const url = "http://localhost:5000/api/charity/fetchallcharities"
             const response = await fetch(url, {
