@@ -29,3 +29,4 @@ app.listen(port, () => {
 
 app.use('/api/user',require('./routes/user'))
 app.use('/api/charity', require('./routes/charity'))
+app.use('/api/stats', require('./routes/stats'))
