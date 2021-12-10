@@ -72,7 +72,7 @@ export default function HeroElement(props) {
             });
             const data = await response.json();
             setStats(data[0])
-            console.log(data[0])
+            // console.log(data[0])
         } catch(error) {
             console.log(error)
         }
