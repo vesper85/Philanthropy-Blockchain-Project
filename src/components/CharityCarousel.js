@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import defaultImg from './sample/loading_bg.gif'
+import defaultImg from './sample/Image_not_loaded.jpg'
 import { initializeApp } from "firebase/app";
 import firebaseConfig from '../config/firebaseConfig';
 import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function CharityCarousel(props) {
 
     const firebaseApp = initializeApp(firebaseConfig);
     const firebaseStorage = getStorage(firebaseApp);
 
-    const [url, setUrl] = useState([defaultImg, defaultImg, defaultImg])
+    const [url, setUrl] = useState([])
     const { title } = props
 
     const getImages = async() => {
@@ -20,7 +22,11 @@ export default function CharityCarousel(props) {
         .then((res) => {
             let promises = res.items.map((imageRef) => getDownloadURL(imageRef))
             Promise.all(promises).then((urls) => {
-                setUrl(urls)
+                if(urls.length == 0) {
+                    setUrl([defaultImg, defaultImg, defaultImg])
+                } else {
+                    setUrl(urls)
+                }
             })
         }).catch((error) => {
             console.error(error)
@@ -51,13 +57,28 @@ export default function CharityCarousel(props) {
                     </div> */}
                     
                     <div className="carousel-item active">
-                        <img src={url[0]} className="d-block w-100 charity-carousel-image" alt="..." />
+                        <LazyLoadImage className="d-block w-100 charity-carousel-image"
+                            alt={defaultImg}
+                            effect="blur"
+                            width={"100%"}
+                            src={url[0]}
+                        />
                     </div>
                     <div className="carousel-item">
-                        <img src={url[1]} className="d-block w-100 charity-carousel-image" alt="..." />
+                        <LazyLoadImage className="d-block w-100 charity-carousel-image"
+                            alt={defaultImg}
+                            effect="blur"
+                            width={"100%"}
+                            src={url[1]} 
+                        />
                     </div>
                     <div className="carousel-item">
-                        <img src={url[2]} className="d-block w-100 charity-carousel-image" alt="..." />
+                        <LazyLoadImage className="d-block w-100 charity-carousel-image"
+                            alt={defaultImg}
+                            effect="blur"
+                            width={"100%"}
+                            src={url[2]} 
+                        />
                     </div>
 
                     {/* {

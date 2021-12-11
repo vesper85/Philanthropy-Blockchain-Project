@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
-import coverImg from './sample/india_flood_blur.jpg'
+import coverImg from './sample/No_Image.jpg'
 import status from './sample/status.svg'
 import { initializeApp } from "firebase/app";
 import firebaseConfig from '../config/firebaseConfig';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const DonateCard = (props) => {
     const firebaseApp = initializeApp(firebaseConfig);
@@ -20,10 +21,14 @@ const DonateCard = (props) => {
     }, [])
 
     const getCardInfo = async() => {
-        let goalProgress = ((fundsRaised / goal) * 100).toFixed(2)
-        setProgress(goalProgress)
-        let imgLoaded = await getDownloadURL( ref(firebaseStorage, `charitycover/${title}`))
-        setImage(imgLoaded);
+        try {
+            let goalProgress = ((fundsRaised / goal) * 100).toFixed(2)
+            setProgress(goalProgress)
+            let imgLoaded = await getDownloadURL( ref(firebaseStorage, `charitycover/${title}`))
+            setImage(imgLoaded)
+        } catch(FirebaseError) {
+            setImage(coverImg)
+        }
     }
 
     return (
@@ -31,7 +36,12 @@ const DonateCard = (props) => {
         <div className={`col card-content mb-5`}>
             <div className="card h-100">
                 <Link to={{pathname:"/charitydetails", state:props}} >
-                    <img src={Image || coverImg} className="card-img-top"  alt="profileIMG" />
+                    <LazyLoadImage className="card-img-top"
+                            alt={coverImg}
+                            effect="blur"
+                            src={Image}
+                            width={"100%"}
+                    />
                     <div className="card-body">
                         <p className="card-title">{title}</p>
                         <p className="card-text">{description.substring(0,115) + "...."}</p>
