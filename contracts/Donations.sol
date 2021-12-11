@@ -35,6 +35,18 @@ contract Donations {
         Donation transactions
     );
 
+    event FullAmountReverted(
+        string name,
+        uint amount,
+        uint donationCount,
+        Donation transactions
+    );
+
+    event AmountReverted(
+        address receipent,
+        uint amount
+    );
+
     mapping(string => Charity) charities;
 
     function createCharity(string memory _name) public {
@@ -66,5 +78,27 @@ contract Donations {
         charities[_name].donationCount = 0;
 
         emit AmountTransferred(charities[_name].name, charities[_name].amount, charities[_name].donationCount, charities[_name].transactions[1]);
+    }
+
+    function revertAmount(string memory _name) public {
+        uint count = charities[_name].donationCount;
+
+        for(uint i=0; i<count; i++) {
+            // Revert Eth back
+            address payable _revertAddress = payable(charities[_name].transactions[i].donor);
+            uint _revertAmount = charities[_name].transactions[i].amount;
+            _revertAddress.transfer(_revertAmount);
+
+            emit AmountReverted(_revertAddress, _revertAmount);
+
+            // Reset logs of charity on blockchain
+            charities[_name].transactions[i].amount = 0;
+            charities[_name].transactions[i].donor = address(0x0000000000000000000000000000000000000000);
+        }
+
+        charities[_name].amount = 0;
+        charities[_name].donationCount = 0;
+
+        emit FullAmountReverted(charities[_name].name, charities[_name].amount, charities[_name].donationCount, charities[_name].transactions[1]);
     }
 }

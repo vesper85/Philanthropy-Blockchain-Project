@@ -112,11 +112,14 @@ export default function HeroElement(props) {
         setAccount(accounts[0]);
         console.log("Metamask account Address :", accounts[0]);
     }
+
+    const handleDonation = () => {
+        makeDonation(title, Web3.utils.toWei('3', 'Ether'))
+    }
     
     const makeDonation = (id, amount) => {
-        console.log(isVerified)
+        console.log('isVerified: ', isVerified)
         if(isVerified == true) {
-            console.log("here")
             let web3js = new Web3(window.web3.currentProvider); 
             web3js.eth.sendTransaction({
                 from: account,
@@ -131,6 +134,10 @@ export default function HeroElement(props) {
         }
     }
 
+    const handleTransfer = () => {
+        transferAmount()
+    }
+
     const transferAmount = () => {
         contract.methods.transferAmount(walletAddress, title).send({from: account})
         .once('receipt', (receipt) => {
@@ -138,12 +145,12 @@ export default function HeroElement(props) {
         })
     }
 
-    const handleDonation = () => {
-        makeDonation(title, Web3.utils.toWei('3', 'Ether'))
+    const handleRevert = () => {
+        revertAmount()
     }
 
-    const handleTransfer = () => {
-        transferAmount()
+    const revertAmount = () => {
+        contract.methods.revertAmount(title).send({from: account})
     }
 
     useEffect(() => {
@@ -227,6 +234,7 @@ export default function HeroElement(props) {
                         <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
                             <button type="button" onClick={handleDonation} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
                             <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>
+                            <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>
                         </div>
                     </div>
                     <div className="col-lg-5 col-md-5 shadow-lg p-2">

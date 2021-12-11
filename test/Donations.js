@@ -63,7 +63,7 @@ contract('Donations', ([donor1, donor2, donor3]) => {
             assert.equal(event.amount, '0', 'amount is correct')
             //assert.equal(event.transactions, ['0x0000000000000000000000000000000000000000', '0', Array(2)], 'transactions are correct')
 
-            let newCharityBalance = await web3.eth.getBalance("0x6029f0c802CdB7776F2803BD73835578b72cF8f2")
+            let newCharityBalance = await web3.eth.getBalance('0x6029f0c802CdB7776F2803BD73835578b72cF8f2')
             newCharityBalance = new web3.utils.BN(newCharityBalance)
 
             let amount = web3.utils.toWei('3', 'Ether')
