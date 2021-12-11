@@ -31,7 +31,8 @@
     "turffleInit": "truffle init",
     "truffleV": "truffle version",
     "truffleCompile": "truffle compile",
-    "truffleMig": "truffle migrate"
+    "truffleMig": "truffle migrate",
+    "truffleMigRT": "truffle migrate --reset"
   },
   "eslintConfig": {
     "extends": [
