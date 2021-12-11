@@ -55,7 +55,7 @@ const DonateCard = (props) => {
                         <div className="progress my-1">
                             <div className="progress-bar" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100" style={{width:`${progress+'%'}`}}>{progress}%</div>
                         </div>
-                        <p className="card-text "><small className="text-muted">INR {fundsRaised} (฿ 0.0008) raised of INR {goal} goal</small></p>
+                        <p className="card-text "><small className="text-muted">ETH {fundsRaised} raised of ETH {goal} goal</small></p>
                     </div>
 
                     {/* Status card */}

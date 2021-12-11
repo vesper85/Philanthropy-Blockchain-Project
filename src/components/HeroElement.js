@@ -24,6 +24,8 @@ export default function HeroElement(props) {
         stat3: '95.1M children deprived of midday meals at school during COVID-19'
     })
 
+    const [contractBalance, setContractBalance] = useState(0)
+
     const deleteCharity = async() => {
         try {
             const url = "http://localhost:5000/api/charity/deletecharity/" + id;
@@ -82,6 +84,22 @@ export default function HeroElement(props) {
         getStats()
     }, [])
 
+    const updateFunds = async(amount) => {
+        const url = "http://localhost:5000/api/charity/updatecharity/" + id;
+        //eslint-disable-next-line
+        const response = await fetch(url,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    fundsRaised: fundsRaised + amount
+                })
+            }
+        );
+    }
+
     // Blockchain Code
 
     const [account, setAccount] = useState("");
@@ -128,9 +146,14 @@ export default function HeroElement(props) {
             })
             .then(function(receipt){
                 console.log(receipt)
+                updateFunds(5)
             });
         } else {
             contract.methods.updateAmount(id).send({from:account, value: amount, gas: 1000000})
+            .once('receipt', (receipt) => {
+                console.log(receipt)
+                setContractBalance(contractBalance + 3)
+            })
         }
     }
 
@@ -142,6 +165,7 @@ export default function HeroElement(props) {
         contract.methods.transferAmount(walletAddress, title).send({from: account})
         .once('receipt', (receipt) => {
             console.log(receipt)
+            updateFunds(contractBalance)
         })
     }
 
@@ -151,6 +175,10 @@ export default function HeroElement(props) {
 
     const revertAmount = () => {
         contract.methods.revertAmount(title).send({from: account})
+        .once('receipt', (receipt) => {
+            console.log(receipt)
+            setContractBalance(0)
+        })
     }
 
     useEffect(() => {
