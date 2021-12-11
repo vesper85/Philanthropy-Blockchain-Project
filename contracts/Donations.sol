@@ -17,29 +17,31 @@ contract Donations {
     event CharityCreated(
         string name,
         uint amount,
-        uint donationCount,
-        Donation transactions
+        uint donationCount
+        // Donation transactions        truffle test
     );
 
     event AmountUpdated(
         string name,
         uint amount,
         uint donationCount,
-        Donation transactions
+        // Donation transactions        truffle test
+        address lastDonor,           // Ganache
+        uint lastAmount              // Ganache
     );
 
     event AmountTransferred(
         string name,
         uint amount,
-        uint donationCount,
-        Donation transactions
+        uint donationCount
+        // Donation transactions        truffle test
     );
 
     event FullAmountReverted(
         string name,
         uint amount,
-        uint donationCount,
-        Donation transactions
+        uint donationCount
+        // Donation transactions        truffle test
     );
 
     event AmountReverted(
@@ -53,7 +55,7 @@ contract Donations {
         charities[_name].name = _name;
         charities[_name].amount = 0;
         charities[_name].donationCount = 0;
-        emit CharityCreated(charities[_name].name, charities[_name].amount, charities[_name].donationCount, charities[_name].transactions[0]);
+        emit CharityCreated(charities[_name].name, charities[_name].amount, charities[_name].donationCount); // charities[_name].transactions[0]
     }
 
     function updateAmount(string memory _name) public payable {
@@ -61,7 +63,7 @@ contract Donations {
         uint _count = charities[_name].donationCount;
         charities[_name].transactions[_count] = Donation(msg.sender, msg.value);
         charities[_name].donationCount = _count + 1;
-        emit AmountUpdated(charities[_name].name, charities[_name].amount, charities[_name].donationCount, charities[_name].transactions[_count]);
+        emit AmountUpdated(charities[_name].name, charities[_name].amount, charities[_name].donationCount, charities[_name].transactions[_count].donor, charities[_name].transactions[_count].amount);
     }
 
     function transferAmount(address _charityAddress, string memory _name) public {
@@ -77,7 +79,7 @@ contract Donations {
         charities[_name].amount = 0;
         charities[_name].donationCount = 0;
 
-        emit AmountTransferred(charities[_name].name, charities[_name].amount, charities[_name].donationCount, charities[_name].transactions[1]);
+        emit AmountTransferred(charities[_name].name, charities[_name].amount, charities[_name].donationCount); // charities[_name].transactions[1]
     }
 
     function revertAmount(string memory _name) public {
@@ -99,6 +101,6 @@ contract Donations {
         charities[_name].amount = 0;
         charities[_name].donationCount = 0;
 
-        emit FullAmountReverted(charities[_name].name, charities[_name].amount, charities[_name].donationCount, charities[_name].transactions[1]);
+        emit FullAmountReverted(charities[_name].name, charities[_name].amount, charities[_name].donationCount); // charities[_name].transactions[1]
     }
 }
