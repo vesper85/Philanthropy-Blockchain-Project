@@ -7,6 +7,7 @@ import Process from '../components/Process'
 import Security from '../components/Security'
 import Partners from '../components/Partners'
 import Footer from '../components/Footer'
+import Testimonial from '../components/Testimonial'
 
 const Home = (props) => {
     props.useScrollToTop();
@@ -33,6 +34,8 @@ const Home = (props) => {
             <Security/>
 
             <Partners />
+
+            <Testimonial/>
 
             <Footer />
             
