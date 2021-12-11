@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import CharityCarousel from '../components/CharityCarousel'
 import HeroElement from '../components/HeroElement'
+import { useEffect } from 'react/cjs/react.development'
 
 
 export default function CharityDetails(props) {
@@ -19,6 +20,10 @@ export default function CharityDetails(props) {
     const cause = props.location.state.cause
     const walletAddress = props.location.state.walletAddress
     const isVerified = props.location.state.isVerified
+
+    useEffect(() => {
+        window.scrollTo({ top: 0 })
+    }, [])
 
     return (
         <div>

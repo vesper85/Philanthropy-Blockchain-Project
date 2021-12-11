@@ -10,13 +10,20 @@ import Donations from '../contracts/Donations.json';
 
 export default function HeroElement(props) {
     // eslint-disable-next-line
-    const {id, title, description, previousWork, goal, fundsRaised, walletAddress, isVerified} = props
+    const {id, title, cause, description, previousWork, goal, fundsRaised, walletAddress, isVerified} = props
     const history = useHistory()
     const firebaseApp = initializeApp(firebaseConfig)
     const firebaseStorage = getStorage(firebaseApp)
 
     const donationModalToggle = useRef();
     const [donAmount, setdonAmount] = useState(0);
+
+    const [stats, setStats] = useState({
+        stat1: 'More than a third of the world’s malnourished children live in India',
+        stat2: 'More than 2/3rds deaths of under-fives attributed to malnutrition',
+        stat3: '95.1M children deprived of midday meals at school during COVID-19'
+    })
+
     const deleteCharity = async() => {
         try {
             const url = "http://localhost:5000/api/charity/deletecharity/" + id;
@@ -52,6 +59,29 @@ export default function HeroElement(props) {
         }
     }
 
+    const getStats = async() => {
+        try {
+            const url = "http://localhost:5000/api/stats/fetchstats"
+            const response = await fetch(url, {
+                method: 'GET', 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accept':'application/json',
+                    'cause': `${cause}`
+                }
+            });
+            const data = await response.json();
+            setStats(data[0])
+            // console.log(data[0])
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getStats()
+    }, [])
+
     // Blockchain Code
 
     const [account, setAccount] = useState("");
@@ -82,11 +112,14 @@ export default function HeroElement(props) {
         setAccount(accounts[0]);
         console.log("Metamask account Address :", accounts[0]);
     }
+
+    const handleDonation = () => {
+        makeDonation(title, Web3.utils.toWei('3', 'Ether'))
+    }
     
     const makeDonation = (id, amount) => {
-        console.log(isVerified)
+        console.log('isVerified: ', isVerified)
         if(isVerified == true) {
-            console.log("here")
             let web3js = new Web3(window.web3.currentProvider); 
             web3js.eth.sendTransaction({
                 from: account,
@@ -101,6 +134,10 @@ export default function HeroElement(props) {
         }
     }
 
+    const handleTransfer = () => {
+        transferAmount()
+    }
+
     const transferAmount = () => {
         contract.methods.transferAmount(walletAddress, title).send({from: account})
         .once('receipt', (receipt) => {
@@ -108,15 +145,13 @@ export default function HeroElement(props) {
         })
     }
 
-    const handleDonation = () => {
-        makeDonation(title, Web3.utils.toWei('3', 'Ether'))
+    const handleRevert = () => {
+        revertAmount()
     }
 
-    const handleTransfer = () => {
-        transferAmount()
+    const revertAmount = () => {
+        contract.methods.revertAmount(title).send({from: account})
     }
-
-    
 
     useEffect(() => {
         loadBlockChain();
@@ -180,25 +215,26 @@ export default function HeroElement(props) {
                             <div className="col-lg-4 col-md-12">
                                 <div className="details-container">
                                     <div className="details-title"><img  className="rounded mx-auto d-block pb-1" src="https://give-marketplace-dev.s3.ap-south-1.amazonaws.com/static/images/home/homev2/Mission+10+Million+Meals/Homepage%2Bicons_A.png" alt="" height="100px" width="100px" /></div>
-                                    <p className="details-text">More than a third of the world’s malnourished children live in India</p>
+                                    <p className="details-text">{stats && stats.stat1 || 'More than a third of the world’s malnourished children live in India'}</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-12">
                                 <div className="details-container">
                                     <div className="details-title"><img  className="rounded mx-auto d-block pb-1" src="https://give-marketplace-dev.s3.ap-south-1.amazonaws.com/static/images/home/homev2/Mission+10+Million+Meals/Homepage%2Bicons_B.png" alt="" height="100px" width="100px"/></div>
-                                    <p className="details-text">More than 2/3rds deaths of under-fives attributed to malnutrition</p>
+                                    <p className="details-text">{stats && stats.stat2 || 'More than 2/3rds deaths of under-fives attributed to malnutrition'}</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-12">
                                 <div className="details-container">
                                     <div className="details-title"><img  className="rounded mx-auto d-block pb-1" src="https://give-marketplace-dev.s3.ap-south-1.amazonaws.com/static/images/home/homev2/Mission+10+Million+Meals/impactmidday+mea.png" alt="" height="100px" width="100px"/></div>
-                                    <p className="details-text">95.1M children deprived of midday meals at school during COVID-19</p>
+                                    <p className="details-text">{stats && stats.stat3 || '95.1M children deprived of midday meals at school during COVID-19'}</p>
                                 </div>
                             </div>
                         </div>
                         <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
                             <button type="button" onClick={handleDonation} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
                             <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>
+                            <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>
                         </div>
                     </div>
                     <div className="col-lg-5 col-md-5 shadow-lg p-2">
