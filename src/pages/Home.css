@@ -309,6 +309,17 @@
   display: block;
 }
 
+@media only screen and (min-width: 300px) and (max-width: 750px) {
+  .sec-subtitle{
+    text-align: center;
+  }
+
+  .sec-header, .step-heading, .partners-heading{
+    margin: 0px auto 20px auto;
+    font-size: xx-large;
+  }
+}
+
 .sec-text{
   font-weight: 400;
   font-size: 0.95rem;
