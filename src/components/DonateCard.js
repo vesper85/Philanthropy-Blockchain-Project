@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
 import coverImg from './sample/No_Image.jpg'
-import status from './sample/status.svg'
+import statusImg from './sample/status.svg'
 import { initializeApp } from "firebase/app";
 import firebaseConfig from '../config/firebaseConfig';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
@@ -14,6 +14,7 @@ const DonateCard = (props) => {
     const {title, description, goal, fundsRaised} = props;
     const [progress, setProgress] = useState(0);
     const [Image, setImage] = useState()
+    const [status, setStatus] = useState()
 
     useEffect(() => {
         getCardInfo();
@@ -26,6 +27,11 @@ const DonateCard = (props) => {
             setProgress(goalProgress)
             let imgLoaded = await getDownloadURL( ref(firebaseStorage, `charitycover/${title}`))
             setImage(imgLoaded)
+            if(goalProgress < 100) {
+                setStatus('Active')
+            } else {
+                setStatus('Inactive')
+            }
         } catch(FirebaseError) {
             setImage(coverImg)
         }
@@ -63,12 +69,12 @@ const DonateCard = (props) => {
                         <div className="card mb-3">
                             <div className="row g-0">
                                 <div className="col-md-3 col-sm-3 col-xs-3 text-center align-self-center status-card-img">
-                                    <img src={status} className="img-fluid rounded-start" alt="..."/>
+                                    <img src={statusImg} className="img-fluid rounded-start" alt="..."/>
                                 </div>
                                     <div className="col-md-9 col-sm-9 col-xs-9">
                                     <div className=" status-card-body">
                                         <p className=" status-card-status">Status</p>
-                                        <p className="card-text current-status">Active</p>
+                                        <p className="card-text current-status">{status}</p>
                                     </div>
                                 </div>
                             </div>

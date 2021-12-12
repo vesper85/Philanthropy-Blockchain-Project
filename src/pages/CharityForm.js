@@ -54,6 +54,9 @@ export default function CharityForm(props) {
     const [uploadingCharityImages, setUploadingCharityImages] = useState(false)
     const [progressCharityImages, setProgressCharityImages] = useState(0)
 
+    const [cause, setCause] = useState(credentialCharity.cause)
+    const [stateField, setStateField] = useState(credentialCharity.state)
+
     const coverImageHandler = (e) => {
         try {
             let file = e.target.files[0];
@@ -237,18 +240,28 @@ export default function CharityForm(props) {
     }
 
     useEffect(() => {
-        if(submitPressed && progressCoverImage == 100 && coverImageUpload && !charityImgsUpload) {
+        if(submitPressed && progressCoverImage ===
+             100 && coverImageUpload && !charityImgsUpload) {
             history.go(-2)
         }
         else if(submitPressed && !coverImageUpload && charityImgsUpload && !uploadingCharityImages) {
             history.go(-2)
         }
         else if(submitPressed && coverImageUpload && charityImgsUpload) {
-            if(progressCoverImage == 100 && !uploadingCharityImages) {
+            if(progressCoverImage === 100 && !uploadingCharityImages) {
                 history.go(-2)
             }
         }
     }, [progressCoverImage, uploadingCharityImages])
+
+    const causeHandler = (e) => {
+        setCause(e.target.value)
+    }
+
+    const stateHandler = (e) => {
+        setStateField(e.target.value)
+        console.log(e)
+    }
 
     // Blockchain code
 
@@ -306,21 +319,20 @@ export default function CharityForm(props) {
                                     <span className="details">Charity Name</span>
                                     <input type="text" name="charityName" placeholder="Enter Charity Name" defaultValue={info.title || ""} required />
                                 </div>
-                                <div className="input-box" style={{width:"100%"}}>
+                                {/* <div className="input-box" style={{width:"100%"}}>
                                     <span className="details">Cause</span>
                                     <input type="text" name="cause" placeholder="Enter Cause" defaultValue={info.cause || ""} required />
-                                </div>
-                                {/* <div className="input-box" style={{ width: "100%" }}>
+                                </div> */}
+                                <div className="input-box" style={{ width: "100%" }}>
                                     <span className="details">Cause</span>
                                     <div className="select">
-                                        <select className="form-select select-box select-wrapper" name="cause" defaultValue={info.cause || ""} required>
-                                            <option selected>Select</option>
-                                            <option value="1">Flood</option>
-                                            <option value="2">old aged people</option>
-                                            <option value="3">child</option>
+                                        <select className="form-select select-box select-wrapper" name="cause" defaultValue={cause || ""} onChange={causeHandler} required>
+                                            <option value="Flood">Flood</option>
+                                            <option value="Earthquake">Earthquake</option>
+                                            <option value="Cyclon">Cyclon</option>
                                         </select>
                                     </div>
-                                </div> */}
+                                </div>
                                 <div className="input-box" style={{ width: "100%" }}>
                                     <span className="details">Public key</span>
                                     <input type="text" name="walletAddress" placeholder="Enter Public key for charity's Ethereum wallet" defaultValue={info.walletAddress || ""} required />
@@ -337,48 +349,46 @@ export default function CharityForm(props) {
                                     <span className="details">City</span>
                                     <input type="text" name="city" placeholder="Enter City" defaultValue={info.city || ""} required />
                                 </div>
-                                <div className="input-box">
-                                    <span className="details">State</span>
-                                    <input type="text" name="state" placeholder="Enter State" defaultValue={info.state || ""} required />
-                                </div>
                                 {/* <div className="input-box">
                                     <span className="details">State</span>
-                                    {/* <input type="text" name="state" placeholder="Enter State" defaultValue={info.state || ""} required /> */}
-                                    {/* <div >
-                                        <select className="form-select select-box" name="state" defaultValue={info.state || ""} required>  
-                                            <option selected></option>
-                                            <option value="1">Andhra Pradesh</option>
-                                            <option value="2">Arunachal Pradesh</option>
-                                            <option value="3">Assam</option>
-                                            <option value="4">Bihar</option>
-                                            <option value="5">Chhattisgarh</option>
-                                            <option value="6">Goa</option>
-                                            <option value="7">Gujarat</option>
-                                            <option value="8">Haryana</option>
-                                            <option value="9">Himachal Pradesh</option>
-                                            <option value="10">Jammu and Kashmir</option>
-                                            <option value="11">Jharkhand</option>
-                                            <option value="12">Karnataka</option>
-                                            <option value="13">Kerala</option>
-                                            <option value="14">Madhya Pradesh</option>
-                                            <option value="15">Maharashtra</option>
-                                            <option value="16">Manipur</option>
-                                            <option value="17">Meghalaya</option>
-                                            <option value="18">Mizoram</option>
-                                            <option value="19">Nagaland</option>
-                                            <option value="20">Odisha</option>
-                                            <option value="21">Punjab</option>
-                                            <option value="22">Rajasthan</option>
-                                            <option value="23">Sikkim</option>
-                                            <option value="24">Tamil Nadu</option>
-                                            <option value="25">Telangana</option>
-                                            <option value="26">Tripura</option>
-                                            <option value="27">Uttar Pradesh</option>
-                                            <option value="28">Uttarakhand</option>
-                                            <option value="29">West Bengal</option>
+                                    <input type="text" name="state" placeholder="Enter State" defaultValue={info.state || ""} required />
+                                </div> */}
+                                <div className="input-box">
+                                    <span className="details">State</span>
+                                    <div>
+                                        <select className="form-select select-box" name="state" defaultValue={stateField || ""} onChange={stateHandler} required>
+                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                            <option value="Assam">Assam</option>
+                                            <option value="Bihar">Bihar</option>
+                                            <option value="Chhattisgarh">Chhattisgarh</option>
+                                            <option value="Goa">Goa</option>
+                                            <option value="Gujarat">Gujarat</option>
+                                            <option value="Haryana">Haryana</option>
+                                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                            <option value="Jharkhand">Jharkhand</option>
+                                            <option value="Karnataka">Karnataka</option>
+                                            <option value="Kerala">Kerala</option>
+                                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                            <option value="Maharashtra">Maharashtra</option>
+                                            <option value="Manipur">Manipur</option>
+                                            <option value="Meghalaya">Meghalaya</option>
+                                            <option value="Mizoram">Mizoram</option>
+                                            <option value="Nagaland">Nagaland</option>
+                                            <option value="Odisha">Odisha</option>
+                                            <option value="Punjab">Punjab</option>
+                                            <option value="Rajasthan">Rajasthan</option>
+                                            <option value="Sikkim">Sikkim</option>
+                                            <option value="Tamil Nadu">Tamil Nadu</option>
+                                            <option value="Telangana">Telangana</option>
+                                            <option value="Tripura">Tripura</option>
+                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                            <option value="Uttarakhand">Uttarakhand</option>
+                                            <option value="West Bengal">West Bengal</option>
                                         </select>
                                     </div>
-                                </div> */}
+                                </div>
                                 <div className="input-box">
                                     <span className="details">Goal</span>
                                     <input type="number" name="goal" placeholder="Enter goal amount" defaultValue={info.goal || ""} required />
