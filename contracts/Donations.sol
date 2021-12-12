@@ -49,6 +49,10 @@ contract Donations {
         uint amount
     );
 
+    event Balance(
+        uint balance
+    );
+
     mapping(string => Charity) charities;
 
     function createCharity(string memory _name) public {
@@ -102,5 +106,10 @@ contract Donations {
         charities[_name].donationCount = 0;
 
         emit FullAmountReverted(charities[_name].name, charities[_name].amount, charities[_name].donationCount); // charities[_name].transactions[1]
+    }
+
+    function getBalance(string memory _name) public returns(uint){
+        emit Balance(charities[_name].amount);
+        return charities[_name].amount;
     }
 }

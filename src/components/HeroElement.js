@@ -153,6 +153,7 @@ export default function HeroElement(props) {
             .once('receipt', (receipt) => {
                 console.log(receipt)
                 setContractBalance(contractBalance + 3)
+                getBalance()
             })
         }
     }
@@ -178,6 +179,13 @@ export default function HeroElement(props) {
         .once('receipt', (receipt) => {
             console.log(receipt)
             setContractBalance(0)
+        })
+    }
+
+    const getBalance = () => {
+        const bal = contract.methods.getBalance(title).call()
+        bal.then((res) => {
+            console.log(res)
         })
     }
 
