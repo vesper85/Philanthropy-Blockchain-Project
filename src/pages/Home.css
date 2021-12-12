@@ -291,6 +291,43 @@
   background-color: #04E3AE;
 }
 
+@media only screen and (width: 768px) and (height: 1024px) {
+  .title-ele{
+    margin-bottom: -500px;
+  }
+}
+
+@media only screen and (width: 1024px) and (height: 1366px) {
+  .title-ele{
+    margin-bottom: -780px;
+  }
+}
+
+@media only screen and (min-width: 280px) and (max-width: 360px){
+  .title-ele{
+    margin-bottom: -120px;
+  }
+}
+
+@media only screen and (width: 375px){
+  .title-ele{
+    margin-bottom: -200px;
+  }
+}
+
+@media only screen and (min-width: 411px)and (max-width: 414px) {
+  .title-ele{
+    margin-bottom: -220px;
+  }
+}
+
+
+@media only screen and (width: 540px)and (height: 720px) {
+  .title-ele{
+    margin-bottom: -200px;
+  }
+}
+
 /* security and control section */
 
 .sec-header{
