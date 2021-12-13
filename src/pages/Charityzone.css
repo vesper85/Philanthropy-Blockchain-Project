@@ -186,6 +186,18 @@
     background-color: var(--royal-blue);
 }
 
+@media only screen and (width: 1024px) and (height: 1366px) {
+    .card-img-top{
+        max-height: 18vh;
+    }
+}
+
+@media only screen and (width: 768px) and (height: 1024px) {
+    .card-img-top{
+        max-height: 25vh;
+    }
+}
+
 
 /* Status card */
 .status-card{

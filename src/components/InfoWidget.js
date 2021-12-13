@@ -17,7 +17,7 @@ const InfoWidget = () => {
  
                     <InfoWidgetElement imlink={partnersIcon} title={"Our partners"} subtitle={"Partner Organizations"} />
                     <InfoWidgetElement imlink={teamIcon} title={"Team information"} subtitle={"About the website developers"} />
-                    <InfoWidgetElement imlink={stepsIcon} title={"Thinking..."} subtitle={"Guys let me know what to add here"} />
+                    <InfoWidgetElement imlink={stepsIcon} title={"What People Think..."} subtitle={"User reviews and ratings"} />
                 </div>
             </div>
         </div>
