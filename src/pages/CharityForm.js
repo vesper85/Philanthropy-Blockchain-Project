@@ -183,6 +183,9 @@ export default function CharityForm(props) {
                         contract.methods.createCharity(credentialCharity.charityName).send({from: account})
                     }
                 }
+                else {
+                    window.scrollTo({ top: 0 })
+                }
             }
             else if (event === "update") {
                 console.log(credentialCharity)
@@ -367,7 +370,7 @@ export default function CharityForm(props) {
 
             {
                 (!isValidPublicKey(credentialCharity.walletAddress) && submitPressed) && 
-                <div>
+                <div className='alert-pub-key-container'>
                     <div className="alert alert-danger alert-dismissible fade show alert-public-key" role="alert">
                         Public key: '<strong>{credentialCharity.walletAddress}</strong>' is not valid!
                     </div>
