@@ -113,9 +113,9 @@ export default function HeroElement(props) {
         console.log("Metamask account Address :", accounts[0]);
     }
 
-    const handleDonation = () => {
-        makeDonation(title, Web3.utils.toWei('3', 'Ether'))
-    }
+    //const handleDonation = () => {
+    //    makeDonation(title, Web3.utils.toWei('3', 'Ether'))
+    //}
     
     const makeDonation = (id, amount) => {
         console.log('isVerified: ', isVerified)
@@ -124,7 +124,7 @@ export default function HeroElement(props) {
             web3js.eth.sendTransaction({
                 from: account,
                 to: walletAddress,
-                value: Web3.utils.toWei('5', 'Ether')
+                value: Web3.utils.toWei(donAmount, 'Ether')
             })
             .then(function(receipt){
                 console.log(receipt)
@@ -151,6 +151,17 @@ export default function HeroElement(props) {
 
     const revertAmount = () => {
         contract.methods.revertAmount(title).send({from: account})
+    }
+    //BLockChain code END ------------
+
+
+    const openModal = ()=>{
+        console.log('modal open');
+        donationModalToggle.current.click();
+    }
+    const rangeOnChange = (e)=>{
+        setdonAmount(e.target.value)
+        console.log(e.target.value)
     }
 
     useEffect(() => {
@@ -181,7 +192,7 @@ export default function HeroElement(props) {
                     <div><h6>To:</h6> {walletAddress} </div>
                     <div className="mt-4"><h6>Value {donAmount} </h6>  </div>
                     
-                    <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1"></input>
+                    <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" onChange={rangeOnChange} ></input>
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Reject</button>
@@ -232,7 +243,7 @@ export default function HeroElement(props) {
                             </div>
                         </div>
                         <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                            <button type="button" onClick={handleDonation} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
+                            <button type="button" onClick={openModal} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
                             <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>
                             <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>
                         </div>
