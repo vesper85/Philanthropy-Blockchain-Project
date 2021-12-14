@@ -92,6 +92,58 @@ export default function CharityForm(props) {
         console.log("update carousel images: " + charityImgsUpload)
     }, [coverImageUpload, charityImgsUpload])
 
+    const isValidPublicKey = (key) => {
+        const validKeys = [
+            // Index 10 to 49 from Ganache with mnemonic - 'animal scissors detect fatigue congress jacket foil benefit write stamp film twelve'
+            '0x9079191937192eb14773b802Cecc9AE2fcFe45Bc',
+            '0xc13528426E856ed885502f0e924Ac482BCBe554A',
+            '0xA7AE8BcC61C991bafd94b96C4Dd0C7f67F8eE63D',
+            '0x9826608A8c3ac3A3671EbD199adbaC0E1d13A5a5',
+            '0x439239813a30cDb3993553B7bc3d6dD5C1FBC8aA',
+            '0x9985fFb35A8D8866cA6b6f144206b246c7A8E974',
+            '0xaccD6279340391a90AE0BCE4b4eF693EE2BBaee7',
+            '0x3c74f1C3124cfc0f7a1F1e6EBCE448fC3cA5BCbf',
+            '0x171c76bCA92fdEF46BBCf4bd78f771a140B30dF9',
+            '0x0C5B87D4C9B7350B43A53d24EfF76D5B07ddbBd1',
+            '0x4342CD993dd61083860BFa2f24730E3F99057D99',
+            '0x1792AC3dE8E58a812c7Cd41E100CdBD15A2FF8EE',
+            '0xCC57249c16cb762ce2A027a8D7fA22902E9669F7',
+            '0x0B32d9Cc761aEBFc6D0584841D919Bb2C41977f9',
+            '0xc073AdD167273486BeC6653E9427fA59069E97d6',
+            '0x7038dB1848bB819807B3caf3Aa18310D4d5EdA87',
+            '0xe5Af0CaF0f71ee9836686Bd01752a449711C22aE',
+            '0xEc2f1C15cb0c9F090EB70A30FA4ea09300176f84',
+            '0xAA2a44263da0B8d86f17BD6Ee7a4B4e6309cd7d6',
+            '0xeD93124137CbA0F58D445FABBd15b1BaB2DB53e9',
+            '0x126adeD5184E7b548BaF52DAdD55eaFEcfbCe1c6',
+            '0x589B175A9F26a5189cfDE3CDB68832893dF7ECA5',
+            '0x9bf9971EF56050c69c59c3897725116d33B8DAC7',
+            '0x293d3574ec402FdAd1E4972a92a5890557dA3F81',
+            '0xA3950ba25aC19B476CCf1aD8212Cd54701f3bc14',
+            '0x01D4bf7a4836C9dd7983b880ee006dC3175b4582',
+            '0x06B678725fcCC7Bb445eC85B4Cd38FA0e6322A6C',
+            '0x4ceCcACcEFb3e9417fDfE7776cE732e7440EDE49',
+            '0xD828e6DB68EF3684Cb053F40c08277e01c618E58',
+            '0xd43f453840A3C9dBA02D0D8e7aAf44946628E3AE',
+            '0x524B00a64f117F3412Ad6190F166EeA6B67ae0b1',
+            '0xa42F07261d151EB6a4E6901FA3ff1E15b17683fc',
+            '0xf9c8265E491Ea467a0bB61C9714eD94B913ac6Dc',
+            '0x23Df977C27acf84D814de15CefD9a66db9EEec5e',
+            '0x9D907F0d21CBd7F9d12284085b8383943B0dd87d',
+            '0x1CeDa3808e35027c7b68b804F0551E488D3e7025',
+            '0x111a9D85183C0d9Cd4C389E9393B39c30db0C003',
+            '0x9D057b27e753835927c5e6abbC239D8f0A54Aa80',
+            '0x59c0B0c7b1Ab5db0fAA69f02D2F95a763319080b',
+            '0x6029f0c802CdB7776F2803BD73835578b72cF8f2'
+        ]
+
+        if(validKeys.includes(key)) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     const onChangeCharity = async (e) => {
         setCredentialCharity({
             ...credentialCharity, [e.target.name]: e.target.value
@@ -104,29 +156,35 @@ export default function CharityForm(props) {
             setSubmitPressed(true)
             if (event === "Add New") {
                 const url = "http://localhost:5000/api/charity/createcharity"
-                //eslint-disable-next-line
-                const response = await fetch(url,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            charityName: credentialCharity.charityName,
-                            walletAddress: credentialCharity.walletAddress,
-                            description: credentialCharity.description,
-                            previousWork: credentialCharity.previousWork,
-                            cause: credentialCharity.cause,
-                            goal: credentialCharity.goal,
-                            city: credentialCharity.city,
-                            state: credentialCharity.state,
-                            isVerified: checkbox
-                        })
+
+                if(isValidPublicKey(credentialCharity.walletAddress)) {
+                    //eslint-disable-next-line
+                    const response = await fetch(url,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                charityName: credentialCharity.charityName,
+                                walletAddress: credentialCharity.walletAddress,
+                                description: credentialCharity.description,
+                                previousWork: credentialCharity.previousWork,
+                                cause: cause,
+                                goal: credentialCharity.goal,
+                                city: credentialCharity.city,
+                                state: stateField,
+                                isVerified: checkbox
+                            })
+                        }
+                    );
+                    if(!checkbox) {
+                        console.log(contract)
+                        contract.methods.createCharity(credentialCharity.charityName).send({from: account})
                     }
-                );
-                if(!checkbox) {
-                    console.log(contract)
-                    contract.methods.createCharity(credentialCharity.charityName).send({from: account})
+                }
+                else {
+                    window.scrollTo({ top: 0 })
                 }
             }
             else if (event === "update") {
@@ -231,7 +289,7 @@ export default function CharityForm(props) {
                     });
                 }
             }
-            if(!coverImageUpload && !charityImgsUpload) {
+            if(!coverImageUpload && !charityImgsUpload && isValidPublicKey(credentialCharity.walletAddress)) {
                 history.go(-1)
             }
         } catch (error) {
@@ -309,6 +367,17 @@ export default function CharityForm(props) {
             }
 
             <Navbar />
+
+            {
+                (!isValidPublicKey(credentialCharity.walletAddress) && submitPressed) && 
+                <div className='alert-pub-key-container'>
+                    <div className="alert alert-danger alert-dismissible fade show alert-public-key" role="alert">
+                        Public key: '<strong>{credentialCharity.walletAddress}</strong>' is not valid!
+                    </div>
+                </div>
+                
+            }
+
             <div className={uploadingCoverImage ? "cf-container charity-form loading-blur" : "cf-container charity-form"}>
                 <div className="cf-container_det">
                     <div className="cf-title">Charity Form</div>

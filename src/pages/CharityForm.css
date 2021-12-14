@@ -8,8 +8,7 @@
 }
 
 .cf-container{
-    margin-top: 63px;
-    height: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,7 +16,26 @@
     background-image: linear-gradient(-44deg, var(--bright-turquoise) 0%, var(--royal-blue) 100%);
 }
 
+@media only screen and (min-width: 411px) and (max-width: 414px) {
+    .cf-container{
+        margin-top: 70px;
+    }
+}
+
+@media only screen and (width: 375px) and (height: 812px) {
+    .cf-container{
+        margin-top: 80px;
+    }
+}
+
+@media only screen and (width: 768px) {
+    .cf-container{
+        margin-top: 100px;
+    }
+}
+
 .cf-container_det {
+    margin-top: 58px;
     max-width: 700px;
     width: 100%;
     background-color: #fff;
@@ -149,7 +167,7 @@ form .button input{
     background-image: linear-gradient(-44deg, var(--bright-turquoise) 0%, var(--royal-blue) 100%);
 }
  
-@media(max-width: 584px){
+@media(max-width: 500px){
   .cf-container_det {
     max-width: 100%;
   }
@@ -162,7 +180,7 @@ form .user-details .input-box{
     width: 100%;
   }
   .cf-content form .user-details{
-    max-height: 300px;
+    /* max-height: 300px; */
     overflow-y: scroll;
   }
   .user-details::-webkit-scrollbar{
@@ -215,12 +233,25 @@ form .user-details .input-box{
     width: 1.5em !important;
 }
 
-@media only screen and (max-width: 576px){
+@media only screen and (max-width: 500px){
     .verified-checkbox-container{
-        width: 45%;
+        width: 85%;
     }
     .verified-box-box{
         width: 1.2em !important;
+    }
+}
+
+@media only screen and (width: 540px){
+    .verified-checkbox-container{
+        width: 55%;
+    }
+    .verified-box-box{
+        width: 1.2em !important;
+    }
+    form .user-details .input-box {
+        margin-bottom: 15px;
+        width: 90%;
     }
 }
 
@@ -233,4 +264,8 @@ form .user-details .input-box{
     opacity: 0.8;
     width: 100%;
     height: 100%;
+}
+
+.alert-pub-key-container {
+    margin-top: 64px;
 }
