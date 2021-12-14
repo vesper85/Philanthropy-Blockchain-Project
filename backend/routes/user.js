@@ -6,6 +6,10 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fetchuser = require('../middleware/fetchuser');
 const JWTSECRET_KEY = 'philanthropyblockchainproject';
+const mailgun = require("mailgun-js");
+
+const DOMAIN = 'sandboxbf1aeee32dbf49379ee404f52e80310f.mailgun.org'
+const mg = mailgun({apiKey: process.env.MailGun_API_Key, domain: DOMAIN})
 
 // Route 1 add users to db POST "/api/user/adduser" --nologin required
 router.post('/createuser',[
@@ -27,6 +31,18 @@ router.post('/createuser',[
             // username exists then return
             return res.status(400).send('sorry the user with the username already exists')
         }
+
+        const data = {
+            from: 'noreply@gocharity.com',
+            to: req.body.email,
+            subject: 'Verify your email address',
+            text: 'Thank you for your registration'
+        };
+        
+        mg.messages().send(data, function (error, body) {
+            console.log(body);
+        });
+
         //generation of salt
         let salt = bcrypt.genSaltSync(10);
 
