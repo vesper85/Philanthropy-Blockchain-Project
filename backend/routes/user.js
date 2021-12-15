@@ -22,7 +22,7 @@ router.post('/createuser',[
         let user =await User.findOne({username:req.body.username})
         let user1 = await User.findOne({email:req.body.email})
         let user2 = await User.findOne({userWallet:req.body.userWallet})
-        if(user & user1 & user2)
+        if(user || user1 || user2)
         {
             // username exists then return
             return res.status(400).send('sorry the user with the username already exists')

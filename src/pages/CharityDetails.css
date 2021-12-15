@@ -52,9 +52,7 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.hero-container .modal {
-    transform: translateY(35vh);
- }
+
  .hero-container button{
      border-radius: 0%;
  }
@@ -89,3 +87,18 @@
       box-shadow: none !important;
       border: #f9ca24 solid 4px;
   }
+
+  /* receipt modal */
+  .receiptModal .modal-header{
+      background-color: var(--royal-blue);
+  }
+  .receiptModalTickContainer{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 100px;
+ }
+ .receiptModalTick{
+    color: white;
+    font-size: 4rem;
+ }

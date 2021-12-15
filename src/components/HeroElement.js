@@ -131,9 +131,9 @@ export default function HeroElement(props) {
         console.log("Metamask account Address :", accounts[0]);
     }
 
-    //const handleDonation = () => {
-    //    makeDonation(title, Web3.utils.toWei('3', 'Ether'))
-    //}
+    const handleDonation = () => {
+        //makeDonation(title, donAmount)
+    }
     
     const makeDonation = (id, amount) => {
         console.log('isVerified: ', isVerified)
@@ -142,17 +142,17 @@ export default function HeroElement(props) {
             web3js.eth.sendTransaction({
                 from: account,
                 to: walletAddress,
-                value: Web3.utils.toWei(donAmount, 'Ether')
+                value: Web3.utils.toWei(amount, 'Ether')
             })
             .then(function(receipt){
                 console.log(receipt)
                 updateFunds(5)
             });
         } else {
-            contract.methods.updateAmount(id).send({from:account, value: amount, gas: 1000000})
+            contract.methods.updateAmount(id).send({from:account, value: Web3.utils.toWei(amount, 'Ether'), gas: 1000000})
             .once('receipt', (receipt) => {
                 console.log(receipt)
-                setContractBalance(contractBalance + 3)
+                setContractBalance(contractBalance + amount);
                 getBalance()
             })
         }
@@ -197,8 +197,13 @@ export default function HeroElement(props) {
     }
     const rangeOnChange = (e)=>{
         setdonAmount(e.target.value)
-        console.log(e.target.value)
+        //console.log(e.target.value)
     }
+
+    const generateReceipt = ()=>{
+        console.log('receipt generated')
+    }
+
 
     useEffect(() => {
         loadBlockChain();
@@ -216,8 +221,8 @@ export default function HeroElement(props) {
             </button>
 
             {/* Donation modal */}
-            <div className="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div className="modal-dialog">
+            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content" style={{borderRadius:"0px"}}>
                 <div className="modal-header">
                     <h5 className="modal-title " id="staticBackdropLabel">Donate</h5>
@@ -232,12 +237,32 @@ export default function HeroElement(props) {
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Reject</button>
-                    <button type="button" onClick={makeDonation} className="btn btn-primary">Confirm</button>
+                    <button type="button" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" onClick={handleDonation} className="btn btn-primary">Confirm</button>
                 </div>
                 </div>
             </div>
             </div>
-             
+              
+
+
+            {/* RECEIPT MODAL */}
+
+            <div className="modal fade receiptModal" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div className="modal-dialog modal-dialog-centered">
+    <div className="modal-content" style={{borderRadius:"0px",border:"none"}} >
+      <div className="modal-header receiptModalTickContainer" style={{borderRadius:"inherit"}}>
+       <i class="far fa-check-circle receiptModalTick"></i>
+        {/*<button type="button" className="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>*/}
+      </div>
+      <div className="modal-body">
+        Hide this modal and show the first with the button below.
+      </div>
+      <div className="modal-footer">
+        <button className="btn btn-primary" onClick={generateReceipt}>Generate receipt</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -262,7 +287,7 @@ export default function HeroElement(props) {
                             <div className="col-lg-4 col-md-12">
                                 <div className="details-container">
                                     <div className="details-title"><img  className="rounded mx-auto d-block pb-1" src="https://give-marketplace-dev.s3.ap-south-1.amazonaws.com/static/images/home/homev2/Mission+10+Million+Meals/Homepage%2Bicons_A.png" alt="" height="100px" width="100px" /></div>
-                                    <p className="details-text">{stats && stats.stat1 || 'More than a third of the world’s malnourished children live in India'}</p>
+                                    <p className="details-text">{(stats && stats.stat1) || 'More than a third of the world’s malnourished children live in India'}</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-12">
