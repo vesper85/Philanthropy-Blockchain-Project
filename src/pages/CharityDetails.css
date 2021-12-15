@@ -51,6 +51,11 @@
 #staticBackdrop{
     background-color: rgba(0, 0, 0, 0);
 }
+.hero-container .paymentModalHeader{
+    border-radius: 0px;
+    background-color: var(--royal-blue);
+    color: white;
+}
 
 
  .hero-container button{
@@ -63,6 +68,13 @@
 .hero-container .modal-body div{
     margin: 5px;
 }
+
+.hero-container .donateBtn, .hero-container .donateBtn:hover, .hero-container .donateBtn:focus,.hero-container .donateBtn:active{
+    text-decoration: none;
+    padding: 0.5em;
+    background-color: #5a33e9;
+    color:#f7f8fa
+ }
 
 /* range slider */
 #customRange1::-webkit-slider-thumb {
@@ -101,4 +113,11 @@
  .receiptModalTick{
     color: white;
     font-size: 4rem;
+ }
+
+ .generateReceipt, .generateReceipt:hover, .generateReceipt:focus,.generateReceipt:active{
+    text-decoration: none;
+    padding: 0.5em;
+    background-color: #5a33e9;
+    color:#f7f8fa
  }

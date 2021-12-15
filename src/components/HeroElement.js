@@ -16,6 +16,7 @@ export default function HeroElement(props) {
     const firebaseStorage = getStorage(firebaseApp)
 
     const donationModalToggle = useRef();
+    const receiptModalToggle = useRef();
     const [donAmount, setdonAmount] = useState(0);
 
     const [stats, setStats] = useState({
@@ -132,7 +133,9 @@ export default function HeroElement(props) {
     }
 
     const handleDonation = () => {
-        //makeDonation(title, donAmount)
+        makeDonation(title, donAmount)
+        
+
     }
     
     const makeDonation = (id, amount) => {
@@ -146,12 +149,14 @@ export default function HeroElement(props) {
             })
             .then(function(receipt){
                 console.log(receipt)
+                receiptModalToggle.current.click();
                 updateFunds(5)
             });
         } else {
             contract.methods.updateAmount(id).send({from:account, value: Web3.utils.toWei(amount, 'Ether'), gas: 1000000})
             .once('receipt', (receipt) => {
                 console.log(receipt)
+                receiptModalToggle.current.click();
                 setContractBalance(contractBalance + amount);
                 getBalance()
             })
@@ -217,16 +222,16 @@ export default function HeroElement(props) {
 
             {/* Donatin button hidden */}
             <button type="button" ref={donationModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Launch static backdrop modal
+            
             </button>
 
             {/* Donation modal */}
             <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content" style={{borderRadius:"0px"}}>
-                <div className="modal-header">
-                    <h5 className="modal-title " id="staticBackdropLabel">Donate</h5>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
+                <div className="modal-header paymentModalHeader">
+                    <h5 className="modal-title " id="staticBackdropLabel">Payment</h5>
+                    <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
                     <div><h6>From:</h6>{ account }</div>
@@ -236,8 +241,8 @@ export default function HeroElement(props) {
                     <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" onChange={rangeOnChange} ></input>
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Reject</button>
-                    <button type="button" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" onClick={handleDonation} className="btn btn-primary">Confirm</button>
+                    <button type="button" style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal">Reject</button>
+                    <button type="button"  onClick={handleDonation} className="btn btn-primary donateBtn">Confirm</button>
                 </div>
                 </div>
             </div>
@@ -246,23 +251,24 @@ export default function HeroElement(props) {
 
 
             {/* RECEIPT MODAL */}
-
+            <button type="button" ref={receiptModalToggle} data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" className="btn btn-primary d-none"></button>
             <div className="modal fade receiptModal" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-  <div className="modal-dialog modal-dialog-centered">
-    <div className="modal-content" style={{borderRadius:"0px",border:"none"}} >
-      <div className="modal-header receiptModalTickContainer" style={{borderRadius:"inherit"}}>
-       <i class="far fa-check-circle receiptModalTick"></i>
-        {/*<button type="button" className="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>*/}
-      </div>
-      <div className="modal-body">
-        Hide this modal and show the first with the button below.
-      </div>
-      <div className="modal-footer">
-        <button className="btn btn-primary" onClick={generateReceipt}>Generate receipt</button>
-      </div>
-    </div>
-  </div>
-</div>
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content" style={{borderRadius:"0px",border:"none"}} >
+                <div className="modal-header receiptModalTickContainer" style={{borderRadius:"inherit"}}>
+                <i class="far fa-check-circle receiptModalTick"></i>
+                    {/*<button type="button" className="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>*/}
+                </div>
+                <div className="modal-body text-center">
+                    <h5 className='fs-3'>Payment successfull</h5>
+                </div>
+                <div className="modal-footer">
+                    <button  style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal" >cancle</button>
+                    <button className="btn btn-primary generateReceipt" data-bs-dismiss="modal" onClick={generateReceipt}>Generate receipt</button>
+                </div>
+                </div>
+            </div>
+            </div>
 
 
 
