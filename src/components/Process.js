@@ -3,7 +3,7 @@ import Step from "./Step"
 
 const Process = () => {
     return(
-        <div className="process">
+        <div className="process" id="steps">
             <div className="container">
                 <h3 className="step-heading pb-2 border-bottom border-info">Steps</h3>
                 <div className="row process-container">

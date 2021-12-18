@@ -6,7 +6,7 @@ import secLogo4 from "./icons/secLogo4.png"
 
 export default function Security() {
     return (
-        <div>
+        <div id="security">
             <div className="container pt-5 pb-3" id="featured-3">
                 <h3 className="sec-header pb-2 border-bottom border-info">Security {'&'} Controls</h3>
                 <div className="row g-4 px-5 py-4 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 ">

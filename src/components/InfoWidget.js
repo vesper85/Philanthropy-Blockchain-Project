@@ -11,13 +11,13 @@ const InfoWidget = () => {
         <div className="infowidget">
             <div className="container">
                 <div className="row infowidget-row">
-                    <InfoWidgetElement imlink={stepsIcon} title={"What are the steps"} subtitle={"Donate to charities using crypto"} />
-                    <InfoWidgetElement imlink={lockIcon} title={"Security & Controls"} subtitle={"Keeping your payments safe"} />
-                    <InfoWidgetElement imlink={cryptoIcon} title={"Supported cryptocurrencies"} subtitle={"Variety of payment options"} />
+                    <InfoWidgetElement compId={"#steps"} imlink={stepsIcon} title={"What are the steps"} subtitle={"Donate to charities using crypto"} />
+                    <InfoWidgetElement compId={"#security"} imlink={lockIcon} title={"Security & Controls"} subtitle={"Keeping your payments safe"} />
+                    <InfoWidgetElement compId={"#"} imlink={cryptoIcon} title={"Supported cryptocurrencies"} subtitle={"Variety of payment options"} />
  
-                    <InfoWidgetElement imlink={partnersIcon} title={"Our partners"} subtitle={"Partner Organizations"} />
-                    <InfoWidgetElement imlink={teamIcon} title={"Team information"} subtitle={"About the website developers"} />
-                    <InfoWidgetElement imlink={stepsIcon} title={"What People Think..."} subtitle={"User reviews and ratings"} />
+                    <InfoWidgetElement compId={"#partner"} imlink={partnersIcon} title={"Our partners"} subtitle={"Partner Organizations"} />
+                    <InfoWidgetElement compId={"#"} imlink={teamIcon} title={"Team information"} subtitle={"About the website developers"} />
+                    <InfoWidgetElement compId={"#testimonial"} imlink={stepsIcon} title={"What People Think..."} subtitle={"User reviews and ratings"} />
                 </div>
             </div>
         </div>

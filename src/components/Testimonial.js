@@ -2,7 +2,7 @@ import React from 'react'
 
 function Testimonial() {
     return (
-        <div className="testimonial-container">
+        <div className="testimonial-container" id="testimonial">
             <div className="container testimonial-wrapper" style={{paddingTop:"40px"}}>
             <div className="d-flex justify-content-center fas fa-heart"></div>
             <p className="tag text-center">Our users love</p>
