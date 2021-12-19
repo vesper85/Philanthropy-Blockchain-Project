@@ -57,7 +57,7 @@ export default function TeamInfo() {
                 <div className="row people">
                     <div className="col-12 item d-flex justify-content-center">
                         <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50" className="box teamBoxShadow"  style={{width: "25rem", maxHeight: "32rem"}}><img className="rounded-circle" src={avatar_saurabh} alt="saurabh" />
-                            <h3 className="name">Mrs. Swati Jadhav</h3>
+                            <h3 className="name">Swati Jadhav</h3>
                             <p className="title">Asst. Professor</p>
                             <p className="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
                             <div className="social"><a href="/"><i className="fa fa-facebook-official"></i></a><a href="/"><i className="fa fa-twitter"></i></a><a href="/"><i className="fa fa-instagram"></i></a></div>
