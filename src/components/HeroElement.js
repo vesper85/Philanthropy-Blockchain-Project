@@ -16,12 +16,13 @@ export default function HeroElement(props) {
     const firebaseApp = initializeApp(firebaseConfig)
     const firebaseStorage = getStorage(firebaseApp)
 
-    const { getProfileInfo, userProfile } = useContext(userContext)
-    const { firstname, lastname } = userProfile
-
     const donationModalToggle = useRef();
     const receiptModalToggle = useRef();
+    const logOutModalToggle = useRef();
     const [donAmount, setdonAmount] = useState(0);
+    const context = useContext(userContext);
+    const { logOutUser, getProfileInfo, userProfile } = context;
+    const { firstname, lastname } = userProfile
 
     const [stats, setStats] = useState({
         stat1: 'More than a third of the world’s malnourished children live in India',
@@ -117,7 +118,6 @@ export default function HeroElement(props) {
     }
 
     // Blockchain Code
-
     const [account, setAccount] = useState("");
     const [contract, setContract] = useState(null);
     let web3;
@@ -144,7 +144,7 @@ export default function HeroElement(props) {
         }
         const accounts = await web3.eth.getAccounts();
         setAccount(accounts[0]);
-        console.log("Metamask account Address :", accounts[0]);
+        //console.log("Metamask account Address :", accounts[0]);
     }
 
     const handleDonation = () => {
@@ -225,13 +225,37 @@ export default function HeroElement(props) {
 
     useEffect(() => {
         loadBlockChain();
+        getProfileInfo();
     }, [])
 
+    
+//    //Implimentation of account change when metamask public address changes
+//   const [userAccountChangeModal, setuserAccountChangeModal] = useState(false)
+//    window.ethereum.on('accountsChanged', function (accountsChange) { 
+//        //setAccount(accountsChange[0]);
+//        if(userAccountChangeModal)
+//        {
+//            logOutModalToggle.current.click();
+//            setuserAccountChangeModal(false);
+
+//        }
+//        console.log("Metamask account Address :", accountsChange[0]);
+//        //open modal
+//        console.log('userwallet:', userProfile.userWallet);
+//        if(account !== userProfile.userWallet) {
+//            //logOutUser();
+//            logOutModalToggle.current.click();
+//            setuserAccountChangeModal(true);
+//        }
+//    });
+
+
+    
+    
     return (
         // section-1 charity info
         <div className="container hero-container">
-
-
+    
             {/* Donatin button hidden */}
             <button type="button" ref={donationModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
 
@@ -260,22 +284,48 @@ export default function HeroElement(props) {
             {/* RECEIPT MODAL */}
             <button type="button" ref={receiptModalToggle} data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" className="btn btn-primary d-none"></button>
             <div className="modal fade receiptModal" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabIndex="-1">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content" style={{borderRadius:"0px",border:"none"}} >
-                        <div className="modal-header receiptModalTickContainer" style={{borderRadius:"inherit"}}>
-                        <i className="far fa-check-circle receiptModalTick"></i>
-                            {/*<button type="button" className="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>*/}
-                        </div>
-                        <div className="modal-body text-center">
-                            <h5 className='fs-3'>Payment successfull</h5>
-                        </div>
-                        <div className="modal-footer">
-                            <button  style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal" >cancle</button>
-                            <button className="btn btn-primary generateReceipt" data-bs-dismiss="modal" onClick={generateReceipt}>Generate receipt</button>
-                        </div>
-                    </div>
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content" style={{borderRadius:"0px",border:"none"}} >
+                <div className="modal-header receiptModalTickContainer" style={{borderRadius:"inherit"}}>
+                <i className="far fa-check-circle receiptModalTick"></i>
+                    {/*<button type="button" className="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>*/}
+                </div>
+                <div className="modal-body text-center">
+                    <h5 className='fs-3'>Payment successfull</h5>
+                </div>
+                <div className="modal-footer">
+                    <button  style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal" >cancle</button>
+                    <button className="btn btn-primary generateReceipt" data-bs-dismiss="modal" onClick={generateReceipt}>Generate receipt</button>
+                </div>
                 </div>
             </div>
+            </div>
+
+            {/* Logout Alert */}
+            {/*<!-- Button trigger modal -->*/}
+            <button type="button" ref={logOutModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+            </button>
+
+            {/*<!-- Modal -->*/}
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
+                    ...
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">cancle</button>
+                    <button type="button" className="btn btn-primary">Logout</button>
+                </div>
+                </div>
+            </div>
+            </div>
+
 
 
             <div className="row my-5 p-2">
