@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from 'react'
+import React, { useEffect, useState,useRef, useContext } from 'react'
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
@@ -6,6 +6,7 @@ import firebaseConfig from "../config/firebaseConfig";
 import { getStorage, ref, deleteObject, listAll } from "firebase/storage";
 import Web3 from 'web3';
 import Donations from '../contracts/Donations.json';
+import userContext from '../context/User/userContext';
 
 
 export default function HeroElement(props) {
@@ -17,7 +18,10 @@ export default function HeroElement(props) {
 
     const donationModalToggle = useRef();
     const receiptModalToggle = useRef();
+    const logOutModalToggle = useRef();
     const [donAmount, setdonAmount] = useState(0);
+    const context = useContext(userContext);
+    const {logOutUser,getProfileInfo,userProfile} = context;
 
     const [stats, setStats] = useState({
         stat1: 'More than a third of the world’s malnourished children live in India',
@@ -102,7 +106,6 @@ export default function HeroElement(props) {
     }
 
     // Blockchain Code
-
     const [account, setAccount] = useState("");
     const [contract, setContract] = useState(null);
     let web3;
@@ -129,13 +132,11 @@ export default function HeroElement(props) {
         }
         const accounts = await web3.eth.getAccounts();
         setAccount(accounts[0]);
-        console.log("Metamask account Address :", accounts[0]);
+        //console.log("Metamask account Address :", accounts[0]);
     }
 
     const handleDonation = () => {
         makeDonation(title, donAmount)
-        
-
     }
     
     const makeDonation = (id, amount) => {
@@ -212,14 +213,37 @@ export default function HeroElement(props) {
 
     useEffect(() => {
         loadBlockChain();
+        getProfileInfo();
     }, [])
 
+    
+//    //Implimentation of account change when metamask public address changes
+//   const [userAccountChangeModal, setuserAccountChangeModal] = useState(false)
+//    window.ethereum.on('accountsChanged', function (accountsChange) { 
+//        //setAccount(accountsChange[0]);
+//        if(userAccountChangeModal)
+//        {
+//            logOutModalToggle.current.click();
+//            setuserAccountChangeModal(false);
+
+//        }
+//        console.log("Metamask account Address :", accountsChange[0]);
+//        //open modal
+//        console.log('userwallet:', userProfile.userWallet);
+//        if(account !== userProfile.userWallet) {
+//            //logOutUser();
+//            logOutModalToggle.current.click();
+//            setuserAccountChangeModal(true);
+//        }
+//    });
+
+
+    
+    
     return (
         // section-1 charity info
         <div className="container hero-container">
-            
-
-
+    
             {/* Donatin button hidden */}
             <button type="button" ref={donationModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             
@@ -252,11 +276,11 @@ export default function HeroElement(props) {
 
             {/* RECEIPT MODAL */}
             <button type="button" ref={receiptModalToggle} data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" className="btn btn-primary d-none"></button>
-            <div className="modal fade receiptModal" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+            <div className="modal fade receiptModal" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabIndex="-1">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content" style={{borderRadius:"0px",border:"none"}} >
                 <div className="modal-header receiptModalTickContainer" style={{borderRadius:"inherit"}}>
-                <i class="far fa-check-circle receiptModalTick"></i>
+                <i className="far fa-check-circle receiptModalTick"></i>
                     {/*<button type="button" className="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>*/}
                 </div>
                 <div className="modal-body text-center">
@@ -270,6 +294,30 @@ export default function HeroElement(props) {
             </div>
             </div>
 
+            {/* Logout Alert */}
+            {/*<!-- Button trigger modal -->*/}
+            <button type="button" ref={logOutModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+            </button>
+
+            {/*<!-- Modal -->*/}
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
+                    ...
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">cancle</button>
+                    <button type="button" className="btn btn-primary">Logout</button>
+                </div>
+                </div>
+            </div>
+            </div>
 
 
 

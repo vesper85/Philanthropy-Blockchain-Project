@@ -9,13 +9,11 @@ const Navbar = () => {
     let location = useLocation();
 
     // destructuring
-    const {loggedIn,setloggedIn,setuserProfile} = context;
+    const {loggedIn,setloggedIn,setuserProfile, logOutUser} = context;
 
     // submit btn handle
     const handleLogout = ()=>{
-        localStorage.removeItem('PBPjwtToken');
-        setloggedIn(false);
-        setuserProfile("")
+        logOutUser();
     }
    
     return (

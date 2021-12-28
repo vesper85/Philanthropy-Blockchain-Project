@@ -17,7 +17,7 @@ const UserState = ({children}) => {
     const [loggedIn, setloggedIn] = useState(localStorage.getItem('PBPjwtToken') ? true :false);
 
     //global state for storing profile info, to display userinfo and edit profile
-    const [userProfile, setuserProfile] = useState({email:"",username:"", address:"", firstname:"", lastname:"", phoneno:"", age:""});
+    const [userProfile, setuserProfile] = useState({email:"",username:"", address:"", firstname:"", lastname:"", phoneno:"", age:"",userWallet:""});
 
     const [profileImg, setprofileImg] = useState("");
 
@@ -50,9 +50,15 @@ const UserState = ({children}) => {
             console.log('error occured in getprofileinfo');
         }
     }
+
+    const logOutUser = ()=>{
+        localStorage.removeItem('PBPjwtToken');
+        setloggedIn(false);
+        setuserProfile("")
+    }
             
     return (
-        <userContext.Provider value={{globalCredentials, setglobalCredentials,loggedIn,setloggedIn,getProfileInfo, userProfile,setuserProfile,profileImg}} >
+        <userContext.Provider value={{globalCredentials, setglobalCredentials,loggedIn,setloggedIn,getProfileInfo, userProfile,setuserProfile,profileImg,logOutUser}} >
             {children}
         </userContext.Provider>
     )
