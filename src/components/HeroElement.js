@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
@@ -6,14 +6,18 @@ import firebaseConfig from "../config/firebaseConfig";
 import { getStorage, ref, deleteObject, listAll } from "firebase/storage";
 import Web3 from 'web3';
 import Donations from '../contracts/Donations.json';
+import userContext from '../context/User/userContext';
 
 
 export default function HeroElement(props) {
     // eslint-disable-next-line
-    const {id, title, cause, description, previousWork, goal, fundsRaised, walletAddress, isVerified} = props
+    const {id, title, cause, description, previousWork, goal, fundsRaised, walletAddress, isVerified, donationHistory} = props
     const history = useHistory()
     const firebaseApp = initializeApp(firebaseConfig)
     const firebaseStorage = getStorage(firebaseApp)
+
+    const { getProfileInfo, userProfile } = useContext(userContext)
+    const { firstname, lastname } = userProfile
 
     const donationModalToggle = useRef();
     const receiptModalToggle = useRef();
@@ -26,6 +30,7 @@ export default function HeroElement(props) {
     })
 
     const [contractBalance, setContractBalance] = useState(0)
+    const [progress, setProgress] = useState(0)
 
     const deleteCharity = async() => {
         try {
@@ -83,10 +88,19 @@ export default function HeroElement(props) {
 
     useEffect(() => {
         getStats()
+        getProfileInfo()
     }, [])
+
+    useEffect(() => {
+        let goalProgress = ((fundsRaised / goal) * 100).toFixed(2)
+        setProgress(goalProgress)
+    }, [fundsRaised])
 
     const updateFunds = async(amount) => {
         const url = "http://localhost:5000/api/charity/updatecharity/" + id;
+        const now = new Date()
+        console.log(firstname)
+        console.log(donationHistory)
         //eslint-disable-next-line
         const response = await fetch(url,
             {
@@ -95,7 +109,8 @@ export default function HeroElement(props) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    fundsRaised: fundsRaised + amount
+                    fundsRaised: fundsRaised + amount,
+                    donationHistory: donationHistory.push({userName: firstname + " " + lastname, timeStamp: now, amount: amount})
                 })
             }
         );
@@ -134,8 +149,6 @@ export default function HeroElement(props) {
 
     const handleDonation = () => {
         makeDonation(title, donAmount)
-        
-
     }
     
     const makeDonation = (id, amount) => {
@@ -150,7 +163,7 @@ export default function HeroElement(props) {
             .then(function(receipt){
                 console.log(receipt)
                 receiptModalToggle.current.click();
-                updateFunds(5)
+                updateFunds(amount)
             });
         } else {
             contract.methods.updateAmount(id).send({from:account, value: Web3.utils.toWei(amount, 'Ether'), gas: 1000000})
@@ -217,60 +230,52 @@ export default function HeroElement(props) {
     return (
         // section-1 charity info
         <div className="container hero-container">
-            
 
 
             {/* Donatin button hidden */}
-            <button type="button" ref={donationModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            
-            </button>
+            <button type="button" ref={donationModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
 
             {/* Donation modal */}
             <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
-                <div className="modal-header paymentModalHeader">
-                    <h5 className="modal-title " id="staticBackdropLabel">Payment</h5>
-                    <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                    <div><h6>From:</h6>{ account }</div>
-                    <div><h6>To:</h6> {walletAddress} </div>
-                    <div className="mt-4"><h6>Value {donAmount} </h6>  </div>
-                    
-                    <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" onChange={rangeOnChange} ></input>
-                </div>
-                <div className="modal-footer">
-                    <button type="button" style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal">Reject</button>
-                    <button type="button"  onClick={handleDonation} className="btn btn-primary donateBtn">Confirm</button>
-                </div>
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
+                        <div className="modal-header paymentModalHeader">
+                            <h5 className="modal-title " id="staticBackdropLabel">Payment</h5>
+                            <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <div><h6>From:</h6>{ account }</div>
+                            <div><strong>To:</strong> {title} </div>
+                            <div className="mt-4"><h6>Value {donAmount} </h6></div>
+                            <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" onChange={rangeOnChange} ></input>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal">Reject</button>
+                            <button type="button"  onClick={handleDonation} className="btn btn-primary donateBtn">Confirm</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-              
-
-
+            
             {/* RECEIPT MODAL */}
             <button type="button" ref={receiptModalToggle} data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" className="btn btn-primary d-none"></button>
-            <div className="modal fade receiptModal" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-            <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content" style={{borderRadius:"0px",border:"none"}} >
-                <div className="modal-header receiptModalTickContainer" style={{borderRadius:"inherit"}}>
-                <i class="far fa-check-circle receiptModalTick"></i>
-                    {/*<button type="button" className="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>*/}
-                </div>
-                <div className="modal-body text-center">
-                    <h5 className='fs-3'>Payment successfull</h5>
-                </div>
-                <div className="modal-footer">
-                    <button  style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal" >cancle</button>
-                    <button className="btn btn-primary generateReceipt" data-bs-dismiss="modal" onClick={generateReceipt}>Generate receipt</button>
-                </div>
+            <div className="modal fade receiptModal" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabIndex="-1">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content" style={{borderRadius:"0px",border:"none"}} >
+                        <div className="modal-header receiptModalTickContainer" style={{borderRadius:"inherit"}}>
+                        <i className="far fa-check-circle receiptModalTick"></i>
+                            {/*<button type="button" className="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>*/}
+                        </div>
+                        <div className="modal-body text-center">
+                            <h5 className='fs-3'>Payment successfull</h5>
+                        </div>
+                        <div className="modal-footer">
+                            <button  style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal" >cancle</button>
+                            <button className="btn btn-primary generateReceipt" data-bs-dismiss="modal" onClick={generateReceipt}>Generate receipt</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-
-
 
 
             <div className="row my-5 p-2">
@@ -309,7 +314,16 @@ export default function HeroElement(props) {
                                 </div>
                             </div>
                         </div>
-                        <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+
+                        <div>
+                            <h5 className='mt-3'>Progress</h5>
+                            <p className="card-text mt-1"><small className="text-muted">ETH {fundsRaised} raised of ETH {goal} goal</small></p>
+                            <div className="progress my-1">
+                                <div className="progress-bar" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100" style={{width:`${progress+'%'}`}}>{progress}%</div>
+                            </div>
+                        </div>
+
+                        <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 donate-btns">
                             <button type="button" onClick={openModal} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
                             <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>
                             <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>

@@ -76,6 +76,10 @@
     color:#f7f8fa
  }
 
+.donate-btns {
+    margin-top: 3em;
+}
+
 /* range slider */
 #customRange1::-webkit-slider-thumb {
     height: 20px;

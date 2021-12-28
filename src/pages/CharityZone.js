@@ -130,6 +130,7 @@ const CharityZone = (props) => {
                                 cause={card.cause}
                                 city={card.city}
                                 state={card.state}
+                                donationHistory={card.donationHistory}
                             />
                         ))
                     }{' '}

@@ -44,8 +44,8 @@ const charitySchema = new mongoose.Schema({
     },
     donationHistory: {
         type: [{
-            userId: {
-                type: mongoose.SchemaTypes.ObjectId,
+            userName: {
+                type: String,
                 default: null
             },
             timestamp: {

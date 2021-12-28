@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import CharityCarousel from '../components/CharityCarousel'
 import HeroElement from '../components/HeroElement'
-import { useEffect } from 'react/cjs/react.development'
+import { useEffect } from 'react'
 
 
 export default function CharityDetails(props) {
@@ -20,6 +20,7 @@ export default function CharityDetails(props) {
     const cause = props.location.state.cause
     const walletAddress = props.location.state.walletAddress
     const isVerified = props.location.state.isVerified
+    const donationHistory = props.location.state.donationHistory
 
     useEffect(() => {
         window.scrollTo({ top: 0 })
@@ -45,6 +46,7 @@ export default function CharityDetails(props) {
                 cause={cause}
                 city={city}
                 state={state}
+                donationHistory={donationHistory}
             />
 
             <Footer/>

@@ -41,18 +41,16 @@ const DonateCard = (props) => {
         <>
         <div className={`col card-content mb-5`}>
             <div className="card h-100">
-                <Link to={{pathname:"/charitydetails", state:props}} >
-                    <LazyLoadImage className="card-img-top"
-                            alt={coverImg}
-                            effect="blur"
-                            src={Image}
-                            width={"100%"}
-                    />
-                    <div className="card-body">
-                        <p className="card-title">{title}</p>
-                        <p className="card-text">{description.substring(0,115) + "...."}</p>
-                    </div>
-                </Link>
+                <LazyLoadImage className="card-img-top"
+                        alt={coverImg}
+                        effect="blur"
+                        src={Image}
+                        width={"100%"}
+                />
+                <div className="card-body">
+                    <p className="card-title">{title}</p>
+                    <p className="card-text">{description.substring(0,115) + "...."}</p>
+                </div>
                 
                 {/* footer */}
                 <div className="card-footer">
@@ -83,7 +81,9 @@ const DonateCard = (props) => {
 
                     <div className="w-100">
                         <span className="align-left my-1 mt-3 donate-btn">
-                            <button className="btn dnt">Donate</button>
+                            <Link to={{pathname:"/charitydetails", state:props}} >
+                                <button className="btn dnt">More Details</button>
+                            </Link>
                         </span>
                     </div>
                 </div>
