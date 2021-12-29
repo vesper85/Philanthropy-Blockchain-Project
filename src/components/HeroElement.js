@@ -138,6 +138,26 @@ export default function HeroElement(props) {
     const handleDonation = () => {
         makeDonation(title, donAmount)
     }
+
+    const saveReceipt = async (receipt) =>{
+        try {
+            const url = "http://localhost:5000/api/receipt/uploadreceipt" 
+            let response = await fetch(url,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                       ...receipt
+                    })
+                }
+             )
+             console.log(receipt)
+        } catch (error) {
+            console.error(error.message)
+        }
+    }
     
     const makeDonation = (id, amount) => {
         console.log('isVerified: ', isVerified)
@@ -149,14 +169,16 @@ export default function HeroElement(props) {
                 value: Web3.utils.toWei(amount, 'Ether')
             })
             .then(function(receipt){
-                console.log(receipt)
+                //console.log(receipt)
+                saveReceipt(receipt);
                 receiptModalToggle.current.click();
                 updateFunds(5)
             });
         } else {
             contract.methods.updateAmount(id).send({from:account, value: Web3.utils.toWei(amount, 'Ether'), gas: 1000000})
             .once('receipt', (receipt) => {
-                console.log(receipt)
+                //console.log(receipt)
+                saveReceipt(receipt);
                 receiptModalToggle.current.click();
                 setContractBalance(contractBalance + amount);
                 getBalance()
@@ -262,7 +284,7 @@ export default function HeroElement(props) {
                     <div><h6>To:</h6> {walletAddress} </div>
                     <div className="mt-4"><h6>Value {donAmount} </h6>  </div>
                     
-                    <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" onChange={rangeOnChange} ></input>
+                    <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" value={donAmount} onChange={rangeOnChange} ></input>
                 </div>
                 <div className="modal-footer">
                     <button type="button" style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal">Reject</button>
