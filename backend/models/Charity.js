@@ -41,22 +41,6 @@ const charitySchema = new mongoose.Schema({
     isVerified: {
         type: Boolean,
         default: true
-    },
-    donationHistory: {
-        type: [{
-            userName: {
-                type: String,
-                default: null
-            },
-            timestamp: {
-                type: Date,
-                default: null
-            },
-            amount:{
-                type: Number,
-                default: null,
-            }
-        }]
     }
 })
 
