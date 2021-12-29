@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { Link } from 'react-router-dom';
 import coverImg from './sample/No_Image.jpg'
 import statusImg from './sample/status.svg'
@@ -7,6 +7,8 @@ import firebaseConfig from '../config/firebaseConfig';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import userContext from '../context/User/userContext';
+
 
 const DonateCard = (props) => {
     const firebaseApp = initializeApp(firebaseConfig);
@@ -15,6 +17,8 @@ const DonateCard = (props) => {
     const [progress, setProgress] = useState(0);
     const [Image, setImage] = useState()
     const [status, setStatus] = useState()
+    const context = useContext(userContext);
+    const {loggedIn} = context
 
     useEffect(() => {
         getCardInfo();
@@ -81,9 +85,16 @@ const DonateCard = (props) => {
 
                     <div className="w-100">
                         <span className="align-left my-1 mt-3 donate-btn">
-                            <Link to={{pathname:"/charitydetails", state:props}} >
-                                <button className="btn dnt">More Details</button>
-                            </Link>
+                            {
+                                loggedIn && <Link to={{pathname:"/charitydetails", state:props}} >
+                                    <button className="btn dnt">More Details</button>
+                                </Link>
+                            }
+                            {
+                                !loggedIn && <Link to={{pathname:"/login"}} >
+                                    <button className="btn dnt">More Details</button>
+                                </Link>
+                            }
                         </span>
                     </div>
                 </div>

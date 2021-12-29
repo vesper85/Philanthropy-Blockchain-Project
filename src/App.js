@@ -32,36 +32,47 @@ function App() {
   return (
     <div className="App">
       <UserState>
-      <Router >
-        <Switch>
-          <Route exact  path="/">
-            <Home useScrollToTop={useScrollToTop} />
-          </Route>
-          <Route exact path="/zone">
-            <CharityZone useScrollToTop={useScrollToTop} />
-          </Route>
-          <Route exact path="/aboutus">
-            <AboutUs useScrollToTop={useScrollToTop} />
-          </Route>
-          <Route exact path="/login">
-            <Login/>
-          </Route>
-          <Route exact path="/login">
-            <Login/>
-          </Route>
-          <Route exact path="/register">
-            <Registration/>
-          </Route>
-          <Route exact path="/editprofile">
-            <EditProfile useScrollToTop={useScrollToTop} />
-          </Route>
-          <Route exact path="/charityform" component={CharityForm} />
-          <Route exact path="/charitydetails" component={CharityDetails} />
-          <Route exact path="/profile">
-            <Profile/>
-          </Route>
-        </Switch>
-      </Router>
+        <Router >
+          <Switch>
+            
+            <Route exact  path="/">
+              <Home useScrollToTop={useScrollToTop} />
+            </Route>
+            
+            <Route exact path="/zone">
+              <CharityZone useScrollToTop={useScrollToTop} />
+            </Route>
+            
+            <Route exact path="/aboutus">
+              <AboutUs useScrollToTop={useScrollToTop} />
+            </Route>
+            
+            <Route exact path="/login">
+              <Login/>
+            </Route>
+            
+            <Route exact path="/login">
+              <Login/>
+            </Route>
+            
+            <Route exact path="/register">
+              <Registration/>
+            </Route>
+            
+            <Route exact path="/editprofile">
+              <EditProfile useScrollToTop={useScrollToTop} />
+            </Route>
+            
+            <Route exact path="/charityform" component={CharityForm} />
+            
+            <Route exact path="/charitydetails" component={CharityDetails} />
+            
+            <Route exact path="/profile">
+              <Profile/>
+            </Route>
+          
+          </Switch>
+        </Router>
       </UserState>
     </div>
   );
