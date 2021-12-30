@@ -167,6 +167,26 @@ export default function HeroElement(props) {
     const handleDonation = () => {
         makeDonation(title, donAmount)
     }
+
+    const saveReceipt = async (receipt) =>{
+        try {
+            const url = "http://localhost:5000/api/receipt/uploadreceipt" 
+            let response = await fetch(url,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                       ...receipt
+                    })
+                }
+             )
+             console.log(receipt)
+        } catch (error) {
+            console.error(error.message)
+        }
+    }
     
     const makeDonation = (id, amount) => {
         console.log('isVerified: ', isVerified)
@@ -178,7 +198,8 @@ export default function HeroElement(props) {
                 value: Web3.utils.toWei(amount, 'Ether')
             })
             .then(function(receipt){
-                console.log(receipt)
+                //console.log(receipt)
+                saveReceipt(receipt);
                 receiptModalToggle.current.click();
                 updateFunds(parseInt(amount))
                 // window.location.href = "http://localhost:3000/zone";
@@ -186,7 +207,8 @@ export default function HeroElement(props) {
         } else {
             contract.methods.updateAmount(id).send({from:account, value: Web3.utils.toWei(amount, 'Ether'), gas: 1000000})
             .once('receipt', (receipt) => {
-                console.log(receipt)
+                //console.log(receipt)
+                saveReceipt(receipt);
                 receiptModalToggle.current.click();
                 setContractBalance(parseInt(contractBalance) + parseInt(amount))
                 getBalance()
@@ -291,24 +313,25 @@ export default function HeroElement(props) {
 
             {/* Donation modal */}
             <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
-                        <div className="modal-header paymentModalHeader">
-                            <h5 className="modal-title " id="staticBackdropLabel">Payment</h5>
-                            <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            <div><h6>From:</h6>{ account }</div>
-                            <div><strong>To:</strong> {title} </div>
-                            <div className="mt-4"><h6>Value {donAmount} </h6></div>
-                            <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" onChange={rangeOnChange} ></input>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal">Reject</button>
-                            <button type="button"  onClick={handleDonation} className="btn btn-primary donateBtn">Confirm</button>
-                        </div>
-                    </div>
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
+                <div className="modal-header paymentModalHeader">
+                    <h5 className="modal-title " id="staticBackdropLabel">Payment</h5>
+                    <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div className="modal-body">
+                    <div><h6>From:</h6>{ account }</div>
+                    <div><h6>To:</h6> {walletAddress} </div>
+                    <div className="mt-4"><h6>Value {donAmount} </h6>  </div>
+                    
+                    <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" value={donAmount} onChange={rangeOnChange} ></input>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal">Reject</button>
+                    <button type="button"  onClick={handleDonation} className="btn btn-primary donateBtn">Confirm</button>
+                </div>
+                </div>
+            </div>
             </div>
             
             {/* RECEIPT MODAL */}
