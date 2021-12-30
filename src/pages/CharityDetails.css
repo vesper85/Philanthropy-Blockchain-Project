@@ -80,6 +80,19 @@
     margin-top: 3em;
 }
 
+.donation-history {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: none;
+    width: fit-content;
+}
+
+.donation-history:hover {
+    color: blue;
+    cursor: pointer;
+}
+
 /* range slider */
 #customRange1::-webkit-slider-thumb {
     height: 20px;
@@ -124,4 +137,14 @@
     padding: 0.5em;
     background-color: #5a33e9;
     color:#f7f8fa
+ }
+
+ /* Donation History Model */
+
+ .donation-history-modal-header {
+     background-color: #00ffc3;
+ }
+
+ .donation-history-modal-title {
+     color: #28283d;
  }

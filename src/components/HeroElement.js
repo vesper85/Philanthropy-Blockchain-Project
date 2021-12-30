@@ -7,6 +7,7 @@ import { getStorage, ref, deleteObject, listAll } from "firebase/storage";
 import Web3 from 'web3';
 import Donations from '../contracts/Donations.json';
 import userContext from '../context/User/userContext';
+import DonationHistoryItem from './DonationHistoryItem';
 
 
 export default function HeroElement(props) {
@@ -19,6 +20,7 @@ export default function HeroElement(props) {
     const donationModalToggle = useRef();
     const receiptModalToggle = useRef();
     const logOutModalToggle = useRef();
+    const donationHistoryModalToggle = useRef();
     const [donAmount, setdonAmount] = useState(0);
     const context = useContext(userContext);
     const { logOutUser, getProfileInfo, userProfile } = context;
@@ -30,8 +32,8 @@ export default function HeroElement(props) {
         stat3: '95.1M children deprived of midday meals at school during COVID-19'
     })
 
-    const [contractBalance, setContractBalance] = useState(0)
     const [progress, setProgress] = useState(0)
+    const [donationHistoryState, setDonationHistoryState] = useState([])
 
     const deleteCharity = async() => {
         try {
@@ -89,7 +91,7 @@ export default function HeroElement(props) {
 
     useEffect(() => {
         getStats()
-        getProfileInfo()
+        fetchDonationHistory()
     }, [])
 
     useEffect(() => {
@@ -134,38 +136,60 @@ export default function HeroElement(props) {
         );
     }
 
+    const fetchDonationHistory = async () => {
+        const url = "http://localhost:5000/api/charitydonations/fetchdonationsbycharity"
+        const response = await fetch(url,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accept':'application/json',
+                    'charityName': title
+                }
+            }
+        );
+        const data = await response.json()
+        // console.log(data)
+        setDonationHistoryState(data)
+    }
+
+    const handleDonationHistory = () => {
+        donationHistoryModalToggle.current.click();
+    }
+
     // Blockchain Code
     const [account, setAccount] = useState("");
     const [contract, setContract] = useState(null);
     let web3;
     async function loadBlockChain() {
-        //const web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
+        try {
+            if(window.ethereum) {
+                console.log('metamask exists')
+                web3 = new Web3(window.ethereum);
+                await window.ethereum.enable();
+            }
+            else if(window.web3) {
+                web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
+            }
+            
+            const networkId = await web3.eth.net.getId()
+            const networkData = Donations.networks[networkId]
+            console.log("networkId: ", networkId, "networkData :", networkData)
+            
+            if(networkData) {
+                const donations = new web3.eth.Contract(Donations.abi, networkData.address)
+                setContract(donations)
+            } else {
+                window.alert('Donations contract not deployed to detected network.')
+            }
+            
+            const accounts = await web3.eth.getAccounts();
+            setAccount(accounts[0]);
+            //console.log("Metamask account Address :", accounts[0]);
         
-        if(window.ethereum) {
-            console.log('metamask exists')
-            web3 = new Web3(window.ethereum);
-            await window.ethereum.enable();
+        } catch(err) {
+            console.log('Please check if you have started your local blockchain network using Ganache\n', err)
         }
-        else if(window.web3) {
-            web3 = new Web3(Web3.currentProvider || "http://localhost:7545");
-        }
-        const networkId = await web3.eth.net.getId()
-        const networkData = Donations.networks[networkId]
-        console.log("networkId: ", networkId, "networkData :", networkData)
-        
-        if(networkData) {
-            const donations = new web3.eth.Contract(Donations.abi, networkData.address)
-            setContract(donations)
-        } else {
-            window.alert('Donations contract not deployed to detected network.')
-        }
-        const accounts = await web3.eth.getAccounts();
-        setAccount(accounts[0]);
-        //console.log("Metamask account Address :", accounts[0]);
-    }
-
-    const handleDonation = () => {
-        makeDonation(title, donAmount)
     }
 
     const saveReceipt = async (receipt) =>{
@@ -187,6 +211,10 @@ export default function HeroElement(props) {
             console.error(error.message)
         }
     }
+
+    const handleDonation = () => {
+        makeDonation(title, donAmount)
+    }
     
     const makeDonation = (id, amount) => {
         console.log('isVerified: ', isVerified)
@@ -202,7 +230,8 @@ export default function HeroElement(props) {
                 saveReceipt(receipt);
                 receiptModalToggle.current.click();
                 updateFunds(parseInt(amount))
-                // window.location.href = "http://localhost:3000/zone";
+                updateDonationLogs(parseInt(amount))
+                window.location.href = "http://localhost:3000/zone"
             });
         } else {
             contract.methods.updateAmount(id).send({from:account, value: Web3.utils.toWei(amount, 'Ether'), gas: 1000000})
@@ -210,11 +239,12 @@ export default function HeroElement(props) {
                 //console.log(receipt)
                 saveReceipt(receipt);
                 receiptModalToggle.current.click();
-                setContractBalance(parseInt(contractBalance) + parseInt(amount))
                 getBalance()
+                updateFunds(parseInt(amount))
+                updateDonationLogs(parseInt(amount))
+                // window.location.href = "http://localhost:3000/zone"
             })
         }
-        updateDonationLogs(parseInt(amount))
     }
 
     const handleTransfer = () => {
@@ -225,9 +255,7 @@ export default function HeroElement(props) {
         contract.methods.transferAmount(walletAddress, title).send({from: account})
         .once('receipt', (receipt) => {
             console.log(receipt)
-            updateFunds(contractBalance)
-            setContractBalance(0)
-            window.location.href = "http://localhost:3000/zone"
+            // window.location.href = "http://localhost:3000/zone"
         })
     }
 
@@ -239,7 +267,6 @@ export default function HeroElement(props) {
         contract.methods.revertAmount(title).send({from: account})
         .once('receipt', (receipt) => {
             console.log(receipt)
-            setContractBalance(0)
         })
     }
 
@@ -251,6 +278,7 @@ export default function HeroElement(props) {
     }
 
     const getPendingDonations = () => {
+        // Remove these entries from database before doing Revert
         const pending = contract.methods.getPendingDonations(title).call()
         pending.then((res) => {
             console.log('Pending donations from blockchain: ', res)
@@ -260,11 +288,11 @@ export default function HeroElement(props) {
     //BLockChain code END ------------
 
 
-    const openModal = ()=>{
-        getPendingDonations()
+    const openModal = () => {
         console.log('modal open');
         donationModalToggle.current.click();
     }
+
     const rangeOnChange = (e)=>{
         setdonAmount(e.target.value)
         //console.log(e.target.value)
@@ -379,6 +407,35 @@ export default function HeroElement(props) {
                 </div>
             </div>
 
+            {/* Donation history modal button hidden */}
+            <button type="button" ref={donationHistoryModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#donationHistory"></button>
+
+            {/* Donation History Modal */}
+            <div className="modal fade" id="donationHistory" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="donationHistoryLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
+                        <div className="modal-header donation-history-modal-header">
+                            <h5 className="modal-title donation-history-modal-title" id="donationHistoryLabel">Donation History</h5>
+                            <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            {
+                                donationHistoryState.map((entry) => (
+                                    <DonationHistoryItem 
+                                        key={entry._id}
+                                        donorName={entry.donorName}
+                                        amount={entry.amount}
+                                        time={entry.timestamp}
+                                    />
+                                ))
+                            }
+                        </div>
+                        <div className="modal-footer">
+                            ...
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             {/* section-1 Description */}
             <div className="row my-5 p-2">
@@ -430,6 +487,10 @@ export default function HeroElement(props) {
                             <button type="button" onClick={openModal} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
                             <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>
                             <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>
+                        </div>
+
+                        <div className="donation-history mt-4 mx-1" onClick={handleDonationHistory}>
+                            See donations history
                         </div>
                     </div>
                     <div className="col-lg-5 col-md-5 shadow-lg p-2">
