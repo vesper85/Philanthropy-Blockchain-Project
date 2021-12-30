@@ -10,21 +10,21 @@ contract Donations {
     struct Charity {
         string name;
         uint amount;
-        uint donationCount;
-        mapping (uint => Donation) transactions;
+        uint16 donationCount;
+        mapping (uint16 => Donation) transactions;
     }
 
     event CharityCreated(
         string name,
         uint amount,
-        uint donationCount
+        uint16 donationCount
         // Donation transactions        truffle test
     );
 
     event AmountUpdated(
         string name,
         uint amount,
-        uint donationCount,
+        uint16 donationCount,
         // Donation transactions        truffle test
         address lastDonor,           // Ganache
         uint lastAmount              // Ganache
@@ -33,14 +33,14 @@ contract Donations {
     event AmountTransferred(
         string name,
         uint amount,
-        uint donationCount
+        uint16 donationCount
         // Donation transactions        truffle test
     );
 
     event FullAmountReverted(
         string name,
         uint amount,
-        uint donationCount
+        uint16 donationCount
         // Donation transactions        truffle test
     );
 
@@ -51,6 +51,11 @@ contract Donations {
 
     event Balance(
         uint balance
+    );
+
+    event PendingTransactions(
+        address donor,
+        uint amount
     );
 
     mapping(string => Charity) charities;
@@ -64,7 +69,7 @@ contract Donations {
 
     function updateAmount(string memory _name) public payable {
         charities[_name].amount = charities[_name].amount + msg.value;
-        uint _count = charities[_name].donationCount;
+        uint16 _count = charities[_name].donationCount;
         charities[_name].transactions[_count] = Donation(msg.sender, msg.value);
         charities[_name].donationCount = _count + 1;
         emit AmountUpdated(charities[_name].name, charities[_name].amount, charities[_name].donationCount, charities[_name].transactions[_count].donor, charities[_name].transactions[_count].amount);
@@ -75,7 +80,7 @@ contract Donations {
         address payable _address = payable(_charityAddress);
         _address.transfer(_amount);
 
-        for(uint i=0; i<charities[_name].donationCount; i++) {
+        for(uint16 i=0; i<charities[_name].donationCount; i++) {
             charities[_name].transactions[i].amount = 0;
             charities[_name].transactions[i].donor = address(0x0000000000000000000000000000000000000000);
         }
@@ -87,9 +92,9 @@ contract Donations {
     }
 
     function revertAmount(string memory _name) public {
-        uint count = charities[_name].donationCount;
+        uint16 count = charities[_name].donationCount;
 
-        for(uint i=0; i<count; i++) {
+        for(uint16 i=0; i<count; i++) {
             // Revert Eth back
             address payable _revertAddress = payable(charities[_name].transactions[i].donor);
             uint _revertAmount = charities[_name].transactions[i].amount;
@@ -108,8 +113,21 @@ contract Donations {
         emit FullAmountReverted(charities[_name].name, charities[_name].amount, charities[_name].donationCount); // charities[_name].transactions[1]
     }
 
-    function getBalance(string memory _name) public returns(uint){
+    function getBalance(string memory _name) public returns(uint) {
         emit Balance(charities[_name].amount);
         return charities[_name].amount;
+    }
+
+    function getPendingDonations(string memory _name) public returns(Donation [] memory) {
+        
+        uint16 _n = charities[_name].donationCount;
+        Donation[] memory _arr = new Donation[](_n);
+
+        for (uint16 _i = 0; _i < _n; _i++) {
+            _arr[_i] = charities[_name].transactions[_i];
+            emit PendingTransactions(_arr[_i].donor, _arr[_i].amount);
+        }
+        
+        return _arr;
     }
 }

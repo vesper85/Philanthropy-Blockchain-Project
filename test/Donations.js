@@ -29,6 +29,12 @@ contract('Donations', ([donor1, donor2, donor3]) => {
             //assert.equal(event.transactions, ['0x0000000000000000000000000000000000000000', '0'], 'transactions are correct')
         })
 
+        it('allows to read from blockchain', async() => {
+            result = await donation.getPendingDonations('New contract test charity')
+            // const event = result.logs[0].args
+            // assert.equal(event.donor, '0x97aeD7655288AE0618D4d0d6c1342D5C893e19B7', 'donor is correct')
+        })
+
         it('allows to update the charity funds', async() => {
             result = await donation.updateAmount('New contract test charity', {value: web3.utils.toWei('1', 'Ether'), from: donor1})
             const event = result.logs[0].args
@@ -51,6 +57,12 @@ contract('Donations', ([donor1, donor2, donor3]) => {
             assert.equal(event.name, 'New contract test charity', 'name is correct')
             assert.equal(event.amount, '3000000000000000000', 'amount is correct')
             //assert.equal(event.transactions, [Array(2)], 'transactions are correct')
+        })
+
+        it('allows to read from blockchain', async() => {
+            result = await donation.getPendingDonations('New contract test charity')
+            const event = result.logs[0].args
+            assert.equal(event.donor, '0x97aeD7655288AE0618D4d0d6c1342D5C893e19B7', 'donor is correct')
         })
 
         it('allows to transfer funds', async() => {
