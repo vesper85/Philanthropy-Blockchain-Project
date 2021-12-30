@@ -313,74 +313,74 @@ export default function HeroElement(props) {
 
             {/* Donation modal */}
             <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
-                <div className="modal-header paymentModalHeader">
-                    <h5 className="modal-title " id="staticBackdropLabel">Payment</h5>
-                    <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
+                        <div className="modal-header paymentModalHeader">
+                            <h5 className="modal-title " id="staticBackdropLabel">Payment</h5>
+                            <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <div><h6>From:</h6>{ firstname + ' ' + lastname }</div>
+                            <div><h6>To:</h6> { title } </div>
+                            <div className="mt-4"><h6>Value { donAmount } </h6>  </div>
+                            <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" value={donAmount} onChange={rangeOnChange} ></input>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal">Reject</button>
+                            <button type="button"  onClick={handleDonation} className="btn btn-primary donateBtn">Confirm</button>
+                        </div>
+                    </div>
                 </div>
-                <div className="modal-body">
-                    <div><h6>From:</h6>{ account }</div>
-                    <div><h6>To:</h6> {walletAddress} </div>
-                    <div className="mt-4"><h6>Value {donAmount} </h6>  </div>
-                    
-                    <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" value={donAmount} onChange={rangeOnChange} ></input>
-                </div>
-                <div className="modal-footer">
-                    <button type="button" style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal">Reject</button>
-                    <button type="button"  onClick={handleDonation} className="btn btn-primary donateBtn">Confirm</button>
-                </div>
-                </div>
-            </div>
             </div>
             
             {/* RECEIPT MODAL */}
             <button type="button" ref={receiptModalToggle} data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" className="btn btn-primary d-none"></button>
+            
             <div className="modal fade receiptModal" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabIndex="-1">
-            <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content" style={{borderRadius:"0px",border:"none"}} >
-                <div className="modal-header receiptModalTickContainer" style={{borderRadius:"inherit"}}>
-                <i className="far fa-check-circle receiptModalTick"></i>
-                    {/*<button type="button" className="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>*/}
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content" style={{borderRadius:"0px",border:"none"}} >
+                        <div className="modal-header receiptModalTickContainer" style={{borderRadius:"inherit"}}>
+                            <i className="far fa-check-circle receiptModalTick"></i>
+                            {/*<button type="button" className="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>*/}
+                        </div>
+                        <div className="modal-body text-center">
+                            <h5 className='fs-3'>Payment Successful</h5>
+                        </div>
+                        <div className="modal-footer">
+                            <button  style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal" >Cancel</button>
+                            <button className="btn btn-primary generateReceipt" data-bs-dismiss="modal" onClick={generateReceipt}>Generate receipt</button>
+                        </div>
+                    </div>
                 </div>
-                <div className="modal-body text-center">
-                    <h5 className='fs-3'>Payment successfull</h5>
-                </div>
-                <div className="modal-footer">
-                    <button  style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal" >cancle</button>
-                    <button className="btn btn-primary generateReceipt" data-bs-dismiss="modal" onClick={generateReceipt}>Generate receipt</button>
-                </div>
-                </div>
-            </div>
             </div>
 
             {/* Logout Alert */}
             {/*<!-- Button trigger modal -->*/}
             <button type="button" ref={logOutModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Launch demo modal
+                Launch demo modal
             </button>
 
             {/*<!-- Modal -->*/}
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                    ...
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">cancle</button>
-                    <button type="button" className="btn btn-primary">Logout</button>
-                </div>
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            ...
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">cancle</button>
+                            <button type="button" className="btn btn-primary">Logout</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
 
 
-
+            {/* section-1 Description */}
             <div className="row my-5 p-2">
                 <div className="col-lg-7 col-md-7">
                     <h2 className="featurette-heading">{title}</h2>
