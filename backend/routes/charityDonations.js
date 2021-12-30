@@ -3,7 +3,7 @@ const CharityDonations = require('../models/CharityDonations')
 const router = express.Router()
 
 // get donations of a perticular charity from db   GET"api/charitydonations/fetchdonations" 
-router.get('/fetchdonations', async(req, res) => {
+router.get('/fetchdonationsbycharity', async(req, res) => {
     try {
         let charityDonations = await CharityDonations.find({charityName:req.header('charityName')});
         res.json(charityDonations);

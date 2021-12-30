@@ -395,7 +395,7 @@ export default function CharityForm(props) {
                                 <div className="input-box" style={{ width: "100%" }}>
                                     <span className="details">Cause</span>
                                     <div className="select">
-                                        <select className="form-select select-box select-wrapper" name="cause" defaultValue={cause || ""} onChange={causeHandler} required>
+                                        <select className="form-select select-box select-wrapper" name="cause" defaultValue={cause || "Flood"} onChange={causeHandler} required>
                                             <option value="Flood">Flood</option>
                                             <option value="Earthquake">Earthquake</option>
                                             <option value="Cyclon">Cyclon</option>

@@ -99,9 +99,7 @@ export default function HeroElement(props) {
 
     const updateFunds = async(amount) => {
         const url = "http://localhost:5000/api/charity/updatecharity/" + id;
-        const now = new Date()
-        console.log(firstname)
-        console.log(donationHistory)
+        //console.log(parseInt(amount), parseInt(amount) + fundsRaised)
         //eslint-disable-next-line
         const response = await fetch(url,
             {
@@ -110,8 +108,27 @@ export default function HeroElement(props) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    fundsRaised: fundsRaised + amount,
-                    donationHistory: donationHistory.push({userName: firstname + " " + lastname, timeStamp: now, amount: amount})
+                    fundsRaised: fundsRaised + parseInt(amount)
+                })
+            }
+        );
+    }
+
+    const updateDonationLogs = async (amount) => {
+        const url = "http://localhost:5000/api/charitydonations/adddonations/";
+        const now = new Date()
+        //eslint-disable-next-line
+        const response = await fetch(url,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'charityName': title,
+                    'donorName': firstname + ' ' + lastname,
+                    'amount': amount,
+                    'timestamp': now
                 })
             }
         );
@@ -163,17 +180,19 @@ export default function HeroElement(props) {
             .then(function(receipt){
                 console.log(receipt)
                 receiptModalToggle.current.click();
-                updateFunds(amount)
+                updateFunds(parseInt(amount))
+                // window.location.href = "http://localhost:3000/zone";
             });
         } else {
             contract.methods.updateAmount(id).send({from:account, value: Web3.utils.toWei(amount, 'Ether'), gas: 1000000})
             .once('receipt', (receipt) => {
                 console.log(receipt)
                 receiptModalToggle.current.click();
-                setContractBalance(contractBalance + amount);
+                setContractBalance(parseInt(contractBalance) + parseInt(amount))
                 getBalance()
             })
         }
+        updateDonationLogs(parseInt(amount))
     }
 
     const handleTransfer = () => {
@@ -185,6 +204,8 @@ export default function HeroElement(props) {
         .once('receipt', (receipt) => {
             console.log(receipt)
             updateFunds(contractBalance)
+            setContractBalance(0)
+            window.location.href = "http://localhost:3000/zone"
         })
     }
 
@@ -203,13 +224,22 @@ export default function HeroElement(props) {
     const getBalance = () => {
         const bal = contract.methods.getBalance(title).call()
         bal.then((res) => {
-            console.log(res)
+            console.log('Contract Balance: ', res)
         })
     }
+
+    const getPendingDonations = () => {
+        const pending = contract.methods.getPendingDonations(title).call()
+        pending.then((res) => {
+            console.log('Pending donations from blockchain: ', res)
+        })
+    }
+
     //BLockChain code END ------------
 
 
     const openModal = ()=>{
+        getPendingDonations()
         console.log('modal open');
         donationModalToggle.current.click();
     }
