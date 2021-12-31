@@ -173,3 +173,12 @@
      overflow-y: initial !important;
      margin-top: 5em !important;
  }
+
+
+ .inputInvalid, .inputInvalid:active, .inputInvalid:focus{
+     text-align: center;
+     min-width: 50px;
+     width: fit-content;
+     border: 1px solid red;
+     /*background-color: red;*/
+ }

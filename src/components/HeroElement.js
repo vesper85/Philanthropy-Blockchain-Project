@@ -8,7 +8,7 @@ import Web3 from 'web3';
 import Donations from '../contracts/Donations.json';
 import userContext from '../context/User/userContext';
 import DonationHistoryItem from './DonationHistoryItem';
-
+//import { useHistory } from 'react-router'
 
 export default function HeroElement(props) {
     // eslint-disable-next-line
@@ -213,6 +213,11 @@ export default function HeroElement(props) {
     }
 
     const handleDonation = () => {
+        if(donAmount >10 || donAmount < 0)
+        {
+            console.log('amount error!!')
+            return;
+        }
         makeDonation(title, donAmount)
     }
     
@@ -242,6 +247,7 @@ export default function HeroElement(props) {
                 getBalance()
                 updateFunds(parseFloat(amount))
                 updateDonationLogs(parseFloat(amount))
+               
                 // window.location.href = "http://localhost:3000/zone"
             })
         }
@@ -297,9 +303,16 @@ export default function HeroElement(props) {
         setdonAmount(e.target.value)
         //console.log(e.target.value)
     }
+    const handleInputOnChange = (e) =>{
+            setdonAmount(e.target.value)
+    }
 
     const generateReceipt = ()=>{
         console.log('receipt generated')
+        history.push('/zone')
+    }
+    const cancleReceipt = ()=>{
+        history.push('/zone')
     }
 
 
@@ -350,12 +363,12 @@ export default function HeroElement(props) {
                         <div className="modal-body">
                             <div><h6>From:</h6>{ firstname + ' ' + lastname }</div>
                             <div><h6>To:</h6> { title } </div>
-                            <div className="mt-4"><h6>Value { donAmount } </h6>  </div>
+                            <div className="mt-4"><h6>Value  <input className='inputInvalid' type="number"  max="10" min="0" value={donAmount} onChange={handleInputOnChange}  ></input> </h6>  </div>
                             <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" value={donAmount} onChange={rangeOnChange} ></input>
                         </div>
                         <div className="modal-footer">
                             <button type="button" style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal">Reject</button>
-                            <button type="button"  onClick={handleDonation} className="btn btn-primary donateBtn">Confirm</button>
+                            <button type="submit"  onClick={handleDonation} className="btn btn-primary donateBtn">Confirm</button>
                         </div>
                     </div>
                 </div>
@@ -364,7 +377,7 @@ export default function HeroElement(props) {
             {/* RECEIPT MODAL */}
             <button type="button" ref={receiptModalToggle} data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" className="btn btn-primary d-none"></button>
             
-            <div className="modal fade receiptModal" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabIndex="-1">
+            <div className="modal fade receiptModal" id="exampleModalToggle2"  data-bs-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabIndex="-1">
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content" style={{borderRadius:"0px",border:"none"}} >
                         <div className="modal-header receiptModalTickContainer" style={{borderRadius:"inherit"}}>
@@ -375,7 +388,7 @@ export default function HeroElement(props) {
                             <h5 className='fs-3'>Payment Successful</h5>
                         </div>
                         <div className="modal-footer">
-                            <button  style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal" >Cancel</button>
+                            <button  style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal" onClick={cancleReceipt} >Cancel</button>
                             <button className="btn btn-primary generateReceipt" data-bs-dismiss="modal" onClick={generateReceipt}>Generate receipt</button>
                         </div>
                     </div>
