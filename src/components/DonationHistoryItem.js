@@ -2,7 +2,7 @@ import React from "react";
 
 const DonationHistoryItem = (props) => {
 
-    const donorName = props.donorName
+    const name = props.name
     const amount = props.amount
     const timestamp = props.time
 
@@ -12,12 +12,12 @@ const DonationHistoryItem = (props) => {
 
     return (
         <div className="donation-history-entry-container">
-            <div>
-                <span className="mx-3 mt-2 float-start">Date: {date}</span>
-                <span className="mx-3 mt-2 float-end">Time: {time}</span>
+            <div className="donation-history-entry-row">
+                <span className="mx-3 mt-1 float-start">Date: {date}</span>
+                <span className="mx-3 mt-1 float-end">Time: {time}</span>
             </div>
-            <div>
-                <span className="mx-3 mt-1 float-start">Donor Name: {donorName}</span>
+            <div className="donation-history-entry-row">
+                <span className="mx-3 mt-1 float-start">Name: {name}</span>
                 <span className="mx-3 mt-1 float-end">Amount: {amount} ETH</span>
             </div>
             <div className="donation-history-separator"></div>

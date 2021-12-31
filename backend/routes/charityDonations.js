@@ -2,7 +2,7 @@ const express = require('express')
 const CharityDonations = require('../models/CharityDonations')
 const router = express.Router()
 
-// get donations of a perticular charity from db   GET"api/charitydonations/fetchdonations" 
+// get donations of a particular charity from db   GET"api/charitydonations/fetchdonationsbycharity" 
 router.get('/fetchdonationsbycharity', async(req, res) => {
     try {
         let charityDonations = await CharityDonations.find({charityName:req.header('charityName')});
@@ -12,7 +12,17 @@ router.get('/fetchdonationsbycharity', async(req, res) => {
     }
 })
 
-// post donations of a perticular charity 
+// get donations of a particular user from db   GET"api/charitydonations/fetchdonationsbyuser" 
+router.get('/fetchdonationsbyuser', async(req, res) => {
+    try {
+        let charityDonations = await CharityDonations.find({username:req.header('username')});
+        res.json(charityDonations);
+    } catch(error) {
+        console.log(error);
+    }
+})
+
+// post donations of a particular charity 
 router.post('/adddonations', async(req, res) => {
     try {
         let charityDonations = new CharityDonations(req.body)

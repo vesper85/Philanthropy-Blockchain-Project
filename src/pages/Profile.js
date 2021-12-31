@@ -1,15 +1,39 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import './Profile.css';
 import {  useContext, useEffect } from 'react';
 import userContext from '../context/User/userContext';
 import { Link } from 'react-router-dom';
+import DonationHistoryItem from '../components/DonationHistoryItem';
 
 export const Profile = () => {
   const context = useContext(userContext);
   const { getProfileInfo, userProfile, profileImg } = context;
-  const { firstname, lastname, username, address, age, phoneNumber, email } =
-    userProfile;
+  const { firstname, lastname, username, address, age, phoneNumber, email } = userProfile;
+
+  const [donationHistory, setDonationHistory] = useState([]);
+  const donationHistoryModalToggle = useRef();
+
+  const fetchDonations = async() => {
+    const url = "http://localhost:5000/api/charitydonations/fetchdonationsbyuser"
+    const response = await fetch(url,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'accept':'application/json',
+        'username': username
+      }
+    });
+    const data = await response.json()
+    console.log(data)
+    setDonationHistory(data)
+  }
+
+  const handleDonationHistory = () => {
+    fetchDonations();
+    donationHistoryModalToggle.current.click();
+  }
 
   useEffect(() => {
     getProfileInfo();
@@ -19,6 +43,35 @@ export const Profile = () => {
   return (
     <>
       <Navbar />
+
+      {/* Donation history modal button hidden */}
+      <button type="button" ref={donationHistoryModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#donationHistory"></button>
+
+      {/* Donation History Modal */}
+      <div className="modal fade donation-history-container" id="donationHistory" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="donationHistoryLabel" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered donation-history-modal-dialog">
+          <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
+            <div className="modal-header donation-history-modal-header">
+              <h5 className="modal-title donation-history-modal-title" id="donationHistoryLabel">Donation History</h5>
+              <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body donation-history-modal-body">
+            <div className="donation-history-separator"></div>
+              {
+                donationHistory.map((entry) => (
+                  <DonationHistoryItem 
+                    key={entry._id}
+                    name={entry.charityName}
+                    amount={entry.amount}
+                    time={entry.timestamp}
+                  />
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="main-content">
         {/* <!-- Header --> */} 
         <div
@@ -52,12 +105,12 @@ export const Profile = () => {
                   {firstname + ' ' + lastname}
                 </h1>
                 <p className="text-white mt-0 mb-5">
-                  This is your profile page. You can see the progress you've
-                  made with your work and manage your projects or assigned tasks
+                  This is your profile page. You can see your donation history and edit profile information.
                 </p>
                 <Link to="/editprofile" className="btn btn-info">
                   Edit profile
                 </Link>
+                <button className="btn btn-primary" onClick={handleDonationHistory}>Donation History</button>
               </div>
             </div>
           </div>
@@ -130,7 +183,7 @@ export const Profile = () => {
                   <div className="text-center">
                     <h6>
                       {firstname + ' ' + lastname}
-                      <span className="font-weight-light">,{age}</span>
+                      <span className="font-weight-light"> ,{age}</span>
                     </h6>
 
                     <div className=" mt-4">

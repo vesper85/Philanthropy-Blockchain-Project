@@ -174,11 +174,13 @@
      margin-top: 5em !important;
  }
 
+ .donation-history-entry-row {
+     display: flex;
+     justify-content: space-between;
+ }
 
- .inputInvalid, .inputInvalid:active, .inputInvalid:focus{
-     text-align: center;
-     min-width: 50px;
-     width: fit-content;
-     border: 1px solid red;
-     /*background-color: red;*/
+ @media (min-width: 576px) {
+     .donation-history-modal-dialog {
+         max-width: 570px;
+     }
  }
