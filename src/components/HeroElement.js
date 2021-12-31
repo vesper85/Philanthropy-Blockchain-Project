@@ -452,7 +452,7 @@ export default function HeroElement(props) {
                 <div className="row p-4 align-items-center border shadow-lg">
                     <div className="col-lg-7 col-md-7 p-3 p-lg-5">
                         <h2 className="lh-1">Some Statistics</h2>
-                        <p className="lead hero-text">Quickly design and customize responsive mobile-first sites with Bootstrap.</p>
+                        <p className="lead hero-text">Here are some statistics related to {cause} in India.</p>
                         <div className="row">
                             <div className="col-lg-4 col-md-12">
                                 <div className="details-container">
