@@ -101,7 +101,7 @@ export default function HeroElement(props) {
 
     const updateFunds = async(amount) => {
         const url = "http://localhost:5000/api/charity/updatecharity/" + id;
-        //console.log(parseInt(amount), parseInt(amount) + fundsRaised)
+        //console.log(parseFloat(amount), parseFloat(amount) + fundsRaised)
         //eslint-disable-next-line
         const response = await fetch(url,
             {
@@ -110,7 +110,7 @@ export default function HeroElement(props) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    fundsRaised: fundsRaised + parseInt(amount)
+                    fundsRaised: fundsRaised + parseFloat(amount)
                 })
             }
         );
@@ -149,7 +149,7 @@ export default function HeroElement(props) {
             }
         );
         const data = await response.json()
-        // console.log(data)
+        console.log(data)
         setDonationHistoryState(data)
     }
 
@@ -229,8 +229,8 @@ export default function HeroElement(props) {
                 //console.log(receipt)
                 saveReceipt(receipt);
                 receiptModalToggle.current.click();
-                updateFunds(parseInt(amount))
-                updateDonationLogs(parseInt(amount))
+                updateFunds(parseFloat(amount))
+                updateDonationLogs(parseFloat(amount))
                 window.location.href = "http://localhost:3000/zone"
             });
         } else {
@@ -240,8 +240,8 @@ export default function HeroElement(props) {
                 saveReceipt(receipt);
                 receiptModalToggle.current.click();
                 getBalance()
-                updateFunds(parseInt(amount))
-                updateDonationLogs(parseInt(amount))
+                updateFunds(parseFloat(amount))
+                updateDonationLogs(parseFloat(amount))
                 // window.location.href = "http://localhost:3000/zone"
             })
         }
@@ -411,14 +411,14 @@ export default function HeroElement(props) {
             <button type="button" ref={donationHistoryModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#donationHistory"></button>
 
             {/* Donation History Modal */}
-            <div className="modal fade" id="donationHistory" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="donationHistoryLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered">
+            <div className="modal fade donation-history-container" id="donationHistory" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="donationHistoryLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered donation-history-modal-dialog">
                     <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
                         <div className="modal-header donation-history-modal-header">
                             <h5 className="modal-title donation-history-modal-title" id="donationHistoryLabel">Donation History</h5>
                             <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body donation-history-modal-body">
                             {
                                 donationHistoryState.map((entry) => (
                                     <DonationHistoryItem 
@@ -429,9 +429,7 @@ export default function HeroElement(props) {
                                     />
                                 ))
                             }
-                        </div>
-                        <div className="modal-footer">
-                            ...
+                            <div className="donation-history-separator"></div>
                         </div>
                     </div>
                 </div>

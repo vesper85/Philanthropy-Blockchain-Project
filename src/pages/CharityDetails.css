@@ -148,3 +148,28 @@
  .donation-history-modal-title {
      color: #28283d;
  }
+
+ .donation-history-container {
+    height: 95vh;
+    overflow: hidden;
+ }
+
+ .donation-history-entry-container {
+     height: 65px;
+     margin: 0 !important;
+ }
+
+ .donation-history-separator {
+    border-top: 2px dashed #00ffc3;
+ }
+
+ .donation-history-modal-body {
+     padding: 0.3em 0 1em;
+     height: 73vh;
+     overflow-y: auto;
+ }
+
+ .donation-history-modal-dialog {
+     overflow-y: initial !important;
+     margin-top: 5em !important;
+ }
