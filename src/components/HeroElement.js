@@ -24,7 +24,7 @@ export default function HeroElement(props) {
     const [donAmount, setdonAmount] = useState(0);
     const context = useContext(userContext);
     const { logOutUser, getProfileInfo, userProfile } = context;
-    const { firstname, lastname } = userProfile
+    const { firstname, lastname, username } = userProfile
 
     const [stats, setStats] = useState({
         stat1: 'More than a third of the world’s malnourished children live in India',
@@ -91,7 +91,6 @@ export default function HeroElement(props) {
 
     useEffect(() => {
         getStats()
-        fetchDonationHistory()
     }, [])
 
     useEffect(() => {
@@ -129,6 +128,7 @@ export default function HeroElement(props) {
                 body: JSON.stringify({
                     'charityName': title,
                     'donorName': firstname + ' ' + lastname,
+                    'username': username,
                     'amount': amount,
                     'timestamp': now
                 })
@@ -149,11 +149,12 @@ export default function HeroElement(props) {
             }
         );
         const data = await response.json()
-        console.log(data)
+        // console.log(data)
         setDonationHistoryState(data)
     }
 
     const handleDonationHistory = () => {
+        fetchDonationHistory()
         donationHistoryModalToggle.current.click();
     }
 
@@ -231,7 +232,7 @@ export default function HeroElement(props) {
                 receiptModalToggle.current.click();
                 updateFunds(parseFloat(amount))
                 updateDonationLogs(parseFloat(amount))
-                window.location.href = "http://localhost:3000/zone"
+                // window.location.href = "http://localhost:3000/zone"
             });
         } else {
             contract.methods.updateAmount(id).send({from:account, value: Web3.utils.toWei(amount, 'Ether'), gas: 1000000})
@@ -419,17 +420,17 @@ export default function HeroElement(props) {
                             <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body donation-history-modal-body">
+                            <div className="donation-history-separator"></div>
                             {
                                 donationHistoryState.map((entry) => (
                                     <DonationHistoryItem 
                                         key={entry._id}
-                                        donorName={entry.donorName}
+                                        name={entry.donorName}
                                         amount={entry.amount}
                                         time={entry.timestamp}
                                     />
                                 ))
                             }
-                            <div className="donation-history-separator"></div>
                         </div>
                     </div>
                 </div>

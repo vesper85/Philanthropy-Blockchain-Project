@@ -173,3 +173,14 @@
      overflow-y: initial !important;
      margin-top: 5em !important;
  }
+
+ .donation-history-entry-row {
+     display: flex;
+     justify-content: space-between;
+ }
+
+ @media (min-width: 576px) {
+     .donation-history-modal-dialog {
+         max-width: 570px;
+     }
+ }
