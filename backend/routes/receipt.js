@@ -8,7 +8,7 @@ router.post('/uploadreceipt',async (req,res) =>{
         //res.send(req.body)
         let receipt = new Receipt({...req.body})
         let savedReceipt = await receipt.save();
-        console.log('receipt saved in DB')
+        //console.log('receipt saved in DB')
         res.status(200).send('receipt saved in DB')
     } catch (error) {
         console.error(error.message);
