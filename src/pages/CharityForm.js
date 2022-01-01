@@ -94,7 +94,7 @@ export default function CharityForm(props) {
 
     const isValidPublicKey = (key) => {
         const validKeys = [
-            // Index 10 to 49 from Ganache with mnemonic - 'animal scissors detect fatigue congress jacket foil benefit write stamp film twelve'
+            // Index 10 to 45 from Ganache with mnemonic - 'animal scissors detect fatigue congress jacket foil benefit write stamp film twelve'
             '0x9079191937192eb14773b802Cecc9AE2fcFe45Bc',
             '0xc13528426E856ed885502f0e924Ac482BCBe554A',
             '0xA7AE8BcC61C991bafd94b96C4Dd0C7f67F8eE63D',
@@ -130,11 +130,7 @@ export default function CharityForm(props) {
             '0xf9c8265E491Ea467a0bB61C9714eD94B913ac6Dc',
             '0x23Df977C27acf84D814de15CefD9a66db9EEec5e',
             '0x9D907F0d21CBd7F9d12284085b8383943B0dd87d',
-            '0x1CeDa3808e35027c7b68b804F0551E488D3e7025',
-            '0x111a9D85183C0d9Cd4C389E9393B39c30db0C003',
-            '0x9D057b27e753835927c5e6abbC239D8f0A54Aa80',
-            '0x59c0B0c7b1Ab5db0fAA69f02D2F95a763319080b',
-            '0x6029f0c802CdB7776F2803BD73835578b72cF8f2'
+            '0x1CeDa3808e35027c7b68b804F0551E488D3e7025'
         ]
 
         if(validKeys.includes(key)) {

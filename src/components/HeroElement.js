@@ -37,13 +37,25 @@ export default function HeroElement(props) {
 
     const deleteCharity = async() => {
         try {
-            const url = "http://localhost:5000/api/charity/deletecharity/" + id;
+            const url1 = "http://localhost:5000/api/charity/deletecharity/" + id;
             //eslint-disable-next-line
-            const response = await fetch(url,
+            const response1 = await fetch(url1,
                 {
                     method: 'DELETE', 
                     headers: {
                         'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            const url2 = "http://localhost:5000/api/charitydonations/deletedonationhistorybycharity"
+            //eslint-disable-next-line
+            const response2 = await fetch(url2,
+                {
+                    method: 'DELETE', 
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'charityName': title
                     }
                 }
             );
@@ -465,7 +477,7 @@ export default function HeroElement(props) {
                 <div className="row p-4 align-items-center border shadow-lg">
                     <div className="col-lg-7 col-md-7 p-3 p-lg-5">
                         <h2 className="lh-1">Some Statistics</h2>
-                        <p className="lead hero-text">Quickly design and customize responsive mobile-first sites with Bootstrap.</p>
+                        <p className="lead hero-text">Here are some statistics related to {cause} in India.</p>
                         <div className="row">
                             <div className="col-lg-4 col-md-12">
                                 <div className="details-container">

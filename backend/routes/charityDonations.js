@@ -27,8 +27,22 @@ router.post('/adddonations', async(req, res) => {
     try {
         let charityDonations = new CharityDonations(req.body)
         const saved = await charityDonations.save()
-        console.log(saved)
+        // console.log(saved)
         res.json(saved)    
+    } catch(err) {
+        console.log(err)
+    }
+})
+
+router.delete('/deletedonationhistorybycharity', async(req, res) => {
+    try {
+        let donations = await CharityDonations.find({charityName:req.header('charityName')})
+        if(!donations) {
+            res.status(400).send('Bad request, no such charity exists')
+        } else {
+            donations = await CharityDonations.deleteMany({charityName:req.header('charityName')})
+            res.send("Charity's donation history deleted successfully")
+        }
     } catch(err) {
         console.log(err)
     }

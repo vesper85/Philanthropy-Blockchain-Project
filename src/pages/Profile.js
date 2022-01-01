@@ -183,7 +183,7 @@ export const Profile = () => {
                   <div className="text-center">
                     <h6>
                       {firstname + ' ' + lastname}
-                      <span className="font-weight-light"> ,{age}</span>
+                      <span className="font-weight-light">, {age}</span>
                     </h6>
 
                     <div className=" mt-4">
