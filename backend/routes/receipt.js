@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express');
+const fetchuser = require('../middleware/fetchuser');
 const router = express.Router()
 const Receipt = require('../models/Receipt');
 
@@ -14,5 +15,18 @@ router.post('/uploadreceipt',async (req,res) =>{
         console.error(error.message);
     }
 })
+
+
+//Route2: to get latest receipt of a user from database    /api/receipt/getlatestreceipt --nologin required
+router.get('/getlatestreceipt',async (req,res) =>{
+    try {
+        let latestReceipt = await Receipt.findOne({userWallet:req.header('userWallet')}).sort({_id:-1})
+        //console.log(latestReceipt)
+        res.status(200).send(latestReceipt)
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+)
 
 module.exports = router;

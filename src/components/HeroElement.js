@@ -24,7 +24,7 @@ export default function HeroElement(props) {
     const [donAmount, setdonAmount] = useState(0);
     const context = useContext(userContext);
     const { logOutUser, getProfileInfo, userProfile } = context;
-    const { firstname, lastname, username } = userProfile
+    const { firstname, lastname, username,userWallet } = userProfile
 
     const [stats, setStats] = useState({
         stat1: 'More than a third of the world’s malnourished children live in India',
@@ -320,8 +320,37 @@ export default function HeroElement(props) {
             setdonAmount(e.target.value)
     }
 
-    const generateReceipt = ()=>{
-        console.log('receipt generated')
+    const generateReceipt = async()=>{
+        
+        try {
+            const url = "http://localhost:5000/api/receipt/getlatestreceipt"
+            let response = await fetch(url,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'accept':'application/json',
+                        'userWallet':userWallet
+                    }
+                }
+            )
+            let data = await response.json()
+            //console.log(data,"real data")
+            //create a file and download it
+            var element = document.createElement('a');
+            const test = "this is a receipt"
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)));
+            element.setAttribute('download', "receipt.txt");
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            //document.body.removeChild(element);   
+
+
+        } catch (error) {
+                console.error(error.message)
+            }
+           
         history.push('/zone')
     }
     const cancleReceipt = ()=>{
