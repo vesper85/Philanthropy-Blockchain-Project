@@ -31,12 +31,12 @@ const Login = () => {
     }
     const onChange = (e)=>{
       setcredentialLogin({...credentialLogin,[e.target.name]:e.target.value})
-      console.log([e.target.name],e.target.value)
+      //console.log([e.target.name],e.target.value)
     }
     
     const onChangeSignUp = (e)=>{
       setcredentialSignUp({...credentialSignUp,[e.target.name]:e.target.value})
-      console.log([e.target.name],e.target.value)
+      //console.log([e.target.name],e.target.value)
     }
 
 
@@ -60,7 +60,7 @@ const Login = () => {
           if(response.ok)
           {
             localStorage.setItem('PBPjwtToken',json.jwtToken);
-            console.log(json.jwtToken);
+            //console.log(json.jwtToken);
             setloggedIn(true);
             history.push('/');
           }
