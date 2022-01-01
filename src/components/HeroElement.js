@@ -37,13 +37,25 @@ export default function HeroElement(props) {
 
     const deleteCharity = async() => {
         try {
-            const url = "http://localhost:5000/api/charity/deletecharity/" + id;
+            const url1 = "http://localhost:5000/api/charity/deletecharity/" + id;
             //eslint-disable-next-line
-            const response = await fetch(url,
+            const response1 = await fetch(url1,
                 {
                     method: 'DELETE', 
                     headers: {
                         'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            const url2 = "http://localhost:5000/api/charitydonations/deletedonationhistorybycharity"
+            //eslint-disable-next-line
+            const response2 = await fetch(url2,
+                {
+                    method: 'DELETE', 
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'charityName': title
                     }
                 }
             );
