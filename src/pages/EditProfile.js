@@ -1,8 +1,8 @@
 import React,{useEffect, useContext, useState} from "react";
 import { useHistory } from "react-router";
 import userContext from "../context/User/userContext";
-import { initializeApp } from "firebase/app";
 // importing firebaseconfig
+import { initializeApp } from "firebase/app";
 import firebaseConfig from "../config/firebaseConfig";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import "./EditProfile.css"

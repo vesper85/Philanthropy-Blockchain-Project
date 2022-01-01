@@ -4,6 +4,16 @@ import "./Registration.css"
 import userContext from '../context/User/userContext'
 import { useHistory } from 'react-router'
 
+// importing firebaseconfig
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../config/firebaseConfig";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+//initialize firebase instances
+const firebaseApp = initializeApp(firebaseConfig);
+const firebaseStorage = getStorage(firebaseApp);
+
+
+
 
 export const Registration = () => {
   const history = useHistory();
@@ -40,10 +50,19 @@ export const Registration = () => {
               userWallet:credentialSignUp.userWallet
             })
         });
+        let imgRef = ref(firebaseStorage, `profile/${credentialSignUp.username}`);
+        uploadBytes(imgRef, profileImageReg).then(() => {
+        console.log('image Uploaded!');
+      });
         history.go(-2);
     } catch (error) {
       console.error(error.message)
     }
+  }
+  const [profileImageReg, setprofileImageReg] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+  const loadFile = (e) => {
+    setprofileImageReg(e.target.files[0]);
+    //console.log('image set');
   }
 
   return (
@@ -82,6 +101,15 @@ export const Registration = () => {
                 <span className="details">Public key</span>
                 <input type="text" name="userWallet" placeholder="Enter your wallet's Public key " required />
               </div>
+              <div className="input-box_reg"  style={{display:"flex", justifyContent:"start", alignItems:"center"}} >
+                <label htmlFor="file-upload" className="custom-file-upload mt-3" style={{height:"min-content"}}>
+                   <i className="fa fa-cloud-upload"></i>  Upload Profile Image
+               </label>
+                    <input className='d-none' id="file-upload" accept="image/*" name="image" type="file" onChange={loadFile} />
+              </div>
+
+              
+
             </div>
             <div className="gender-details_reg">
               <input type="radio" name="gender" id="dot-1" />
