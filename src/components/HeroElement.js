@@ -496,7 +496,7 @@ export default function HeroElement(props) {
                         </div>
 
                         <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 donate-btns">
-                            <button type="button" onClick={openModal} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
+                            <button type="button" disabled={((fundsRaised / goal) * 100).toFixed(2) == 100} onClick={openModal} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
                             <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>
                             <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>
                         </div>
