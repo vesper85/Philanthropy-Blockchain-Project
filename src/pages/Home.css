@@ -390,7 +390,7 @@
 
 /* Testimonial css */
 
-.testimonial-container{
+/* .testimonial-container{
   min-height: fit-content;
   max-height: max-content;
   padding-bottom: 60px;
@@ -496,4 +496,67 @@
 
 .fa-star, .active-star{
   color: #FF9529;
+} */
+
+
+.test-card {
+  width: 15rem;
+  min-height: 16rem;
+  margin: auto;
+  box-shadow: 1px 3px 5px #a7a7a7
+}
+
+.testimonial {
+  padding: auto;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+  font-weight: 500
+}
+
+.active-star {
+  color: #FBC02D;
+  margin-bottom: 8px
+}
+
+.active-star:hover {
+  color: #F9A825;
+  cursor: pointer
+}
+
+.profile {
+  padding-top: 10px
+}
+
+.name {
+  font-weight: 700
+}
+
+.designation {
+  font-size: 0.84rem;
+  font-weight: 600
+}
+
+.owl-carousel .owl-item{
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.owl-carousel .owl-item img {
+  width: 45px !important;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover
+}
+
+@media only screen and (width:1024px){
+  .test-card{
+    width: 13rem;
+  }
+}
+
+@media only screen and (width:768px){
+  .owl-carousel{
+    display:grid;
+    grid-template-columns: auto auto;
+  }
 }
