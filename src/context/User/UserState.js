@@ -11,13 +11,13 @@ const firebaseStorage = getStorage(firebaseApp);
 const UserState = ({children}) => {
     
     //state used for 2 step registration / signup
-    const [globalCredentials, setglobalCredentials] = useState({email:"",username:"", password:"", rpassword:"", address:"", firstname:"", lastname:"", phoneno:"", age:""});
+    const [globalCredentials, setglobalCredentials] = useState({email:"",username:"", password:"", rpassword:"", address:"", firstname:"", lastname:"", phoneno:"", age:"",company:""});
 
     //global login state
     const [loggedIn, setloggedIn] = useState(localStorage.getItem('PBPjwtToken') ? true :false);
 
     //global state for storing profile info, to display userinfo and edit profile
-    const [userProfile, setuserProfile] = useState({email:"",username:"", address:"", firstname:"", lastname:"", phoneno:"", age:"",userWallet:""});
+    const [userProfile, setuserProfile] = useState({email:"",username:"", address:"", firstname:"", lastname:"", phoneno:"", age:"",userWallet:"",company:""});
 
     const [profileImg, setprofileImg] = useState("");
 

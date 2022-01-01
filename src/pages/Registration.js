@@ -21,7 +21,7 @@ export const Registration = () => {
   const context = useContext(userContext);
   const {globalCredentials} = context;
 
-  const [credentialSignUp, setcredentialSignUp] = useState({email:globalCredentials.email,username:globalCredentials.username, password:globalCredentials.password, rpassword:globalCredentials.rpassword, address:"", firstname:"", lastname:"", phoneNumber:"", age:"",userWallet:""});
+  const [credentialSignUp, setcredentialSignUp] = useState({email:globalCredentials.email,username:globalCredentials.username, password:globalCredentials.password, rpassword:globalCredentials.rpassword, address:"", firstname:"", lastname:"", phoneNumber:"", age:"",userWallet:"",company:""});
   const onChangeSignUp = (e)=>{
     setcredentialSignUp({...credentialSignUp,[e.target.name]:e.target.value})
     //console.log([e.target.name],e.target.value)
@@ -47,7 +47,8 @@ export const Registration = () => {
               lastname:credentialSignUp.lastname,
               phoneNumber:credentialSignUp.phoneNumber,
               age:credentialSignUp.age,
-              userWallet:credentialSignUp.userWallet
+              userWallet:credentialSignUp.userWallet,
+              company:credentialSignUp.company
             })
         });
         let imgRef = ref(firebaseStorage, `profile/${credentialSignUp.username}`);
