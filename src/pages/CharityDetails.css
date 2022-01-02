@@ -155,7 +155,7 @@
  }
 
  .donation-history-entry-container {
-     height: 65px;
+     height: fit-content;
      margin: 0 !important;
  }
 
@@ -183,4 +183,8 @@
      .donation-history-modal-dialog {
          max-width: 570px;
      }
+ }
+
+ .donation-history-entry-row-name {
+     max-width: 360px;
  }

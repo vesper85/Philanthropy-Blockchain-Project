@@ -24,8 +24,8 @@ const DonationHistoryItem = (props) => {
                 <span className="mx-3 mt-1 float-start">Date: {date}</span>
                 <span className="mx-3 mt-1 float-end">Time: {time}</span>
             </div>
-            <div className="donation-history-entry-row">
-                <span className="mx-3 mt-1 float-start">Name: {name}</span>
+            <div className="donation-history-entry-row mb-1">
+                <span className="mx-3 mt-1 float-start donation-history-entry-row-name">Name: {name}</span>
                 <span className="mx-3 mt-1 float-end">Amount: {amount} ETH</span>
             </div>
             <div className="donation-history-separator"></div>
