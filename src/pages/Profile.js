@@ -9,7 +9,7 @@ import DonationHistoryItem from '../components/DonationHistoryItem';
 export const Profile = () => {
   const context = useContext(userContext);
   const { getProfileInfo, userProfile, profileImg } = context;
-  const { firstname, lastname, username, address, age, phoneNumber, email } = userProfile;
+  const { firstname, lastname, username, address, age, phoneNumber, email, company } = userProfile;
 
   const [donationHistory, setDonationHistory] = useState([]);
   const donationHistoryModalToggle = useRef();
@@ -331,7 +331,7 @@ export const Profile = () => {
                           </label>
                           <div>
                             <small className="form-text text-muted">
-                              {email}
+                              {company}
                             </small>
                           </div>
                         </div>

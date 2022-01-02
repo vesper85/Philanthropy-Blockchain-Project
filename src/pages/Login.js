@@ -60,7 +60,7 @@ const Login = () => {
           if(response.ok)
           {
             localStorage.setItem('PBPjwtToken',json.jwtToken);
-            //console.log(json.jwtToken);
+            console.log(json.jwtToken);
             setloggedIn(true);
             history.push('/');
           }

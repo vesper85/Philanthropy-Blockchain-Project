@@ -24,7 +24,7 @@ export default function HeroElement(props) {
     const [donAmount, setdonAmount] = useState(0);
     const context = useContext(userContext);
     const { logOutUser, getProfileInfo, userProfile } = context;
-    const { firstname, lastname, username } = userProfile
+    const { firstname, lastname, username,userWallet } = userProfile
 
     const [stats, setStats] = useState({
         stat1: 'More than a third of the world’s malnourished children live in India',
@@ -320,8 +320,37 @@ export default function HeroElement(props) {
             setdonAmount(e.target.value)
     }
 
-    const generateReceipt = ()=>{
-        console.log('receipt generated')
+    const generateReceipt = async()=>{
+        
+        try {
+            const url = "http://localhost:5000/api/receipt/getlatestreceipt"
+            let response = await fetch(url,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'accept':'application/json',
+                        'userWallet':userWallet
+                    }
+                }
+            )
+            let data = await response.json()
+            //console.log(data,"real data")
+            //create a file and download it
+            var element = document.createElement('a');
+            const test = "this is a receipt"
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)));
+            element.setAttribute('download', "receipt.txt");
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            //document.body.removeChild(element);   
+
+
+        } catch (error) {
+                console.error(error.message)
+            }
+           
         history.push('/zone')
     }
     const cancleReceipt = ()=>{
@@ -508,7 +537,7 @@ export default function HeroElement(props) {
                         </div>
 
                         <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 donate-btns">
-                            <button type="button" onClick={openModal} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
+                            <button type="button" disabled={((fundsRaised / goal) * 100).toFixed(2) == 100} onClick={openModal} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
                             <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>
                             <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>
                         </div>
