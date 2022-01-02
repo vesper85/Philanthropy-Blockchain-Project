@@ -5,6 +5,7 @@ import Title from '../components/Title'
 import InfoWidget from '../components/InfoWidget'
 import Process from '../components/Process'
 import Security from '../components/Security'
+import {SupportedCrypto} from '../components/SupportedCrypto'
 import Partners from '../components/Partners'
 import Footer from '../components/Footer'
 import Testimonial from '../components/Testimonial'
@@ -32,6 +33,8 @@ const Home = (props) => {
             <Process />
 
             <Security/>
+
+            <SupportedCrypto/>
 
             <Partners />
 

@@ -13,7 +13,7 @@ const InfoWidget = () => {
                 <div className="row infowidget-row">
                     <InfoWidgetElement compId={"#steps"} imlink={stepsIcon} title={"What are the steps"} subtitle={"Donate to charities using crypto"} />
                     <InfoWidgetElement compId={"#security"} imlink={lockIcon} title={"Security & Controls"} subtitle={"Keeping your payments safe"} />
-                    <InfoWidgetElement compId={"#"} imlink={cryptoIcon} title={"Supported cryptocurrencies"} subtitle={"Variety of payment options"} />
+                    <InfoWidgetElement compId={"#Supported Cryptocurrencies"} imlink={cryptoIcon} title={"Supported cryptocurrencies"} subtitle={"Variety of payment options"} />
  
                     <InfoWidgetElement compId={"#partner"} imlink={partnersIcon} title={"Our partners"} subtitle={"Partner Organizations"} />
                     <InfoWidgetElement compId={"#"} imlink={teamIcon} title={"Team information"} subtitle={"About the website developers"} />

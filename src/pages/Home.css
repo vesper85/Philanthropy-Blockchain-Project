@@ -365,6 +365,49 @@
   text-align: justify;
 }
 
+/* Supported Cryptocurrencies */
+
+.Crypto-header{
+  width: fit-content;
+  color: #000;
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-top: 3rem;
+}
+
+.Crypto-subtitle{
+  color: #28283d;
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-decoration: none;
+  display: block;
+}
+.Crypto-text{
+  font-weight: 400;
+  font-size: 0.95rem;
+  padding-top: 0.3em;
+  display: block;
+  text-align: justify;
+}
+
+.ethereumlogo
+{
+  position: relative;
+  height: 150px;
+  margin-left: -50px;
+}
+@media only screen and (min-width: 300px) and (max-width: 750px) {
+  .Crypto-subtitle{
+    text-align: center;
+  }
+
+  .Crypto-header, .step-heading, .partners-heading{
+    margin: 0px auto 20px auto;
+    font-size: xx-large;
+  }
+}
+
 /* team info section */
 
 .team-container{

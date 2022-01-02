@@ -395,6 +395,10 @@ export default function CharityForm(props) {
                                             <option value="Flood">Flood</option>
                                             <option value="Earthquake">Earthquake</option>
                                             <option value="Cyclon">Cyclon</option>
+                                            <option value="Children & Women Sector">Children & Women Sector</option>
+                                            <option value="Education">Education</option>
+                                            <option value="Animal">Animal</option>
+                                            <option value="Agriculture">Agriculture</option>
                                         </select>
                                     </div>
                                 </div>
