@@ -188,3 +188,18 @@
  .donation-history-entry-row-name {
      max-width: 360px;
  }
+
+ .pending-donations-modal-dialog {
+    overflow-y: initial !important;
+ }
+
+ @media (min-width: 576px) {
+    .pending-donations-modal-dialog {
+        max-width: 630px;
+    }
+}
+
+.pending-donations-modal-footer {
+    justify-content: space-between;
+    border-top: 3px solid #00ffc3;
+}

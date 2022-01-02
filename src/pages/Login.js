@@ -212,14 +212,14 @@ const Login = () => {
 
               {/* login fields */}
               <div className="form-group my-2 col-7  ">
-                <label htmlFor="label-email" className="input_label_login mb-1 ">Enter username</label>
-                <input name="username" type="name" onChange={onChange} className="form-control rounded-0 disable-highlight" value={credentialLogin.username} id="label-lemail" aria-describedby="emailHelp" />
+                <label htmlFor="label-email" className="input_label_login mb-1 ">Username</label>
+                <input name="username" type="name" onChange={onChange} className="form-control rounded-0 disable-highlight" placeholder="Enter Username" style={{fontSize: "12px"}} value={credentialLogin.username} id="label-lemail" aria-describedby="emailHelp" />
               </div>
               {loginFormErrors.username && <p className="error-text">{loginFormErrors.username}</p>}
 
               <div className="form-group my-2 col-7 ">
-                <label htmlFor="label-password" className="input_label_login mb-1">Enter Password</label>
-                <input name="password" onChange={onChange} type="password" className="form-control rounded-0 disable-highlight" value={credentialLogin.password} id="label-lpassword" aria-describedby="passHelp" />
+                <label htmlFor="label-password" className="input_label_login mb-1">Password</label>
+                <input name="password" onChange={onChange} type="password" className="form-control rounded-0 disable-highlight" placeholder="Enter Password" style={{fontSize: "12px"}} value={credentialLogin.password} id="label-lpassword" aria-describedby="passHelp" />
               </div>
               {loginFormErrors.password && <p className="error-text">{loginFormErrors.password}</p>}
 
@@ -232,13 +232,13 @@ const Login = () => {
               <p className="social-text">Or Sign in with social platforms</p>
               <div className="social-media">
                 <a href="/" className="social-icon">
+                  <i className="fab fa-google"></i>
+                </a>
+                <a href="/" className="social-icon">
                   <i className="fab fa-facebook-f"></i>
                 </a>
                 <a href="/" className="social-icon">
                   <i className="fab fa-twitter"></i>
-                </a>
-                <a href="/" className="social-icon">
-                  <i className="fab fa-google"></i>
                 </a>
                 <a href="/" className="social-icon">
                   <i className="fab fa-linkedin-in"></i>
@@ -251,26 +251,26 @@ const Login = () => {
 
               {/* inpur fields signup */}
               <div className="form-group my-1 col-7  ">
-                <label htmlFor="label-email" className="input_label_login mb-1 p-0">Enter email</label>
-                <input name="email" type="email" className="form-control rounded-0 disable-highlight" id="label-semail" onChange={onChangeSignUp} value={credentialSignUp.email} aria-describedby="emailHelp" />
+                <label htmlFor="label-email" className="input_label_login mb-1 p-0">Email</label>
+                <input name="email" type="email" className="form-control rounded-0 disable-highlight" placeholder="Enter Email" id="label-semail" style={{fontSize: "12px"}} onChange={onChangeSignUp} value={credentialSignUp.email} aria-describedby="emailHelp" />
               </div>
               {signupFormErrors.email && <p className="error-text">{signupFormErrors.email}</p>}
 
               <div className="form-group my-1 col-7  ">
-                <label htmlFor="label-username" className="input_label_login mb-1 p-0">username</label>
-                <input name="username" type="name" className="form-control rounded-0 disable-highlight" id="label-susername" onChange={onChangeSignUp} value={credentialSignUp.username} aria-describedby="emailHelp" />
+                <label htmlFor="label-username" className="input_label_login mb-1 p-0">Username</label>
+                <input name="username" type="name" className="form-control rounded-0 disable-highlight" placeholder="Enter Username" id="label-susername" style={{fontSize: "12px"}} onChange={onChangeSignUp} value={credentialSignUp.username} aria-describedby="emailHelp" />
               </div>
               {signupFormErrors.username && <p className="error-text">{signupFormErrors.username}</p>}
 
               <div className="form-group my-1 col-7 ">
                 <label htmlFor="label-password" className="input_label_login mb-1">Password</label>
-                <input name="password" type="password" className="form-control rounded-0 disable-highlight " id="label-spassword" onChange={onChangeSignUp} value={credentialSignUp.password} aria-describedby="passHelp"/>
+                <input name="password" type="password" className="form-control rounded-0 disable-highlight" placeholder="Enter Password" id="label-spassword" style={{fontSize: "12px"}} onChange={onChangeSignUp} value={credentialSignUp.password} aria-describedby="passHelp"/>
               </div>
               {signupFormErrors.password && <p className="error-text">{signupFormErrors.password}</p>}
 
               <div className="form-group my-1 col-7 ">
-                <label htmlFor="label-password" className="input_label_login mb-1">Re-enter Password</label>
-                <input name="rpassword" type="password" className="form-control rounded-0 disable-highlight " id="label-spassword" onChange={onChangeSignUp} value={credentialSignUp.rpassword} aria-describedby="passHelp" />
+                <label htmlFor="label-password" className="input_label_login mb-1">Re-Enter Password</label>
+                <input name="rpassword" type="password" className="form-control rounded-0 disable-highlight" placeholder="Both passwords should match" id="label-spassword" style={{fontSize: "12px"}} onChange={onChangeSignUp} value={credentialSignUp.rpassword} aria-describedby="passHelp" />
               </div>
               {signupFormErrors.rpassword && <p className="error-text">{signupFormErrors.rpassword}</p>}
 
