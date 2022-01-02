@@ -393,6 +393,9 @@ form.sign-up-form {
     bottom: 28%;
     left: 50%;
   }
+}
 
-
+.error-text{
+  color: red;
+  font-size: 12.5px;
 }
