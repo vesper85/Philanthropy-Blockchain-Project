@@ -8,6 +8,7 @@ import Web3 from 'web3';
 import Donations from '../contracts/Donations.json';
 import userContext from '../context/User/userContext';
 import DonationHistoryItem from './DonationHistoryItem';
+import PendingDonationsItem from './PendingDonationsItem';
 //import { useHistory } from 'react-router'
 
 export default function HeroElement(props) {
@@ -21,6 +22,7 @@ export default function HeroElement(props) {
     const receiptModalToggle = useRef();
     const logOutModalToggle = useRef();
     const donationHistoryModalToggle = useRef();
+    const pendingDonationsModalToggle = useRef();
     const [donAmount, setdonAmount] = useState(0);
     const context = useContext(userContext);
     const { logOutUser, getProfileInfo, userProfile } = context;
@@ -34,6 +36,9 @@ export default function HeroElement(props) {
 
     const [progress, setProgress] = useState(0)
     const [donationHistoryState, setDonationHistoryState] = useState([])
+    const [pendingDonationsState, setPendingDonations] = useState([])
+    const [contractBalance, setContractBalance] = useState(0)
+    const [proceedButton, setProceedButton] = useState('')
 
     const deleteCharity = async() => {
         try {
@@ -257,7 +262,6 @@ export default function HeroElement(props) {
                 //console.log(receipt)
                 saveReceipt(receipt);
                 receiptModalToggle.current.click();
-                getBalance()
                 updateFunds(parseFloat(amount))
                 updateDonationLogs(parseFloat(amount))
                
@@ -267,7 +271,11 @@ export default function HeroElement(props) {
     }
 
     const handleTransfer = () => {
-        transferAmount()
+        setProceedButton('Transfer')
+        getBalance()
+        getPendingDonations()
+        pendingDonationsModalToggle.current.click();
+        // transferAmount()
     }
 
     const transferAmount = () => {
@@ -279,7 +287,11 @@ export default function HeroElement(props) {
     }
 
     const handleRevert = () => {
-        revertAmount()
+        setProceedButton('Revert')
+        getBalance()
+        getPendingDonations()
+        pendingDonationsModalToggle.current.click();
+        // revertAmount()
     }
 
     const revertAmount = () => {
@@ -292,7 +304,7 @@ export default function HeroElement(props) {
     const getBalance = () => {
         const bal = contract.methods.getBalance(title).call()
         bal.then((res) => {
-            console.log('Contract Balance: ', res)
+            setContractBalance(Web3.utils.fromWei(res, 'ether'))
         })
     }
 
@@ -300,11 +312,14 @@ export default function HeroElement(props) {
         // Remove these entries from database before doing Revert
         const pending = contract.methods.getPendingDonations(title).call()
         pending.then((res) => {
-            console.log('Pending donations from blockchain: ', res)
+            // console.log('Pending donations from blockchain: ', res)
+            setPendingDonations(res)
         })
     }
 
-    //BLockChain code END ------------
+    const revertDonationsInDB = () => {
+
+    } 
 
 
     const openModal = () => {
@@ -317,7 +332,7 @@ export default function HeroElement(props) {
         //console.log(e.target.value)
     }
     const handleInputOnChange = (e) =>{
-            setdonAmount(e.target.value)
+        setdonAmount(e.target.value)
     }
 
     const generateReceipt = async()=>{
@@ -484,6 +499,44 @@ export default function HeroElement(props) {
                                         time={entry.timestamp}
                                     />
                                 ))
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Pending Donations modal button hidden */}
+            <button type="button" ref={pendingDonationsModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#pendingdonations"></button>
+
+            {/* Pending Donations Modal */}
+            <div className="modal fade donation-history-container" id="pendingdonations" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="pendingdonationsLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered pending-donations-modal-dialog">
+                    <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
+                        <div className="modal-header donation-history-modal-header">
+                            <h5 className="modal-title donation-history-modal-title" id="pendingdonationsLabel">Pending Donations</h5>
+                            <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body donation-history-modal-body">
+                            <div className="donation-history-separator"></div>
+                            {
+                                pendingDonationsState.map((entry) => (
+                                    <PendingDonationsItem 
+                                        // key={entry.donor}
+                                        donor={entry.donor}
+                                        amount={entry.amount}
+                                    />
+                                ))
+                            }
+                        </div>
+                        <div className='modal-footer pending-donations-modal-footer'>
+                            <div className='float-start'>
+                                <strong>Total Amount: {contractBalance} ETH </strong>
+                            </div>
+                            {
+                                proceedButton === 'Transfer' && <button className='btn btn-success float-end me-3' onClick={transferAmount}>Transfer</button>
+                            }
+                            {
+                                proceedButton === 'Revert' && <button className='btn btn-danger float-end me-3' onClick={revertAmount}>Revert</button>
                             }
                         </div>
                     </div>
