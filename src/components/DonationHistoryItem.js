@@ -7,8 +7,16 @@ const DonationHistoryItem = (props) => {
     const timestamp = props.time
 
     const s = new Date(timestamp).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'})
-    const date = s.substring(3,5) + '-' + s.substring(0,2) + '-' + s.substring(6,10)
-    const time = s.substring(12,)
+    // console.log(s);
+    let date, time;
+
+    if(s[2] === '/') {
+        date = s.substring(3,5) + '-' + s.substring(0,2) + '-' + s.substring(6,10)
+        time = s.substring(12,)
+    } else if(s[1] === '/') {
+        date = '0' + s.substring(2,3) + '-' + '0' + s.substring(0,1) + '-' + s.substring(4,8)
+        time = s.substring(10,)
+    }
 
     return (
         <div className="donation-history-entry-container">
