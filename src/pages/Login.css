@@ -82,6 +82,7 @@ form.sign-in-form {
 }
 
 form.sign-up-form {
+  margin-top: 45px;
   z-index: 1;
   opacity: 0;
 }
@@ -398,4 +399,5 @@ form.sign-up-form {
 .error-text{
   color: red;
   font-size: 12.5px;
+  margin: 0%;
 }

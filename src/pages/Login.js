@@ -208,7 +208,7 @@ const Login = () => {
         <div className="forms-container">
           <div className="signin-signup">
             <form onSubmit={handleLogin} className="sign-in-form">
-              <h2 className="title">Login In</h2>
+              <h2 className="title">Login</h2>
 
               {/* login fields */}
               <div className="form-group my-2 col-7  ">
@@ -251,13 +251,13 @@ const Login = () => {
 
               {/* inpur fields signup */}
               <div className="form-group my-1 col-7  ">
-                <label htmlFor="label-email" className="input_label_login mb-1 ">Enter email</label>
+                <label htmlFor="label-email" className="input_label_login mb-1 p-0">Enter email</label>
                 <input name="email" type="email" className="form-control rounded-0 disable-highlight" id="label-semail" onChange={onChangeSignUp} value={credentialSignUp.email} aria-describedby="emailHelp" />
               </div>
               {signupFormErrors.email && <p className="error-text">{signupFormErrors.email}</p>}
 
               <div className="form-group my-1 col-7  ">
-                <label htmlFor="label-username" className="input_label_login mb-1 ">username</label>
+                <label htmlFor="label-username" className="input_label_login mb-1 p-0">username</label>
                 <input name="username" type="name" className="form-control rounded-0 disable-highlight" id="label-susername" onChange={onChangeSignUp} value={credentialSignUp.username} aria-describedby="emailHelp" />
               </div>
               {signupFormErrors.username && <p className="error-text">{signupFormErrors.username}</p>}
@@ -285,8 +285,8 @@ const Login = () => {
             <div className="content">
               <h3>New here ?</h3>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Debitis, ex ratione. Aliquid!
+                Sign In first and then register to visit the website.
+                Click on button below.
               </p>
 
               <button
@@ -301,17 +301,17 @@ const Login = () => {
           </div>
           <div className="panel right-panel">
             <div className="content">
-              <h3>One of us ?</h3>
+              <h3>Signed up Already ?</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Nostrum laboriosam ad deleniti.
+                If you already have an account then Login to visit website.
+                Click on the button below.
               </p>
               <button
                 className="btn_login transparent"
                 id="sign-in-btn"
                 onClick={handleOnClickSignin}
               >
-                Login in
+                Login
               </button>
             </div>
             <img src="img/register.svg" className="image" alt="" />
