@@ -379,25 +379,36 @@ export default function HeroElement(props) {
     }, [])
 
     
-//    //Implimentation of account change when metamask public address changes
-//   const [userAccountChangeModal, setuserAccountChangeModal] = useState(false)
-//    window.ethereum.on('accountsChanged', function (accountsChange) { 
-//        //setAccount(accountsChange[0]);
-//        if(userAccountChangeModal)
-//        {
-//            logOutModalToggle.current.click();
-//            setuserAccountChangeModal(false);
+    //Implimentation of account change when metamask public address changes
+    //if true then modal open
 
-//        }
-//        console.log("Metamask account Address :", accountsChange[0]);
-//        //open modal
-//        console.log('userwallet:', userProfile.userWallet);
-//        if(account !== userProfile.userWallet) {
-//            //logOutUser();
-//            logOutModalToggle.current.click();
-//            setuserAccountChangeModal(true);
-//        }
-//    });
+   const [userAccountChangeModal, setuserAccountChangeModal] = useState('close')
+    window.ethereum.on('accountsChanged', function (accountsChange) {
+        setAccount(accountsChange[0]);
+        console.log('account changed')
+    });
+
+    useEffect(() => {
+        
+        //if walletAddress is not equal to current metamask address then prompt user to logout
+        if(account.toLowerCase() !== (userProfile.userWallet.toLowerCase()))
+        {
+            //and if the modal is open then close it and open again
+            if(userAccountChangeModal === 'close')
+            {
+                logOutModalToggle.current.click();
+                setuserAccountChangeModal('open');
+            }
+        }
+        else{
+            if(userAccountChangeModal === 'open')
+            {
+                logOutModalToggle.current.click()
+                setuserAccountChangeModal('close')
+            }
+        }
+    }, [account])
+
 
 
     
