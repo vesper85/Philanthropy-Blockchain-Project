@@ -385,14 +385,15 @@ export default function HeroElement(props) {
    const [userAccountChangeModal, setuserAccountChangeModal] = useState('close')
     window.ethereum.on('accountsChanged', function (accountsChange) {
         setAccount(accountsChange[0]);
-        console.log('account changed')
+        //console.log('account changed')
     });
 
     useEffect(() => {
-        
-        //if walletAddress is not equal to current metamask address then prompt user to logout
+        try {
+             //if walletAddress is not equal to current metamask address then prompt user to logout
         if(account.toLowerCase() !== (userProfile.userWallet.toLowerCase()))
         {
+            
             //and if the modal is open then close it and open again
             if(userAccountChangeModal === 'close')
             {
@@ -407,8 +408,16 @@ export default function HeroElement(props) {
                 setuserAccountChangeModal('close')
             }
         }
+        } catch (error) {
+            console.error(error.message)
+        }
+       
     }, [account])
 
+    const handleAccountChangeOnClick = ()=>{
+        logOutUser();
+        history.push('/login')
+    }
 
 
     
@@ -470,19 +479,20 @@ export default function HeroElement(props) {
             </button>
 
             {/*<!-- Modal -->*/}
-            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal"  data-bs-backdrop="static" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            ...
+                            your metamask public Address doesnot match the address with which you registered the user.
+                            <b>please change the metamask address or login with correct account</b><br/>
+                            <span>Metamask Account Address:<i> {account} </i></span>
+                            <span>address that you registered with: <i>{userProfile.userWallet}</i> </span>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">cancle</button>
-                            <button type="button" className="btn btn-primary">Logout</button>
+                            <button type="button" data-bs-dismiss="modal" className="btn btn-primary" onClick={handleAccountChangeOnClick} >Logout</button>
                         </div>
                     </div>
                 </div>
