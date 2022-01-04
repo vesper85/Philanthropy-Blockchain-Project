@@ -26,8 +26,8 @@ export default function HeroElement(props) {
     const pendingDonationsModalToggle = useRef();
     const [donAmount, setdonAmount] = useState(0);
     const context = useContext(userContext);
-    const { logOutUser, getProfileInfo, userProfile } = context;
-    const { firstname, lastname, username, userWallet } = userProfile
+    const { logOutUser, getProfileInfo, userProfile, loggedIn } = context;
+    const { firstname, lastname, username, userWallet, superUser } = userProfile
 
     const [stats, setStats] = useState({
         stat1: 'More than a third of the world’s malnourished children live in India',
@@ -622,8 +622,8 @@ export default function HeroElement(props) {
 
                         <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 donate-btns">
                             <button type="button" disabled={((fundsRaised / goal) * 100).toFixed(2) >= 100} onClick={openModal} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
-                            <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>
-                            <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>
+                            {(isVerified===true)? null: <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>}
+                            {(isVerified===true)? null: <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>}
                         </div>
 
                         <div className="donation-history mt-4 mx-1" onClick={handleDonationHistory}>
@@ -650,10 +650,10 @@ export default function HeroElement(props) {
             </div>
 
             {/* Admin Buttons */}
-            <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 charity-details-admin-buttons">
+            {(loggedIn && superUser===true)? <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 charity-details-admin-buttons">
                 <Link to={{pathname:"/charityform", state:{button_name:"update", info:props}}} type="button" className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Update</Link>
                 <button onClick={deleteCharity} type="button" className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Delete</button>
-            </div>
+            </div> : null}
         </div>
     )
 }
