@@ -27,7 +27,7 @@ export default function HeroElement(props) {
     const [donAmount, setdonAmount] = useState(0);
     const context = useContext(userContext);
     const { logOutUser, getProfileInfo, userProfile } = context;
-    const { firstname, lastname, username,userWallet } = userProfile
+    const { firstname, lastname, username, userWallet } = userProfile
 
     const [stats, setStats] = useState({
         stat1: 'More than a third of the world’s malnourished children live in India',
@@ -242,7 +242,7 @@ export default function HeroElement(props) {
     
     const makeDonation = (id, amount) => {
         console.log('isVerified: ', isVerified)
-        if(isVerified == true) {
+        if(isVerified === true) {
             let web3js = new Web3(window.web3.currentProvider); 
             web3js.eth.sendTransaction({
                 from: account,
@@ -319,7 +319,9 @@ export default function HeroElement(props) {
     }
 
     const revertDonationsInDB = () => {
+        pendingDonationsState.map((transaction) => {
 
+        })
     } 
 
 
@@ -391,24 +393,26 @@ export default function HeroElement(props) {
 
     useEffect(() => {
         try {
-             //if walletAddress is not equal to current metamask address then prompt user to logout
-        if(account.toLowerCase() !== (userProfile.userWallet.toLowerCase()))
-        {
-            
-            //and if the modal is open then close it and open again
-            if(userAccountChangeModal === 'close')
-            {
-                logOutModalToggle.current.click();
-                setuserAccountChangeModal('open');
+            // console.log(userProfile.userWallet.toLowerCase())
+            // console.log(account.toLowerCase())
+            // console.log(userProfile.userWallet.toLowerCase() === account.toLowerCase())
+            // if walletAddress is not equal to current metamask address then prompt user to logout
+            if(userProfile.userWallet && account && (account.toLowerCase() !== (userProfile.userWallet.toLowerCase())))
+            {   
+                //and if the modal is open then close it and open again
+                if(userAccountChangeModal === 'close')
+                {
+                    logOutModalToggle.current.click();
+                    setuserAccountChangeModal('open');
+                }
             }
-        }
-        else{
-            if(userAccountChangeModal === 'open')
-            {
-                logOutModalToggle.current.click()
-                setuserAccountChangeModal('close')
+            else{
+                if(userAccountChangeModal === 'open')
+                {
+                    logOutModalToggle.current.click()
+                    setuserAccountChangeModal('close')
+                }
             }
-        }
         } catch (error) {
             console.error(error.message)
         }
@@ -484,13 +488,13 @@ export default function HeroElement(props) {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Please check your Metamask account</h5>
                         </div>
                         <div className="modal-body">
-                            your metamask public Address doesnot match the address with which you registered the user.
-                            <b>please change the metamask address or login with correct account</b><br/>
-                            <span>Metamask Account Address:<i> {account} </i></span>
-                            <span>address that you registered with: <i>{userProfile.userWallet}</i> </span>
+                            Your metamask wallet address does not match the address with your registered public address.<br/>
+                            <b>Please change the metamask address or login with correct account.</b><br/><br/>
+                            <span>Metamask Account Address:<i> {account} </i></span><br/>
+                            <span>Your registered address: <i>{userProfile.userWallet}</i> </span>
                         </div>
                         <div className="modal-footer">
                             <button type="button" data-bs-dismiss="modal" className="btn btn-primary" onClick={handleAccountChangeOnClick} >Logout</button>

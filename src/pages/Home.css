@@ -546,7 +546,7 @@
   width: 15rem;
   min-height: 16rem;
   margin: auto;
-  box-shadow: 1px 3px 5px #a7a7a7
+  box-shadow: 0.2px 0.6px 1px #00ffc3
 }
 
 .testimonial {
@@ -557,12 +557,12 @@
 }
 
 .active-star {
-  color: #FBC02D;
+  color: #00ffa3;
   margin-bottom: 8px
 }
 
 .active-star:hover {
-  color: #F9A825;
+  color: #00ffff;
   cursor: pointer
 }
 
