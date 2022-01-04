@@ -1056,3 +1056,15 @@
     margin-bottom: 10px;
   }
 }
+
+.donation-history-row-item {
+  font-weight: normal !important;
+}
+
+.donation-history-row {
+  margin-bottom: 0.5em !important;
+}
+
+.donation-history-head-row {
+  margin-bottom: 0.8em !important;
+}

@@ -9,6 +9,7 @@ import Donations from '../contracts/Donations.json';
 import userContext from '../context/User/userContext';
 import DonationHistoryItem from './DonationHistoryItem';
 import PendingDonationsItem from './PendingDonationsItem';
+import Bluetick from './icons/check.png';
 //import { useHistory } from 'react-router'
 
 export default function HeroElement(props) {
@@ -546,7 +547,12 @@ export default function HeroElement(props) {
             {/* section-1 Description */}
             <div className="row my-5 p-2">
                 <div className="col-lg-7 col-md-7">
-                    <h2 className="featurette-heading">{title}</h2>
+                    <h2 className="featurette-heading">
+                        {title} 
+                        {
+                            isVerified && <img src={Bluetick} alt='...' style={{"width": "35px"}} className='mx-2'></img>
+                        }
+                    </h2>
                     <p className="lead hero-ele-charity-description">{description}</p>
                 </div>
                 <div className="col-lg-5 col-md-5">
