@@ -67,7 +67,7 @@ const Login = () => {
     const isContainsLowercase = /^(?=.*[a-z])/;
     const isContainsNumber = /^(?=.*[0-9])/;
     const isContainsSymbol = /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])/;
-    const isValidLength = /^.{10,16}$/;
+    const isValidLength = /^.{8,16}$/;
     
     // Email validation
     if(!values.email){
@@ -105,7 +105,7 @@ const Login = () => {
       errors.password = "Password must contain at least one Special Symbol.";
     }
     else if(!isValidLength.test(values.password)){
-      errors.password = "Password must be 10-16 Characters Long.";
+      errors.password = "Password must be 8-16 Characters Long.";
     }
 
     // Re-password validation
@@ -159,14 +159,11 @@ const Login = () => {
     setIsSignupSubmit(true);
     //console.log('signup btn clicked');
 
-    if (credentialSignUp.password !== credentialSignUp.rpassword) {
-      return console.log('re-entered password incorrect')
-    }
     try {
       //console.log(credentialSignUp);
       setglobalCredentials(credentialSignUp);
       //console.log(globalCredentials);
-      if(isSignupSubmit === true)
+      if(Object.keys(signupFormErrors).length === 0 && isSignupSubmit === true)
         history.push("/register")
       else
         console.log("Invalid Input!");
@@ -213,13 +210,13 @@ const Login = () => {
               {/* login fields */}
               <div className="form-group my-2 col-7  ">
                 <label htmlFor="label-email" className="input_label_login mb-1 ">Username</label>
-                <input name="username" type="name" onChange={onChange} className="form-control rounded-0 disable-highlight" placeholder="Enter Username" style={{fontSize: "12px"}} value={credentialLogin.username} id="label-lemail" aria-describedby="emailHelp" />
+                <input name="username" type="name" onChange={onChange} className="form-control rounded-0 disable-highlight" placeholder="Enter Username" style={{fontSize: "12px"}} value={credentialLogin.username} maxLength={16} id="label-lemail" aria-describedby="emailHelp" />
               </div>
               {loginFormErrors.username && <p className="error-text">{loginFormErrors.username}</p>}
 
               <div className="form-group my-2 col-7 ">
                 <label htmlFor="label-password" className="input_label_login mb-1">Password</label>
-                <input name="password" onChange={onChange} type="password" className="form-control rounded-0 disable-highlight" placeholder="Enter Password" style={{fontSize: "12px"}} value={credentialLogin.password} id="label-lpassword" aria-describedby="passHelp" />
+                <input name="password" onChange={onChange} type="password" className="form-control rounded-0 disable-highlight" placeholder="Enter Password" style={{fontSize: "12px"}} value={credentialLogin.password} maxLength={16} id="label-lpassword" aria-describedby="passHelp" />
               </div>
               {loginFormErrors.password && <p className="error-text">{loginFormErrors.password}</p>}
 
@@ -258,19 +255,19 @@ const Login = () => {
 
               <div className="form-group my-1 col-7  ">
                 <label htmlFor="label-username" className="input_label_login mb-1 p-0">Username</label>
-                <input name="username" type="name" className="form-control rounded-0 disable-highlight" placeholder="Enter Username" id="label-susername" style={{fontSize: "12px"}} onChange={onChangeSignUp} value={credentialSignUp.username} aria-describedby="emailHelp" />
+                <input name="username" type="name" className="form-control rounded-0 disable-highlight" placeholder="Enter Username" maxLength={16} id="label-susername" style={{fontSize: "12px"}} onChange={onChangeSignUp} value={credentialSignUp.username} aria-describedby="emailHelp" />
               </div>
               {signupFormErrors.username && <p className="error-text">{signupFormErrors.username}</p>}
 
               <div className="form-group my-1 col-7 ">
                 <label htmlFor="label-password" className="input_label_login mb-1">Password</label>
-                <input name="password" type="password" className="form-control rounded-0 disable-highlight" placeholder="Enter Password" id="label-spassword" style={{fontSize: "12px"}} onChange={onChangeSignUp} value={credentialSignUp.password} aria-describedby="passHelp"/>
+                <input name="password" type="password" className="form-control rounded-0 disable-highlight" placeholder="Enter Password" maxLength={16} id="label-spassword" style={{fontSize: "12px"}} onChange={onChangeSignUp} value={credentialSignUp.password} aria-describedby="passHelp"/>
               </div>
               {signupFormErrors.password && <p className="error-text">{signupFormErrors.password}</p>}
 
               <div className="form-group my-1 col-7 ">
                 <label htmlFor="label-password" className="input_label_login mb-1">Re-Enter Password</label>
-                <input name="rpassword" type="password" className="form-control rounded-0 disable-highlight" placeholder="Both passwords should match" id="label-spassword" style={{fontSize: "12px"}} onChange={onChangeSignUp} value={credentialSignUp.rpassword} aria-describedby="passHelp" />
+                <input name="rpassword" type="password" className="form-control rounded-0 disable-highlight" placeholder="Both passwords should match" maxLength={16} id="label-spassword" style={{fontSize: "12px"}} onChange={onChangeSignUp} value={credentialSignUp.rpassword} aria-describedby="passHelp" />
               </div>
               {signupFormErrors.rpassword && <p className="error-text">{signupFormErrors.rpassword}</p>}
 

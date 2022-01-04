@@ -1,8 +1,9 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import "./Registration.css"
 import userContext from '../context/User/userContext'
 import { useHistory } from 'react-router'
+// import { useForm } from 'react-hook-form';
 
 // importing firebaseconfig
 import { initializeApp } from "firebase/app";
@@ -16,16 +17,21 @@ const firebaseStorage = getStorage(firebaseApp);
 
 
 export const Registration = () => {
+  // const {register, handleReg, errors} = useForm();
+  // const onSubmit = (data) => console.log(data);
+
   const history = useHistory();
 
   const context = useContext(userContext);
   const {globalCredentials} = context;
 
   const [credentialSignUp, setcredentialSignUp] = useState({email:globalCredentials.email,username:globalCredentials.username, password:globalCredentials.password, rpassword:globalCredentials.rpassword, address:"", firstname:"", lastname:"", phoneNumber:"", age:"",userWallet:"",company:""});
+  
   const onChangeSignUp = (e)=>{
     setcredentialSignUp({...credentialSignUp,[e.target.name]:e.target.value})
     //console.log([e.target.name],e.target.value)
   }
+
   const handleReg = async (e) =>{
     e.preventDefault();
     try {
@@ -72,19 +78,29 @@ export const Registration = () => {
       <div className="container_reg">
         <div className="title_reg">Registration</div>
         <div className="content_reg">
-          <form onSubmit={handleReg} onChange ={onChangeSignUp}>
+          <form onSubmit={handleReg} onChange={onChangeSignUp}>
             <div className="user-details_reg">
               <div className="input-box_reg">
                 <span className="details_reg">First Name</span>
-                <input type="text" name="firstname" placeholder="Enter your First name" required />
+                <input type="text" name="firstname" placeholder="Enter your First name" 
+                  // ref={register({
+                  //   required: "This field is required!",
+                  //   minLength: {
+                  //     value: 4,
+                  //     meassage: "Length should be between 3-16 characters."
+                  //   }
+                  // })}
+                    />
+                {/* {errors.firstname && (<div className="error-text">{errors.firstname.meassage}</div>)} */}
               </div>
+              
               <div className="input-box_reg">
                 <span className="details_reg">Last name</span>
-                <input type="text" name="lastname" placeholder="Enter your Last name" required />
+                <input type="text" name="lastname" placeholder="Enter your Last name" required/>
               </div>
               <div className="input-box_reg">
                 <span className="details">Age</span>
-                <input type="number" name="age" placeholder="Enter your age" required />
+                <input type="number" name="age" placeholder="Enter your age" min={1} max={120} required />
               </div>
               <div className="input-box_reg">
                 <span className="details">Address</span>
@@ -100,7 +116,7 @@ export const Registration = () => {
               </div>
               <div className="input-box_reg">
                 <span className="details">Public key</span>
-                <input type="text" name="userWallet" placeholder="Enter your wallet's Public key " required />
+                <input type="text" name="userWallet" placeholder="Enter your wallet's Public key" required />
               </div>
               <div className="input-box_reg"  style={{display:"flex", justifyContent:"start", alignItems:"center"}} >
                 <label htmlFor="file-upload" className="custom-file-upload mt-3" style={{height:"min-content"}}>
