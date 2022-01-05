@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import userContext from '../context/User/userContext';
 import DonateCard from '../components/DonateCard';
 import Map from '../components/Map'
 import './Home.css'
@@ -13,16 +14,21 @@ const CharityZone = (props) => {
     //state declaration
     props.useScrollToTop();
 
+    // Admin Buttons Hide based on superUser
+    const context = useContext(userContext);
+    const { getProfileInfo, userProfile, loggedIn} = context;
+    const { superUser} = userProfile;
+
     const [allCardsInfo, setAllCardsInfo] = useState([]);
     const [mapFilter, setmapFilter] = useState("ALL")
     //eslint-disable-next-line
 
     useEffect(() => {
         getAllCharities();
+        getProfileInfo();
     }, [])
 
-
-   const getAllCharities = async() => {
+    const getAllCharities = async() => {
         try {
             const url = "http://localhost:5000/api/charity/fetchallcharities"
             const response = await fetch(url, {
@@ -135,11 +141,11 @@ const CharityZone = (props) => {
                         ))
                     }{' '}
                 </div>
-                <div className="add-new-btn-div">
+                {(loggedIn && superUser===true)? <div className="add-new-btn-div">
                     <Link to={{pathname:"/charityform", state:{button_name:"Add New", info:{title:"", description:"", previousWork:"", goal:0, fundsRaised:0, cause:"", city:"", state:""}}}} className="add-new-btn btn">
                         Add New Charity
                     </Link>
-                </div>
+                </div> : null}
             </section>
 
             <Footer/>
