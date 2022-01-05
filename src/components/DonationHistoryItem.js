@@ -5,6 +5,16 @@ const DonationHistoryItem = (props) => {
     const name = props.name
     const amount = props.amount
     const timestamp = props.time
+    const status = props.status
+    let color
+
+    if(status === 'Success') {
+        color = '#deffee'
+    } else if (status === 'Pending') {
+        color = 'lightgoldenrodyellow'
+    } else if(status === 'Reverted') {
+        color = '#ffdede'
+    }
 
     const s = new Date(timestamp).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'})
     // console.log(s);
@@ -19,7 +29,7 @@ const DonationHistoryItem = (props) => {
     }
 
     return (
-        <div className="donation-history-entry-container">
+        <div className="donation-history-entry-container" style={{background: `${color}`}}>
             <div className="donation-history-entry-row">
                 <span className="mx-3 mt-1 float-start">Date: {date}</span>
                 <span className="mx-3 mt-1 float-end">Time: {time}</span>

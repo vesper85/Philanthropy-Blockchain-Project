@@ -42,7 +42,7 @@ export default function CharityDetails(props) {
                 description={description}
                 previousWork={previousWork}
                 goal={goal}
-                fundsRaised={fundsRaised.toFixed(4)}
+                fundsRaised={fundsRaised}
                 cause={cause}
                 city={city}
                 state={state}

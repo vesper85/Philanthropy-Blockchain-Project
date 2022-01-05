@@ -133,7 +133,7 @@ export default function HeroElement(props) {
         );
     }
 
-    const updateDonationLogs = async (amount) => {
+    const updateDonationLogs = async (amount, status) => {
         const url = "http://localhost:5000/api/charitydonations/adddonations/";
         const now = new Date()
         //eslint-disable-next-line
@@ -148,10 +148,28 @@ export default function HeroElement(props) {
                     'donorName': firstname + ' ' + lastname,
                     'username': username,
                     'amount': amount,
-                    'timestamp': now
+                    'timestamp': now,
+                    'status': status
                 })
             }
         );
+    }
+
+    const updateDonationStatus = async (status) => {
+        const url = "http://localhost:5000/api/charitydonations/updatependingdonationsbycharity"
+        const response = await fetch(url,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'charityName': title,
+                    'status': 'Pending'
+                },
+                body: JSON.stringify({
+                    'status': status
+                })
+            }
+        )
     }
 
     const fetchDonationHistory = async () => {
@@ -254,7 +272,7 @@ export default function HeroElement(props) {
                 saveReceipt(receipt);
                 receiptModalToggle.current.click();
                 updateFunds(parseFloat(amount))
-                updateDonationLogs(parseFloat(amount))
+                updateDonationLogs(parseFloat(amount), 'Direct')
                 // window.location.href = "http://localhost:3000/zone"
             });
         } else {
@@ -264,7 +282,7 @@ export default function HeroElement(props) {
                 saveReceipt(receipt);
                 receiptModalToggle.current.click();
                 updateFunds(parseFloat(amount))
-                updateDonationLogs(parseFloat(amount))
+                updateDonationLogs(parseFloat(amount), 'Pending')
                
                 // window.location.href = "http://localhost:3000/zone"
             })
@@ -283,7 +301,8 @@ export default function HeroElement(props) {
         contract.methods.transferAmount(walletAddress, title).send({from: account})
         .once('receipt', (receipt) => {
             console.log(receipt)
-            // window.location.href = "http://localhost:3000/zone"
+            updateDonationStatus('Success')
+            pendingDonationsModalToggle.current.click();
         })
     }
 
@@ -299,6 +318,8 @@ export default function HeroElement(props) {
         contract.methods.revertAmount(title).send({from: account})
         .once('receipt', (receipt) => {
             console.log(receipt)
+            updateDonationStatus('Reverted')
+            pendingDonationsModalToggle.current.click();
         })
     }
 
@@ -523,10 +544,22 @@ export default function HeroElement(props) {
                                         name={entry.donorName}
                                         amount={entry.amount}
                                         time={entry.timestamp}
+                                        status={entry.status}
                                     />
                                 ))
                             }
                         </div>
+                        {
+                            !isVerified && <div className='modal-footer donation-history-modal-footer'>
+                                <div style={{width: "20px", height: "20px", background: "#a8ffd2"}}></div>
+                                <div>Success</div>
+                                <div style={{width: "20px", height: "20px", background: "#ffffa3"}}></div>
+                                <div>Pending</div>
+                                <div style={{width: "20px", height: "20px", background: "#ffbdbd"}}></div>
+                                <div>Reverted</div>
+                            </div>
+                        }
+                        
                     </div>
                 </div>
             </div>
@@ -614,7 +647,7 @@ export default function HeroElement(props) {
 
                         <div>
                             <h5 className='mt-3'>Progress</h5>
-                            <p className="card-text mt-1"><small className="text-muted">ETH {fundsRaised} raised of ETH {goal} goal</small></p>
+                            <p className="card-text mt-1"><small className="text-muted">ETH {fundsRaised.toFixed(4)} raised of ETH {goal} goal</small></p>
                             <div className="progress my-1">
                                 <div className="progress-bar" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100" style={{width:`${progress+'%'}`}}>{progress}%</div>
                             </div>

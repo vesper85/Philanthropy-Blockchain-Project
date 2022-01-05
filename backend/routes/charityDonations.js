@@ -48,4 +48,14 @@ router.delete('/deletedonationhistorybycharity', async(req, res) => {
     }
 })
 
+// update donations of a particular charity from db having particular status   GET"api/charitydonations/fetchdonationsbycharity" 
+router.put('/updatependingdonationsbycharity', async(req, res) => {
+    try {
+        let charityDonations = await CharityDonations.updateMany({charityName:req.header('charityName'), status:req.header('status')}, req.body);
+        res.json(charityDonations);
+    } catch(error) {
+        console.log(error);
+    }
+})
+
 module.exports = router

@@ -171,7 +171,7 @@
 
  .donation-history-modal-dialog {
      overflow-y: initial !important;
-     margin-top: 5em !important;
+     margin-top: 3em !important;
  }
 
  .donation-history-entry-row {
@@ -202,4 +202,8 @@
 .pending-donations-modal-footer {
     justify-content: space-between;
     border-top: 3px solid #00ffc3;
+}
+
+.donation-history-modal-footer {
+    justify-content: flex-start;
 }
