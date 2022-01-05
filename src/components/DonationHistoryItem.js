@@ -36,7 +36,7 @@ const DonationHistoryItem = (props) => {
             </div>
             <div className="donation-history-entry-row mb-1">
                 <span className="mx-3 mt-1 float-start donation-history-entry-row-name">Name: {name}</span>
-                <span className="mx-3 mt-1 float-end">Amount: {amount} ETH</span>
+                <span className="mx-3 mt-1 float-end donation-history-entry-row-amount">Amount: {amount} ETH</span>
             </div>
             <div className="donation-history-separator"></div>
         </div>

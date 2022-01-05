@@ -69,9 +69,19 @@ export const Profile = () => {
                     name={entry.charityName}
                     amount={entry.amount}
                     time={entry.timestamp}
+                    status={entry.status}
                   />
                 ))
               }
+            </div>
+            <div className='modal-footer donation-history-modal-footer'>
+              <div>For non-verified charities: </div>
+              <div style={{width: "20px", height: "20px", background: "#a8ffd2"}}></div>
+              <div>Success</div>
+              <div style={{width: "20px", height: "20px", background: "#ffffa3"}}></div>
+              <div>Pending</div>
+              <div style={{width: "20px", height: "20px", background: "#ffbdbd"}}></div>
+              <div>Reverted</div>
             </div>
           </div>
         </div>

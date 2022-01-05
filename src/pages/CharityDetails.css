@@ -205,5 +205,9 @@
 }
 
 .donation-history-modal-footer {
-    justify-content: flex-start;
+    justify-content: center;
+}
+
+.donation-history-entry-row-amount {
+    white-space: nowrap;
 }
