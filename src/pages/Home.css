@@ -375,7 +375,9 @@
   line-height: 1.2;
   margin-top: 3rem;
 }
-
+.all{
+  margin-top : 30px;
+}
 .Crypto-subtitle{
   color: #28283d;
   font-weight: 600;
