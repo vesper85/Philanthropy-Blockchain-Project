@@ -27,29 +27,30 @@ const DonateCard = (props) => {
 
     const getCardInfo = async() => {
         try {
-            let goalProgress = ((fundsRaised / goal) * 100).toFixed(2)
-            setProgress(goalProgress)
             let imgLoaded = await getDownloadURL( ref(firebaseStorage, `charitycover/${title}`))
             setImage(imgLoaded)
+        } catch(FirebaseError) {
+            setImage(coverImg)
+        } finally {
+            let goalProgress = ((fundsRaised / goal) * 100).toFixed(2)
+            setProgress(goalProgress)
             if(goalProgress < 100) {
                 setStatus('Active')
             } else {
                 setStatus('Inactive')
             }
-        } catch(FirebaseError) {
-            setImage(coverImg)
         }
     }
 
     return (
         <>
-        <div className={`col card-content mb-5`}>
+        <div className={`col card-content mb-5`} style={{opacity: `${(status === 'Active')? 1: 0.8}`}}>
             <div className="card h-100">
                 <LazyLoadImage className="card-img-top"
-                        alt={coverImg}
-                        effect="blur"
-                        src={Image}
-                        width={"100%"}
+                    alt={coverImg}
+                    effect="blur"
+                    src={Image}
+                    width={"100%"}
                 />
                 <div className="card-body">
                     <p className="card-title">{title}</p>

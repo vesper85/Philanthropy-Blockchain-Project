@@ -10,6 +10,8 @@ import userContext from '../context/User/userContext';
 import DonationHistoryItem from './DonationHistoryItem';
 import PendingDonationsItem from './PendingDonationsItem';
 import Bluetick from './icons/check.png';
+import { jsPDF } from "jspdf";
+import 'jspdf-autotable';
 import Charity1 from "./icons/Charity1.jpg";
 import Charity2 from "./icons/Charity2.jpg";
 import Charity3 from "./icons/Charity3.jpg";
@@ -232,7 +234,7 @@ export default function HeroElement(props) {
         }
     }
 
-    const saveReceipt = async (receipt) =>{
+    const saveReceipt = async (receipt,amount) =>{
         try {
             const url = "http://localhost:5000/api/receipt/uploadreceipt" 
             let response = await fetch(url,
@@ -242,11 +244,12 @@ export default function HeroElement(props) {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
+                       'amountDonated':amount,
                        ...receipt
                     })
                 }
              )
-             console.log(receipt)
+             console.log(receipt,amount)
         } catch (error) {
             console.error(error.message)
         }
@@ -272,7 +275,7 @@ export default function HeroElement(props) {
             })
             .then(function(receipt){
                 //console.log(receipt)
-                saveReceipt(receipt);
+                saveReceipt(receipt,amount);
                 receiptModalToggle.current.click();
                 updateFunds(parseFloat(amount))
                 updateDonationLogs(parseFloat(amount), 'Direct')
@@ -282,7 +285,7 @@ export default function HeroElement(props) {
             contract.methods.updateAmount(id).send({from:account, value: Web3.utils.toWei(amount, 'Ether'), gas: 1000000})
             .once('receipt', (receipt) => {
                 //console.log(receipt)
-                saveReceipt(receipt);
+                saveReceipt(receipt,amount);
                 receiptModalToggle.current.click();
                 updateFunds(parseFloat(amount))
                 updateDonationLogs(parseFloat(amount), 'Pending')
@@ -362,6 +365,70 @@ export default function HeroElement(props) {
         setdonAmount(e.target.value)
     }
 
+    const generatePDF = (data)=>{
+        let title = "title";
+        let tag = "tag";
+        if(tag==="")
+            tag="No Tag Provided";
+        let description = "description";
+
+        let doc = new jsPDF();
+        let width = doc.internal.pageSize.getWidth();
+        doc.setFont("Lato-Regular","bold");
+        doc.setFontSize(30);
+        doc.setTextColor("royalblue");
+        doc.text('Go CHARITY', width/2, 20, { align: 'center' });
+        doc.setFont("Lato-Regular","normal");
+        doc.setFontSize(20);
+        doc.setTextColor("black");
+        doc.autoTable({theme: 'grid'});
+        doc.autoTable({
+            margin: { top: 80,bottom:5},
+            body: [
+              ['Block Hash', data.blockHash],
+              ['Block Number', data.blockNumber],
+              ['Contract Address', data.contractAddress || "NULL"],
+              ['Cumulative Gas Used', data.cumulativeGasUsed],
+              ['from', data.from],
+              ['to', data.to],
+              ['Gas Used', data.gasUsed],
+              ['hash', data.transactionHash],
+            ],
+          })
+        doc.autoTable(
+            {
+            margin: { top: 30,bottom:5},
+            columnStyles: { 1: { halign: 'right',fontSize:8} },
+            body: [
+              ['Amount Donated', data.amountDonated+"  ETH"],
+              ['Gas Fee', 0.00042+"ETH"],
+              ['Total Fee', data.amountDonated+0.00042+"  ETH"],
+            ],
+            }
+        )
+//    doc.autoTable({
+//  styles: { fillColor: [255, 0, 0] },
+//  columnStyles: { 0: { halign: 'center', fillColor: [0, 255, 0] } }, // Cells in first column centered and green
+//  margin: { top: 10 },
+//  body: [
+//    ['Sweden', 'Japan', 'Canada'],
+//    ['Norway', 'China', 'USA'],
+//    ['Denmark', 'China', 'Mexico'],
+//    {
+//        theme: 'grid',
+//        styles: { lineWidth: 1 },
+//    }
+//  ],
+//})
+    
+          doc.setFont("Lato-Regular","normal");
+        doc.setFontSize(10);
+        doc.setTextColor("black");
+        doc.text(data.timestamp,width-15,doc.lastAutoTable.finalY+5,{align:'right'});
+        let pdfName = "GOCHARITY_"+data.timestamp+".pdf";
+        doc.save(pdfName);
+    }
+
     const generateReceipt = async()=>{
         
         try {
@@ -377,17 +444,8 @@ export default function HeroElement(props) {
                 }
             )
             let data = await response.json()
-            //console.log(data,"real data")
-            //create a file and download it
-            var element = document.createElement('a');
-            const test = "this is a receipt"
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)));
-            element.setAttribute('download', "receipt.txt");
-            element.style.display = 'none';
-            document.body.appendChild(element);
-            element.click();
-            //document.body.removeChild(element);   
-
+            console.log(data)
+            generatePDF(data);
 
         } catch (error) {
                 console.error(error.message)
