@@ -17,7 +17,7 @@ const DonationHistoryItem = (props) => {
     }
 
     const s = new Date(timestamp).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'})
-    console.log(s);
+    // console.log(s);
     let date, time;
 
     if(s[2] === '/') {
