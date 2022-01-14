@@ -2,7 +2,7 @@ import React from 'react'
 //import photo from "./icons/photo.png"
 import avatar from "./icons/avatar.png"
 import avatar_rahul from "./icons/avartar_rahul.jpeg";
-import avatar_saurabh from "./icons/avatar_saurabh.png";
+import avatar_saurabh from "./icons/Saurabh.jpg";
 import avatar_gitesh from "./icons/avatar_gitesh.png";
 import Mentor from "./icons/Mentor.png";
 
