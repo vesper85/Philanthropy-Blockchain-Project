@@ -142,9 +142,7 @@ const CharityZone = (props) => {
                     }{' '}
                 </div>
                 {(loggedIn && superUser===true)? <div className="add-new-btn-div">
-                    <Link to={{pathname:"/charityform", state:{button_name:"Add New", info:{title:"", description:"", previousWork:"", goal:0, fundsRaised:0, cause:"", city:"", state:""}}}} className="add-new-btn btn">
-                        Add New Charity
-                    </Link>
+                    c
                 </div> : null}
             </section>
 
