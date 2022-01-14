@@ -231,7 +231,7 @@ export default function HeroElement(props) {
         }
     }
 
-    const saveReceipt = async (receipt) =>{
+    const saveReceipt = async (receipt,amount) =>{
         try {
             const url = "http://localhost:5000/api/receipt/uploadreceipt" 
             let response = await fetch(url,
@@ -241,11 +241,12 @@ export default function HeroElement(props) {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
+                       'amountDonated':amount,
                        ...receipt
                     })
                 }
              )
-             console.log(receipt)
+             console.log(receipt,amount)
         } catch (error) {
             console.error(error.message)
         }
@@ -271,7 +272,7 @@ export default function HeroElement(props) {
             })
             .then(function(receipt){
                 //console.log(receipt)
-                saveReceipt(receipt);
+                saveReceipt(receipt,amount);
                 receiptModalToggle.current.click();
                 updateFunds(parseFloat(amount))
                 updateDonationLogs(parseFloat(amount), 'Direct')
@@ -281,7 +282,7 @@ export default function HeroElement(props) {
             contract.methods.updateAmount(id).send({from:account, value: Web3.utils.toWei(amount, 'Ether'), gas: 1000000})
             .once('receipt', (receipt) => {
                 //console.log(receipt)
-                saveReceipt(receipt);
+                saveReceipt(receipt,amount);
                 receiptModalToggle.current.click();
                 updateFunds(parseFloat(amount))
                 updateDonationLogs(parseFloat(amount), 'Pending')
@@ -372,14 +373,14 @@ export default function HeroElement(props) {
         let width = doc.internal.pageSize.getWidth();
         doc.setFont("Lato-Regular","bold");
         doc.setFontSize(30);
-        doc.setTextColor("red");
-        doc.text('', width/2, 20, { align: 'center' });
+        doc.setTextColor("royalblue");
+        doc.text('Go CHARITY', width/2, 20, { align: 'center' });
         doc.setFont("Lato-Regular","normal");
         doc.setFontSize(20);
         doc.setTextColor("black");
         doc.autoTable({theme: 'grid'});
         doc.autoTable({
-            margin: { top: 30,bottom:5},
+            margin: { top: 80,bottom:5},
             body: [
               ['Block Hash', data.blockHash],
               ['Block Number', data.blockNumber],
@@ -387,12 +388,21 @@ export default function HeroElement(props) {
               ['Cumulative Gas Used', data.cumulativeGasUsed],
               ['from', data.from],
               ['to', data.to],
-              ['Gas Price', data.gasPrice],
+              ['Gas Used', data.gasUsed],
               ['hash', data.transactionHash],
-
-
             ],
           })
+        doc.autoTable(
+            {
+            margin: { top: 30,bottom:5},
+            columnStyles: { 1: { halign: 'right',fontSize:8} },
+            body: [
+              ['Amount Donated', data.amountDonated+"  ETH"],
+              ['Gas Fee', 0.00042+"ETH"],
+              ['Total Fee', data.amountDonated+0.00042+"  ETH"],
+            ],
+            }
+        )
 //    doc.autoTable({
 //  styles: { fillColor: [255, 0, 0] },
 //  columnStyles: { 0: { halign: 'center', fillColor: [0, 255, 0] } }, // Cells in first column centered and green
@@ -412,7 +422,7 @@ export default function HeroElement(props) {
         doc.setFontSize(10);
         doc.setTextColor("black");
         doc.text(data.timestamp,width-15,doc.lastAutoTable.finalY+5,{align:'right'});
-        let pdfName = title+"_"+data.timestamp+".pdf";
+        let pdfName = "GOCHARITY_"+data.timestamp+".pdf";
         doc.save(pdfName);
     }
 
@@ -431,7 +441,7 @@ export default function HeroElement(props) {
                 }
             )
             let data = await response.json()
-            
+            console.log(data)
             generatePDF(data);
 
         } catch (error) {
