@@ -399,6 +399,7 @@ export default function CharityForm(props) {
                                             <option value="Education">Education</option>
                                             <option value="Animal">Animal</option>
                                             <option value="Agriculture">Agriculture</option>
+                                            <option value="Old age People">Old age People</option>
                                         </select>
                                     </div>
                                 </div>
