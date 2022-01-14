@@ -40,6 +40,9 @@ const receiptSchema = new mongoose.Schema({
     timestamp:{
         type:Date,
         default:Date.now
+    },
+    amountDonated:{
+        type:Number
     }
 })
 
