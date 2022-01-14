@@ -17,7 +17,7 @@ const firebaseStorage = getStorage(firebaseApp);
 
 
 export const Registration = () => {
-  // const {register, handleReg, errors} = useForm();
+  // const {register, handleReg_1, errors} = useForm();
   // const onSubmit = (data) => console.log(data);
 
   const history = useHistory();
@@ -32,7 +32,7 @@ export const Registration = () => {
     //console.log([e.target.name],e.target.value)
   }
 
-  const handleReg = async (e) =>{
+  const handleReg_2 = async (e) =>{
     e.preventDefault();
     try {
       const url = "http://localhost:5000/api/user/createuser"
@@ -66,6 +66,12 @@ export const Registration = () => {
       console.error(error.message)
     }
   }
+
+  // const handleReg = async (para1, para2)=> {
+  //   handleReg_1(para1);
+  //   handleReg_2(para2);
+  // }
+
   const [profileImageReg, setprofileImageReg] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
   const loadFile = (e) => {
     setprofileImageReg(e.target.files[0]);
@@ -78,7 +84,7 @@ export const Registration = () => {
       <div className="container_reg">
         <div className="title_reg">Registration</div>
         <div className="content_reg">
-          <form onSubmit={handleReg} onChange={onChangeSignUp}>
+          <form onSubmit={handleReg_2} onChange={onChangeSignUp}>
             <div className="user-details_reg">
               <div className="input-box_reg">
                 <span className="details_reg">First Name</span>

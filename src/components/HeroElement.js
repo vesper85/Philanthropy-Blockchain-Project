@@ -445,6 +445,8 @@ export default function HeroElement(props) {
         history.push('/login')
     }
 
+    var date = new Date().toLocaleDateString();
+    var time = new Date().toLocaleTimeString();
 
     
     
@@ -456,22 +458,42 @@ export default function HeroElement(props) {
             <button type="button" ref={donationModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
 
             {/* Donation modal */}
-            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal fade modal-cont" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
                         <div className="modal-header paymentModalHeader">
-                            <h5 className="modal-title " id="staticBackdropLabel">Payment</h5>
+                            <h5 className="modal-title " id="staticBackdropLabel">Payment Details</h5>
                             <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="modal-body">
-                            <div><h6>From:</h6>{ firstname + ' ' + lastname }</div>
-                            <div><h6>To:</h6> { title } </div>
-                            <div className="mt-4"><h6>Value  <input className='inputInvalid' type="number"  max="10" min="0" value={donAmount} onChange={handleInputOnChange}  ></input> </h6>  </div>
-                            <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" value={donAmount} onChange={rangeOnChange} ></input>
+                        <div className="row">
+                            <div className="col-lg-7 col-xs-12 modal-body">
+                                <div className="d-flex flex-row">
+                                    <div><h6>From&nbsp;:</h6></div>
+                                    <div>{ firstname + ' ' + lastname }</div>
+                                </div>
+                                <div className="d-flex flex-row">
+                                    <div><h6>To&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</h6></div> 
+                                    <div>{ title } </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-5 col-xs-12 modal-body">
+                                <div className="d-flex flex-row">
+                                    <div><h6>Date&nbsp;:</h6></div>
+                                    <div>{ date }</div>
+                                </div>
+                                <div className="d-flex flex-row">
+                                    <div><h6>Time&nbsp;:</h6></div> 
+                                    <div>{ time } </div>
+                                </div>
+                            </div>
+                            <div className="modal-body">
+                                <div className="mt-2"><h6>Value : <input className='inputInvalid' style={{width: "30%"}} type="number"  max="10" min="0" value={donAmount} onChange={handleInputOnChange}  ></input> </h6>  </div>
+                                <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" value={donAmount} onChange={rangeOnChange} ></input>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal">Reject</button>
-                            <button type="submit"  onClick={handleDonation} className="btn btn-primary donateBtn">Confirm</button>
+                            <button type="submit"  onClick={handleDonation} className="btn btn-primary donateBtn" style={{backgroundColor: "#00ffc3", color: "black"}}>Confirm</button>
                         </div>
                     </div>
                 </div>
@@ -655,8 +677,8 @@ export default function HeroElement(props) {
 
                         <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 donate-btns">
                             <button type="button" disabled={((fundsRaised / goal) * 100).toFixed(2) >= 100} onClick={openModal} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
-                            {(isVerified===true)? null: <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>}
-                            {(isVerified===true)? null: <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>}
+                            {(isVerified===false && superUser==true)? <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>: null}
+                            {(isVerified===false && superUser==true)? <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>: null}
                         </div>
 
                         <div className="donation-history mt-4 mx-1" onClick={handleDonationHistory}>

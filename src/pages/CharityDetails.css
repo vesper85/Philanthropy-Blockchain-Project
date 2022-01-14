@@ -53,8 +53,8 @@
 }
 .hero-container .paymentModalHeader{
     border-radius: 0px;
-    background-color: var(--royal-blue);
-    color: white;
+    background-color: #00ffc3;
+    /* color: white; */
 }
 
 
