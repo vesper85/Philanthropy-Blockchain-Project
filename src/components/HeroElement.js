@@ -10,6 +10,9 @@ import userContext from '../context/User/userContext';
 import DonationHistoryItem from './DonationHistoryItem';
 import PendingDonationsItem from './PendingDonationsItem';
 import Bluetick from './icons/check.png';
+import Charity1 from "./icons/Charity1.jpg";
+import Charity2 from "./icons/Charity2.jpg";
+import Charity3 from "./icons/Charity3.jpg";
 //import { useHistory } from 'react-router'
 
 export default function HeroElement(props) {
@@ -636,7 +639,7 @@ export default function HeroElement(props) {
                     <p className="lead hero-ele-charity-description">{description}</p>
                 </div>
                 <div className="col-lg-5 col-md-5">
-                    <img className="mx-auto hero-img" src="https://source.unsplash.com/420x380/?charity"/>
+                    <img className="mx-auto hero-img" src={Charity1}/>
                 </div>
             </div>
             
@@ -686,7 +689,7 @@ export default function HeroElement(props) {
                         </div>
                     </div>
                     <div className="col-lg-5 col-md-5 shadow-lg p-2">
-                        <img className="image-fluid hero-img" src="https://source.unsplash.com/420x380/?technology" alt="" />
+                        <img className="image-fluid hero-img" src={Charity2} alt="" />
                     </div>
                 </div>
             </div>
@@ -699,7 +702,7 @@ export default function HeroElement(props) {
                         <p className="lead">{previousWork}</p>
                     </div>
                     <div className="col-lg-5 col-md-5 order-1">
-                        <img  className="hero-img" src="https://source.unsplash.com/420x380/?charity,help" />
+                        <img  className="hero-img" src={Charity3} />
                     </div>
                 </div>
             </div>
