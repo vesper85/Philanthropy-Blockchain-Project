@@ -10,6 +10,8 @@ import userContext from '../context/User/userContext';
 import DonationHistoryItem from './DonationHistoryItem';
 import PendingDonationsItem from './PendingDonationsItem';
 import Bluetick from './icons/check.png';
+import { jsPDF } from "jspdf";
+import 'jspdf-autotable';
 //import { useHistory } from 'react-router'
 
 export default function HeroElement(props) {
@@ -359,6 +361,61 @@ export default function HeroElement(props) {
         setdonAmount(e.target.value)
     }
 
+    const generatePDF = (data)=>{
+        let title = "title";
+        let tag = "tag";
+        if(tag==="")
+            tag="No Tag Provided";
+        let description = "description";
+
+        let doc = new jsPDF();
+        let width = doc.internal.pageSize.getWidth();
+        doc.setFont("Lato-Regular","bold");
+        doc.setFontSize(30);
+        doc.setTextColor("red");
+        doc.text('', width/2, 20, { align: 'center' });
+        doc.setFont("Lato-Regular","normal");
+        doc.setFontSize(20);
+        doc.setTextColor("black");
+        doc.autoTable({theme: 'grid'});
+        doc.autoTable({
+            margin: { top: 30,bottom:5},
+            body: [
+              ['Block Hash', data.blockHash],
+              ['Block Number', data.blockNumber],
+              ['Contract Address', data.contractAddress || "NULL"],
+              ['Cumulative Gas Used', data.cumulativeGasUsed],
+              ['from', data.from],
+              ['to', data.to],
+              ['Gas Price', data.gasPrice],
+              ['hash', data.transactionHash],
+
+
+            ],
+          })
+//    doc.autoTable({
+//  styles: { fillColor: [255, 0, 0] },
+//  columnStyles: { 0: { halign: 'center', fillColor: [0, 255, 0] } }, // Cells in first column centered and green
+//  margin: { top: 10 },
+//  body: [
+//    ['Sweden', 'Japan', 'Canada'],
+//    ['Norway', 'China', 'USA'],
+//    ['Denmark', 'China', 'Mexico'],
+//    {
+//        theme: 'grid',
+//        styles: { lineWidth: 1 },
+//    }
+//  ],
+//})
+    
+          doc.setFont("Lato-Regular","normal");
+        doc.setFontSize(10);
+        doc.setTextColor("black");
+        doc.text(data.timestamp,width-15,doc.lastAutoTable.finalY+5,{align:'right'});
+        let pdfName = title+"_"+data.timestamp+".pdf";
+        doc.save(pdfName);
+    }
+
     const generateReceipt = async()=>{
         
         try {
@@ -374,17 +431,8 @@ export default function HeroElement(props) {
                 }
             )
             let data = await response.json()
-            //console.log(data,"real data")
-            //create a file and download it
-            var element = document.createElement('a');
-            const test = "this is a receipt"
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)));
-            element.setAttribute('download', "receipt.txt");
-            element.style.display = 'none';
-            document.body.appendChild(element);
-            element.click();
-            //document.body.removeChild(element);   
-
+            
+            generatePDF(data);
 
         } catch (error) {
                 console.error(error.message)
