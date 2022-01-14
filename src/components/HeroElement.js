@@ -488,7 +488,7 @@ export default function HeroElement(props) {
                             </div>
                             <div className="modal-body">
                                 <div className="mt-2"><h6>Value : <input className='inputInvalid' style={{width: "30%"}} type="number"  max="10" min="0" value={donAmount} onChange={handleInputOnChange}  ></input> </h6>  </div>
-                                <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" value={donAmount} onChange={rangeOnChange} ></input>
+                                <input type="range" className="form-range" min="0" max={((goal - fundsRaised) < 10)? (goal - fundsRaised) : 10} step="0.0001" id="customRange1" value={donAmount} onChange={rangeOnChange} ></input>
                             </div>
                         </div>
                         <div className="modal-footer">

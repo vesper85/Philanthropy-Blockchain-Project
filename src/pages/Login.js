@@ -58,7 +58,54 @@ const Login = () => {
     }
   },[signupFormErrors]);
 
-  const validate = (values)=> {
+  // Login validation
+  const validateLogin = (values)=> {
+    const errors = {};
+    const regexUsernameLength = /^.{3,16}$/;
+    const isWhitespace = /^(?=.*\s)/;
+    const isContainsUppercase = /^(?=.*[A-Z])/;
+    const isContainsLowercase = /^(?=.*[a-z])/;
+    const isContainsNumber = /^(?=.*[0-9])/;
+    const isContainsSymbol = /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])/;
+    const isValidLength = /^.{8,16}$/;
+    
+    
+    // Username Validation
+    if(!values.username){
+      errors.username = "Username is required!";
+    }
+    else if(!regexUsernameLength.test(values.username)){
+      errors.username = "Username must be 3-16 Characters Long.";
+    }
+
+    // Password validation
+    if(!values.password){
+      errors.password = "Password is required!";
+    }
+    else if(isWhitespace.test(values.password)){
+      errors.password = "Password must not contain Whitespaces.";
+    }
+    else if(!isContainsUppercase.test(values.password)){
+      errors.password = "Password must have at least one Uppercase Character.";
+    }
+    else if(!isContainsLowercase.test(values.password)){
+      errors.password = "Password must have at least one Lowercase Character.";
+    }
+    else if(!isContainsNumber.test(values.password)){
+      errors.password = "Password must contain at least one Digit.";
+    }
+    else if(!isContainsSymbol.test(values.password)){
+      errors.password = "Password must contain at least one Special Symbol.";
+    }
+    else if(!isValidLength.test(values.password)){
+      errors.password = "Password must be 8-16 Characters Long.";
+    }
+
+    return errors;
+  }
+
+// Signup Validation
+  const validateSignup = (values)=> {
     const errors = {};
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     const regexUsernameLength = /^.{3,16}$/;
@@ -120,11 +167,10 @@ const Login = () => {
   }
 
 
-
   const handleLogin = async (e) => {
     e.preventDefault();
     // console.log('submit btn clicked');
-    setloginFormErrors(validate(credentialLogin));
+    setloginFormErrors(validateLogin(credentialLogin));
     setIsLoginSubmit(true);
     try {
       const url = "http://localhost:5000/api/user/loginuser";
@@ -155,7 +201,7 @@ const Login = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    setSignupFormErrors(validate(credentialSignUp));
+    setSignupFormErrors(validateSignup(credentialSignUp));
     setIsSignupSubmit(true);
     //console.log('signup btn clicked');
 
