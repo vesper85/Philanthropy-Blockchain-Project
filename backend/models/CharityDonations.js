@@ -20,6 +20,10 @@ const charityDonationsSchema = new mongoose.Schema({
     timestamp: {
         type: Date,
         required: true
+    },
+    status: {
+        type: String,
+        required: true
     }
 })
 

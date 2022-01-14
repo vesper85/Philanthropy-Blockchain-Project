@@ -17,7 +17,7 @@ const UserState = ({children}) => {
     const [loggedIn, setloggedIn] = useState(localStorage.getItem('PBPjwtToken') ? true :false);
 
     //global state for storing profile info, to display userinfo and edit profile
-    const [userProfile, setuserProfile] = useState({email:"",username:"", address:"", firstname:"", lastname:"", phoneno:"", age:"",userWallet:"",company:""});
+    const [userProfile, setuserProfile] = useState({email:"",username:"", address:"", firstname:"", lastname:"", phoneno:"", age:"",userWallet:"",company:"", superUser:""});
 
     const [profileImg, setprofileImg] = useState("");
 

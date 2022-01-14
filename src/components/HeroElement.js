@@ -9,6 +9,7 @@ import Donations from '../contracts/Donations.json';
 import userContext from '../context/User/userContext';
 import DonationHistoryItem from './DonationHistoryItem';
 import PendingDonationsItem from './PendingDonationsItem';
+import Bluetick from './icons/check.png';
 //import { useHistory } from 'react-router'
 
 export default function HeroElement(props) {
@@ -25,8 +26,8 @@ export default function HeroElement(props) {
     const pendingDonationsModalToggle = useRef();
     const [donAmount, setdonAmount] = useState(0);
     const context = useContext(userContext);
-    const { logOutUser, getProfileInfo, userProfile } = context;
-    const { firstname, lastname, username,userWallet } = userProfile
+    const { logOutUser, getProfileInfo, userProfile, loggedIn } = context;
+    const { firstname, lastname, username, userWallet, superUser } = userProfile
 
     const [stats, setStats] = useState({
         stat1: 'More than a third of the world’s malnourished children live in India',
@@ -132,7 +133,7 @@ export default function HeroElement(props) {
         );
     }
 
-    const updateDonationLogs = async (amount) => {
+    const updateDonationLogs = async (amount, status) => {
         const url = "http://localhost:5000/api/charitydonations/adddonations/";
         const now = new Date()
         //eslint-disable-next-line
@@ -147,10 +148,28 @@ export default function HeroElement(props) {
                     'donorName': firstname + ' ' + lastname,
                     'username': username,
                     'amount': amount,
-                    'timestamp': now
+                    'timestamp': now,
+                    'status': status
                 })
             }
         );
+    }
+
+    const updateDonationStatus = async (status) => {
+        const url = "http://localhost:5000/api/charitydonations/updatependingdonationsbycharity"
+        const response = await fetch(url,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'charityName': title,
+                    'status': 'Pending'
+                },
+                body: JSON.stringify({
+                    'status': status
+                })
+            }
+        )
     }
 
     const fetchDonationHistory = async () => {
@@ -241,7 +260,7 @@ export default function HeroElement(props) {
     
     const makeDonation = (id, amount) => {
         console.log('isVerified: ', isVerified)
-        if(isVerified == true) {
+        if(isVerified === true) {
             let web3js = new Web3(window.web3.currentProvider); 
             web3js.eth.sendTransaction({
                 from: account,
@@ -253,7 +272,7 @@ export default function HeroElement(props) {
                 saveReceipt(receipt);
                 receiptModalToggle.current.click();
                 updateFunds(parseFloat(amount))
-                updateDonationLogs(parseFloat(amount))
+                updateDonationLogs(parseFloat(amount), 'Direct')
                 // window.location.href = "http://localhost:3000/zone"
             });
         } else {
@@ -263,7 +282,7 @@ export default function HeroElement(props) {
                 saveReceipt(receipt);
                 receiptModalToggle.current.click();
                 updateFunds(parseFloat(amount))
-                updateDonationLogs(parseFloat(amount))
+                updateDonationLogs(parseFloat(amount), 'Pending')
                
                 // window.location.href = "http://localhost:3000/zone"
             })
@@ -282,7 +301,8 @@ export default function HeroElement(props) {
         contract.methods.transferAmount(walletAddress, title).send({from: account})
         .once('receipt', (receipt) => {
             console.log(receipt)
-            // window.location.href = "http://localhost:3000/zone"
+            updateDonationStatus('Success')
+            pendingDonationsModalToggle.current.click();
         })
     }
 
@@ -298,6 +318,8 @@ export default function HeroElement(props) {
         contract.methods.revertAmount(title).send({from: account})
         .once('receipt', (receipt) => {
             console.log(receipt)
+            updateDonationStatus('Reverted')
+            pendingDonationsModalToggle.current.click();
         })
     }
 
@@ -318,7 +340,9 @@ export default function HeroElement(props) {
     }
 
     const revertDonationsInDB = () => {
+        pendingDonationsState.map((transaction) => {
 
+        })
     } 
 
 
@@ -379,26 +403,50 @@ export default function HeroElement(props) {
     }, [])
 
     
-//    //Implimentation of account change when metamask public address changes
-//   const [userAccountChangeModal, setuserAccountChangeModal] = useState(false)
-//    window.ethereum.on('accountsChanged', function (accountsChange) { 
-//        //setAccount(accountsChange[0]);
-//        if(userAccountChangeModal)
-//        {
-//            logOutModalToggle.current.click();
-//            setuserAccountChangeModal(false);
+    //Implimentation of account change when metamask public address changes
+    //if true then modal open
 
-//        }
-//        console.log("Metamask account Address :", accountsChange[0]);
-//        //open modal
-//        console.log('userwallet:', userProfile.userWallet);
-//        if(account !== userProfile.userWallet) {
-//            //logOutUser();
-//            logOutModalToggle.current.click();
-//            setuserAccountChangeModal(true);
-//        }
-//    });
+   const [userAccountChangeModal, setuserAccountChangeModal] = useState('close')
+    window.ethereum.on('accountsChanged', function (accountsChange) {
+        setAccount(accountsChange[0]);
+        //console.log('account changed')
+    });
 
+    useEffect(() => {
+        try {
+            // console.log(userProfile.userWallet.toLowerCase())
+            // console.log(account.toLowerCase())
+            // console.log(userProfile.userWallet.toLowerCase() === account.toLowerCase())
+            // if walletAddress is not equal to current metamask address then prompt user to logout
+            if(userProfile.userWallet && account && (account.toLowerCase() !== (userProfile.userWallet.toLowerCase())))
+            {   
+                //and if the modal is open then close it and open again
+                if(userAccountChangeModal === 'close')
+                {
+                    logOutModalToggle.current.click();
+                    setuserAccountChangeModal('open');
+                }
+            }
+            else{
+                if(userAccountChangeModal === 'open')
+                {
+                    logOutModalToggle.current.click()
+                    setuserAccountChangeModal('close')
+                }
+            }
+        } catch (error) {
+            console.error(error.message)
+        }
+       
+    }, [account])
+
+    const handleAccountChangeOnClick = ()=>{
+        logOutUser();
+        history.push('/login')
+    }
+
+    var date = new Date().toLocaleDateString();
+    var time = new Date().toLocaleTimeString();
 
     
     
@@ -410,22 +458,42 @@ export default function HeroElement(props) {
             <button type="button" ref={donationModalToggle} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
 
             {/* Donation modal */}
-            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal fade modal-cont" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content" style={{borderRadius:"0px", border:"none"}}>
                         <div className="modal-header paymentModalHeader">
-                            <h5 className="modal-title " id="staticBackdropLabel">Payment</h5>
+                            <h5 className="modal-title " id="staticBackdropLabel">Payment Details</h5>
                             <button type="button" style={{color:"white"}} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="modal-body">
-                            <div><h6>From:</h6>{ firstname + ' ' + lastname }</div>
-                            <div><h6>To:</h6> { title } </div>
-                            <div className="mt-4"><h6>Value  <input className='inputInvalid' type="number"  max="10" min="0" value={donAmount} onChange={handleInputOnChange}  ></input> </h6>  </div>
-                            <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" value={donAmount} onChange={rangeOnChange} ></input>
+                        <div className="row">
+                            <div className="col-lg-7 col-xs-12 modal-body">
+                                <div className="d-flex flex-row">
+                                    <div><h6>From&nbsp;:</h6></div>
+                                    <div>{ firstname + ' ' + lastname }</div>
+                                </div>
+                                <div className="d-flex flex-row">
+                                    <div><h6>To&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</h6></div> 
+                                    <div>{ title } </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-5 col-xs-12 modal-body">
+                                <div className="d-flex flex-row">
+                                    <div><h6>Date&nbsp;:</h6></div>
+                                    <div>{ date }</div>
+                                </div>
+                                <div className="d-flex flex-row">
+                                    <div><h6>Time&nbsp;:</h6></div> 
+                                    <div>{ time } </div>
+                                </div>
+                            </div>
+                            <div className="modal-body">
+                                <div className="mt-2"><h6>Value : <input className='inputInvalid' style={{width: "30%"}} type="number"  max="10" min="0" value={donAmount} onChange={handleInputOnChange}  ></input> </h6>  </div>
+                                <input type="range" className="form-range" min="0" max="10" step="0.0001" id="customRange1" value={donAmount} onChange={rangeOnChange} ></input>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" style={{border:"none",backgroundColor:"transparent", margin:"0px 20px", lineHeight:'1.5'}} data-bs-dismiss="modal">Reject</button>
-                            <button type="submit"  onClick={handleDonation} className="btn btn-primary donateBtn">Confirm</button>
+                            <button type="submit"  onClick={handleDonation} className="btn btn-primary donateBtn" style={{backgroundColor: "#00ffc3", color: "black"}}>Confirm</button>
                         </div>
                     </div>
                 </div>
@@ -459,19 +527,20 @@ export default function HeroElement(props) {
             </button>
 
             {/*<!-- Modal -->*/}
-            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal"  data-bs-backdrop="static" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 className="modal-title" id="exampleModalLabel">Please check your Metamask account</h5>
                         </div>
                         <div className="modal-body">
-                            ...
+                            Your metamask wallet address does not match the address with your registered public address.<br/>
+                            <b>Please change the metamask address or login with correct account.</b><br/><br/>
+                            <span>Metamask Account Address:<i> {account} </i></span><br/>
+                            <span>Your registered address: <i>{userProfile.userWallet}</i> </span>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">cancle</button>
-                            <button type="button" className="btn btn-primary">Logout</button>
+                            <button type="button" data-bs-dismiss="modal" className="btn btn-primary" onClick={handleAccountChangeOnClick} >Logout</button>
                         </div>
                     </div>
                 </div>
@@ -497,10 +566,22 @@ export default function HeroElement(props) {
                                         name={entry.donorName}
                                         amount={entry.amount}
                                         time={entry.timestamp}
+                                        status={entry.status}
                                     />
                                 ))
                             }
                         </div>
+                        {
+                            !isVerified && <div className='modal-footer donation-history-modal-footer'>
+                                <div style={{width: "20px", height: "20px", background: "#a8ffd2"}}></div>
+                                <div>Success</div>
+                                <div style={{width: "20px", height: "20px", background: "#ffffa3"}}></div>
+                                <div>Pending</div>
+                                <div style={{width: "20px", height: "20px", background: "#ffbdbd"}}></div>
+                                <div>Reverted</div>
+                            </div>
+                        }
+                        
                     </div>
                 </div>
             </div>
@@ -546,7 +627,12 @@ export default function HeroElement(props) {
             {/* section-1 Description */}
             <div className="row my-5 p-2">
                 <div className="col-lg-7 col-md-7">
-                    <h2 className="featurette-heading">{title}</h2>
+                    <h2 className="featurette-heading">
+                        {title} 
+                        {
+                            isVerified && <img src={Bluetick} alt='...' style={{"width": "35px"}} className='mx-2'></img>
+                        }
+                    </h2>
                     <p className="lead hero-ele-charity-description">{description}</p>
                 </div>
                 <div className="col-lg-5 col-md-5">
@@ -583,7 +669,7 @@ export default function HeroElement(props) {
 
                         <div>
                             <h5 className='mt-3'>Progress</h5>
-                            <p className="card-text mt-1"><small className="text-muted">ETH {fundsRaised} raised of ETH {goal} goal</small></p>
+                            <p className="card-text mt-1"><small className="text-muted">ETH {fundsRaised.toFixed(4)} raised of ETH {goal} goal</small></p>
                             <div className="progress my-1">
                                 <div className="progress-bar" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100" style={{width:`${progress+'%'}`}}>{progress}%</div>
                             </div>
@@ -591,8 +677,8 @@ export default function HeroElement(props) {
 
                         <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 donate-btns">
                             <button type="button" disabled={((fundsRaised / goal) * 100).toFixed(2) >= 100} onClick={openModal} className="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Donate</button>
-                            <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>
-                            <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>
+                            {(isVerified===false && superUser==true)? <button type="button" onClick={handleTransfer} className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Transfer</button>: null}
+                            {(isVerified===false && superUser==true)? <button type="button" onClick={handleRevert} className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Revert</button>: null}
                         </div>
 
                         <div className="donation-history mt-4 mx-1" onClick={handleDonationHistory}>
@@ -619,10 +705,10 @@ export default function HeroElement(props) {
             </div>
 
             {/* Admin Buttons */}
-            <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 charity-details-admin-buttons">
+            {(loggedIn && superUser===true)? <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 charity-details-admin-buttons">
                 <Link to={{pathname:"/charityform", state:{button_name:"update", info:props}}} type="button" className="btn btn-success btn-lg px-4 me-md-2 fw-bold">Update</Link>
                 <button onClick={deleteCharity} type="button" className="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Delete</button>
-            </div>
+            </div> : null}
         </div>
     )
 }

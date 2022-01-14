@@ -53,8 +53,8 @@
 }
 .hero-container .paymentModalHeader{
     border-radius: 0px;
-    background-color: var(--royal-blue);
-    color: white;
+    background-color: #00ffc3;
+    /* color: white; */
 }
 
 
@@ -171,7 +171,7 @@
 
  .donation-history-modal-dialog {
      overflow-y: initial !important;
-     margin-top: 5em !important;
+     margin-top: 3em !important;
  }
 
  .donation-history-entry-row {
@@ -195,11 +195,19 @@
 
  @media (min-width: 576px) {
     .pending-donations-modal-dialog {
-        max-width: 630px;
+        max-width: 650px;
     }
 }
 
 .pending-donations-modal-footer {
     justify-content: space-between;
     border-top: 3px solid #00ffc3;
+}
+
+.donation-history-modal-footer {
+    justify-content: center;
+}
+
+.donation-history-entry-row-amount {
+    white-space: nowrap;
 }

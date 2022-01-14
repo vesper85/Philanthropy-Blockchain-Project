@@ -26,7 +26,7 @@ export const Profile = () => {
       }
     });
     const data = await response.json()
-    console.log(data)
+    // console.log(data)
     setDonationHistory(data)
   }
 
@@ -39,6 +39,11 @@ export const Profile = () => {
     getProfileInfo();
 	// eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    fetchDonations();
+	// eslint-disable-next-line
+  });
 
   return (
     <>
@@ -64,9 +69,19 @@ export const Profile = () => {
                     name={entry.charityName}
                     amount={entry.amount}
                     time={entry.timestamp}
+                    status={entry.status}
                   />
                 ))
               }
+            </div>
+            <div className='modal-footer donation-history-modal-footer'>
+              <div>For non-verified charities: </div>
+              <div style={{width: "20px", height: "20px", background: "#a8ffd2"}}></div>
+              <div>Success</div>
+              <div style={{width: "20px", height: "20px", background: "#ffffa3"}}></div>
+              <div>Pending</div>
+              <div style={{width: "20px", height: "20px", background: "#ffbdbd"}}></div>
+              <div>Reverted</div>
             </div>
           </div>
         </div>
@@ -348,7 +363,7 @@ export const Profile = () => {
                   <div className="pl-lg-4">
                     <div className="row">
                       <div className="col-lg-4">
-                        <div className="form-group focused">
+                        <div className="form-group focused donation-history-head-row">
                           <label
                             className="form-control-label"
                             htmlFor="input-city"
@@ -359,7 +374,7 @@ export const Profile = () => {
                       </div>
 
                       <div className="col-lg-4">
-                        <div className="form-group">
+                        <div className="form-group donation-history-head-row">
                           <label
                             className="form-control-label"
                             htmlFor="input-country"
@@ -369,7 +384,7 @@ export const Profile = () => {
                         </div>
                       </div>
                       <div className="col-lg-4">
-                        <div className="form-group">
+                        <div className="form-group donation-history-head-row">
                           <label
                             className="form-control-label"
                             htmlFor="input-country"
@@ -379,6 +394,43 @@ export const Profile = () => {
                         </div>
                       </div>
                     </div>
+
+                    {
+                      donationHistory.map((entry) => (
+                        <div className="row">
+                          <div className="col-lg-4">
+                            <div className="form-group focused donation-history-row">
+                              <label
+                                className="form-control-label donation-history-row-item"
+                                htmlFor="input-city"
+                              >
+                                {entry.charityName}
+                              </label>
+                            </div>
+                          </div>
+                          <div className="col-lg-4">
+                            <div className="form-group donation-history-row">
+                              <label
+                                className="form-control-label donation-history-row-item"
+                                htmlFor="input-country"
+                              >
+                                {new Date(entry.timestamp).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'})}
+                              </label>
+                            </div>
+                          </div>
+                          <div className="col-lg-4">
+                            <div className="form-group donation-history-row">
+                              <label
+                                className="form-control-label donation-history-row-item"
+                                htmlFor="input-country"
+                              >
+                                {entry.amount} ETH
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    }
                   </div>
                 </div>
               </div>
